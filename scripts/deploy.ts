@@ -21,6 +21,7 @@ import {
   TornadoVault__factory,
   Echoer__factory,
   TestnetFeeManager__factory,
+  Aggregator__factory,
 } from '../typechain-types';
 import type { SignerWithAddress } from '@nomicfoundation/hardhat-ethers/signers';
 const {
@@ -312,6 +313,10 @@ async function deployGovernance(instances: InstanceRegistry.TornadoStruct[]): Pr
     TornadoRouter.target
   ).then(t => t.wait());
 
+  // Deploy Aggregator
+  const Aggregator = await (new Aggregator__factory(owner)).deploy(ensAddress || ZeroAddress, RelayerRegistryProxy.target);
+  await Aggregator.waitForDeployment();
+
   // Upgrade Governance
   const GovernanceV5 = await new GovernanceProposalStateUpgrade__factory(owner).deploy(
     TornadoStakingRewardsProxy.target,
@@ -343,6 +348,7 @@ async function deployGovernance(instances: InstanceRegistry.TornadoStruct[]): Pr
     TornadoStakingRewardsProxy: TornadoStakingRewardsProxy.target,
     TornadoStakingRewardsImpl: TornadoStakingRewardsImpl.target,
     TornadoRouter: TornadoRouter.target,
+    Aggregator: Aggregator.target,
     Echoer: Echoer.target,
   });
 }

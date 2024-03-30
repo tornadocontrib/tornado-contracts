@@ -2,12 +2,12 @@
 pragma solidity ^0.6.12;
 
 import { OwnableLibrary } from "../libraries/OwnableLibrary.sol";
-import { TransparentUpgradeableProxy } from "@openzeppelin/contracts-v3/proxy/TransparentUpgradeableProxy.sol";
+import { AdminUpgradeableProxy } from "../AdminUpgradeableProxy.sol";
 
 /**
  * @dev Enables testnet contracts to be upgraded by the governance and maintainer, since we don't want to waste time
  */
-contract TestnetAdminProxy is TransparentUpgradeableProxy {
+contract TestnetAdminProxy is AdminUpgradeableProxy {
     modifier onlyOwner {
         require(OwnableLibrary.getOwner() == msg.sender, "Not an owner");
         _;
@@ -17,7 +17,7 @@ contract TestnetAdminProxy is TransparentUpgradeableProxy {
         address _logic,
         address _admin,
         bytes memory _data
-    ) public payable TransparentUpgradeableProxy(_logic, _admin, _data) {
+    ) public payable AdminUpgradeableProxy(_logic, _admin, _data) {
         OwnableLibrary.setOwner(msg.sender);
     }
 
