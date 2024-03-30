@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint test --ext .ts --fix"
+    "compile": "hardhat compile && hardhat flatten:all",
+    "deploy": "hardhat run ./scripts/deploy.ts",
+    "lint": "eslint . --ext .ts --fix"
   },
   "files": [
     "contracts",
+    "scripts",
     "hardhat.config.ts",
     "README.md",
     "tsconfig.json",

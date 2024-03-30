@@ -9,8 +9,13 @@ import { SafeERC20 } from "@openzeppelin/contracts-v3/token/ERC20/SafeERC20.sol"
 contract TornadoVault {
   using SafeERC20 for IERC20;
 
-  address internal constant TornTokenAddress = 0x77777FeDdddFfC19Ff86DB637967013e6C6A116C;
-  address internal constant GovernanceAddress = 0x5efda50f22d34F262c29268506C5Fa42cB56A1Ce;
+  address internal immutable TornTokenAddress;
+  address internal immutable GovernanceAddress;
+
+  constructor(address _torn, address _governance) public {
+    TornTokenAddress = _torn;
+    GovernanceAddress = _governance;
+  }
 
   /// @notice withdraws TORN from the contract
   /// @param amount amount to withdraw

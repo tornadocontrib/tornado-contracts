@@ -7,7 +7,6 @@ import { Initializable } from "@openzeppelin/contracts-v3/proxy/Initializable.so
 import { IERC20 } from "@openzeppelin/contracts-v3/token/ERC20/IERC20.sol";
 import { SafeERC20 } from "@openzeppelin/contracts-v3/token/ERC20/SafeERC20.sol";
 import { ITornadoInstance } from "./interfaces/ITornadoInstance.sol";
-import { FeeManager } from "./FeeManager.sol";
 
 interface ITornadoRouter {
   function approveExactToken(IERC20 _token, address _spender, uint256 _amount) external;

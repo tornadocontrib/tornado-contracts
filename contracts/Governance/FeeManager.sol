@@ -5,10 +5,7 @@ pragma experimental ABIEncoderV2;
 
 import { UniswapV3OracleHelper } from "./libraries/UniswapV3OracleHelper.sol";
 import { SafeMath } from "@openzeppelin/contracts-v3/math/SafeMath.sol";
-
-import { IERC20 } from "@openzeppelin/contracts-v3/token/ERC20/IERC20.sol";
-import { ITornadoInstance } from "./interfaces/ITornadoInstance.sol";
-import { InstanceRegistry } from "./InstanceRegistry.sol";
+import { IERC20, InstanceRegistry, ITornadoInstance } from "./InstanceRegistry.sol";
 
 /// @dev contract which calculates the fee for each pool
 contract FeeManager {

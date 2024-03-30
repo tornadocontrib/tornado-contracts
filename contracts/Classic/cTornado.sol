@@ -16,10 +16,11 @@ import { IVerifier, IHasher, ERC20Tornado } from "./ERC20Tornado.sol";
 import { IERC20 } from "./interfaces/IERC20.sol";
 
 contract cTornado is ERC20Tornado {
-  address public immutable governance = 0x5efda50f22d34F262c29268506C5Fa42cB56A1Ce;
+  address public immutable governance;
   IERC20 public immutable comp;
 
   constructor(
+    address _governance,
     IERC20 _comp,
     IVerifier _verifier,
     IHasher _hasher,
@@ -28,6 +29,7 @@ contract cTornado is ERC20Tornado {
     IERC20 _token
   ) ERC20Tornado(_verifier, _hasher, _denomination, _merkleTreeHeight, _token) {
     require(address(_comp) != address(0), "Invalid COMP token address");
+    governance = _governance;
     comp = _comp;
   }
 
