@@ -7,7 +7,7 @@
       "addr": "0x44ddE10DeEacD8B91799ff02E4493749dDD320d8"
     },
     {
-      "addr": "0x68DAD9C7BfFe61B44446d894a352E10416c47AfA"
+      "addr": "0x2365a6BfFbaB6f18EFb9228f394a6aaEEf3F24bc"
     },
     {
       "addr": "0x3a28921a352D4D8e5A500Ed4a3EECfD6e641C783"
@@ -36,11 +36,11 @@
   "GasCompensationVault": "0xD5841cAf0Fd3C9F2b168Cb0db3497B7b0B5ba0b2",
   "TornadoVault": "0x89D330452fDE7054fCbf56F45C2a15bBee1408CE",
   "InstanceRegistryProxy": "0x61be247c2Da9E008d359bF7ae7CA69d4d8eA058a",
-  "InstanceRegistryImpl": "0x3029F36de6D6B2b7356fB8e01BE08eaF7456E99c",
+  "InstanceRegistryImpl": "0xA5079F75FE958D8634ce5093D901F4bFA0bbc56B",
   "FeeManagerProxy": "0x16F3B900d28e15BEb1f36351837190f758fEDfa7",
   "FeeManagerImpl": "0xD42b5491b343c370661E85e49d7F335C410B1BCF",
   "RelayerRegistryProxy": "0x3A7c2D289c758cE6C35eAb6D0F0d1c1635C3eCF7",
-  "RelayerRegistryImpl": "0x6eb8e939A302191aeFcAc5D05CA500eC78e6f1A2",
+  "RelayerRegistryImpl": "0xAA602af0F1755cC12c0C13AA18418c26aB9F4008",
   "RelayerRegistryMock": "0x504D5080b6bffCFEC5336dA55132F974230b4BA5",
   "TornadoStakingRewardsProxy": "0xCb64E517F916b88Bd8Fb1D8908D8fFD50a59CE31",
   "TornadoStakingRewardsImpl": "0x23d4993209746865F0D7A2de5E9579D9823c25D0",

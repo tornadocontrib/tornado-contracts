@@ -1,4 +1,4 @@
-// https://tornado.cash
+// https://tornadocash.website
 /*
  * d888888P                                           dP              a88888b.                   dP
  *    88                                              88             d8'   `88                   88
@@ -15,6 +15,7 @@ pragma solidity ^0.8.20;
 import { IVerifier, IHasher, Tornado } from "./Tornado.sol";
 import { IERC20, SafeERC20 } from "./libraries/SafeERC20.sol";
 
+// Modified by https://git.tornadocash.website/tornadocontrib/tornado-contracts
 contract ERC20Tornado is Tornado {
   using SafeERC20 for IERC20;
   IERC20 public immutable token;

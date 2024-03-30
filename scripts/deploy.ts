@@ -32,23 +32,23 @@ const {
 type contracts = {
   [key in string]: {
     DAI: string,
-    ens: string,
+    ENS: string,
   }
 }
 
 const contracts: contracts = {
   hardhat: {
     DAI: '',
-    ens: '',
+    ENS: '',
   },
   develop: {
     DAI: '',
-    ens: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+    ENS: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
   },
   sepolia: {
     // https://staging.aave.com/faucet/
     DAI: '0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357',
-    ens: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+    ENS: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
   }
 };
 
@@ -132,7 +132,7 @@ async function deployInstances() {
       instance: ethInstance,
     },
     {
-      addr: DAITornado2.target,
+      addr: ETHTornado2.target,
       instance: {
         ...ethInstance,
         protocolFeePercentage: 30,
