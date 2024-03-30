@@ -5,6 +5,7 @@ import { task, HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomicfoundation/hardhat-ethers';
 import 'hardhat-storage-layout';
+import 'hardhat-tracer';
 
 task('flatten:all', 'Flatten all contracts each file under flatten directory')
   .setAction(async (taskArgs, hre) => {

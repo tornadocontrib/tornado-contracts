@@ -2,7 +2,7 @@
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
-interface ENSRegistry {
+interface IENSRegistry {
     // Logged when the owner of a node assigns a new owner to a subnode.
     event NewOwner(bytes32 indexed node, bytes32 indexed label, address owner);
 
@@ -58,13 +58,13 @@ interface ENSRegistry {
     function isApprovedForAll(address owner, address operator) external view returns (bool);
 }
 
-interface ENSResolver {
+interface IENSResolver {
     function addr(bytes32 node) external view returns (address);
     
     function text(bytes32 node, string calldata key) external view returns (string memory);
 }
 
-interface RelayerRegistry {
+interface IRelayerRegistry {
     function getRelayerBalance(address relayer) external view returns (uint256);
     
     function isRelayerRegistered(address relayer, address toResolve) external view returns (bool);
@@ -78,28 +78,28 @@ struct Relayer {
 }
 
 contract RelayerAggregator {
-    ENSRegistry public immutable ensRegistry;
-    RelayerRegistry public immutable relayerRegistry;
+    IENSRegistry public immutable ENSRegistry;
+    IRelayerRegistry public immutable RelayerRegistry;
 
-    constructor(address _ensRegistry, address _relayerRegistry) public {
-        ensRegistry = ENSRegistry(_ensRegistry);
-        relayerRegistry = RelayerRegistry(_relayerRegistry);
+    constructor(address _IENSRegistry, address _IRelayerRegistry) public {
+        ENSRegistry = IENSRegistry(_IENSRegistry);
+        RelayerRegistry = IRelayerRegistry(_IRelayerRegistry);
     }
 
     function relayersData(bytes32[] memory _relayers, string[] memory _subdomains) public view returns (Relayer[] memory) {
         Relayer[] memory relayers = new Relayer[](_relayers.length);
 
         for (uint256 i = 0; i < _relayers.length; i++) {
-            relayers[i].owner = ensRegistry.owner(_relayers[i]);
-            ENSResolver resolver = ENSResolver(ensRegistry.resolver(_relayers[i]));
+            relayers[i].owner = ENSRegistry.owner(_relayers[i]);
+            IENSResolver resolver = IENSResolver(ENSRegistry.resolver(_relayers[i]));
 
             for (uint256 j = 0; j < _subdomains.length; j++) {
                 bytes32 subdomainHash = keccak256(abi.encodePacked(_relayers[i], keccak256(abi.encodePacked(_subdomains[j]))));
                 relayers[i].records[j] = resolver.text(subdomainHash, "url");
             }
 
-            relayers[i].isRegistered = relayerRegistry.isRelayerRegistered(relayers[i].owner, relayers[i].owner);
-            relayers[i].balance = relayerRegistry.getRelayerBalance(relayers[i].owner);
+            relayers[i].isRegistered = RelayerRegistry.isRelayerRegistered(relayers[i].owner, relayers[i].owner);
+            relayers[i].balance = RelayerRegistry.getRelayerBalance(relayers[i].owner);
         }
         return relayers;
     }
