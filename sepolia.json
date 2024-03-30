@@ -1,0 +1,49 @@
+{
+  "DAI": "0xFF34B3d4Aee8ddCd6F9AFFFB6Fe49bD371b8a357",
+  "Hasher": "0xC91747348867587bbdBe6450Be59A215490517B3",
+  "Verifier": "0xA25b35DD529d25EfC4b7aC44f26C72924d620Fba",
+  "instances": [
+    {
+      "addr": "0x44ddE10DeEacD8B91799ff02E4493749dDD320d8"
+    },
+    {
+      "addr": "0x68DAD9C7BfFe61B44446d894a352E10416c47AfA"
+    },
+    {
+      "addr": "0x3a28921a352D4D8e5A500Ed4a3EECfD6e641C783"
+    },
+    {
+      "addr": "0x38305EE06D4D89ADb911C603D0df34DE4aE2bFa7"
+    },
+    {
+      "addr": "0x6B9A18d1C227a4972bB6512fB8587d12A1356027"
+    },
+    {
+      "addr": "0x68DAD9C7BfFe61B44446d894a352E10416c47AfA"
+    },
+    {
+      "addr": "0xB62F3D4ADe05AB395aBBccAA8F45A2A386C67396"
+    },
+    {
+      "addr": "0xEDFe671616d42F98E78Afabb6907b9E37d1eD900"
+    }
+  ],
+  "TORN": "0x9F2eE685810704bbE0Fd7F1Ad5D905CE103e7fA0",
+  "GovernanceProxy": "0x094ed954Dbf3dDEfa116339a62c6ACdc27eD400e",
+  "GovernanceV1": "0x46c74ee87E3Bd0BEBd6d9D00af3e046352d33dE3",
+  "GovernanceV5": "0x5e818EE040dA206bd1744d6058Ba2b11c73dBb60",
+  "GovernanceVesting": "0xEc34f96654D980CfeA8A2Ad33CC44B957996Cd47",
+  "GasCompensationVault": "0xD5841cAf0Fd3C9F2b168Cb0db3497B7b0B5ba0b2",
+  "TornadoVault": "0x89D330452fDE7054fCbf56F45C2a15bBee1408CE",
+  "InstanceRegistryProxy": "0x61be247c2Da9E008d359bF7ae7CA69d4d8eA058a",
+  "InstanceRegistryImpl": "0x3029F36de6D6B2b7356fB8e01BE08eaF7456E99c",
+  "FeeManagerProxy": "0x16F3B900d28e15BEb1f36351837190f758fEDfa7",
+  "FeeManagerImpl": "0xD42b5491b343c370661E85e49d7F335C410B1BCF",
+  "RelayerRegistryProxy": "0x3A7c2D289c758cE6C35eAb6D0F0d1c1635C3eCF7",
+  "RelayerRegistryImpl": "0x6eb8e939A302191aeFcAc5D05CA500eC78e6f1A2",
+  "RelayerRegistryMock": "0x504D5080b6bffCFEC5336dA55132F974230b4BA5",
+  "TornadoStakingRewardsProxy": "0xCb64E517F916b88Bd8Fb1D8908D8fFD50a59CE31",
+  "TornadoStakingRewardsImpl": "0x23d4993209746865F0D7A2de5E9579D9823c25D0",
+  "TornadoRouter": "0xc150D7dc0d11b8357b3f4Add7c173558c5FCE90A",
+  "Echoer": "0x81D03CB94a761357629d89D4c921272F3fBfd80C"
+}

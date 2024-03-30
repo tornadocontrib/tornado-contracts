@@ -65,7 +65,6 @@ const config: HardhatUserConfig = {
         mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test junk',
         initialIndex: Number(process.env.MNEMONIC_INDEX) || 0,
       },
-      gasPrice: 50000,
     },
     sepolia: {
       url: process.env.RPC_URL || 'https://rpc.sepolia.org',
@@ -73,7 +72,6 @@ const config: HardhatUserConfig = {
         mnemonic: process.env.MNEMONIC || 'test test test test test test test test test test test junk',
         initialIndex: Number(process.env.MNEMONIC_INDEX) || 0,
       },
-      gasPrice: 50000,
     },
     hardhat: {},
   },
