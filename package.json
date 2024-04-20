@@ -1,18 +1,28 @@
 {
-  "name": "tornado-contracts",
+  "name": "@tornado/contracts",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "compile": "hardhat compile && hardhat flatten:all",
+    "types": "tsc -p tsconfig.types.json --declaration --emitDeclarationOnly",
+    "compile": "hardhat clean && hardhat compile && hardhat flatten:all",
+    "build": "yarn compile && yarn types && rollup -c",
     "deploy": "hardhat run ./scripts/deploy.ts",
     "lint": "eslint . --ext .ts --fix"
   },
   "files": [
     "contracts",
+    "dist",
     "scripts",
+    "typechain-types",
+    ".eslintrc.js",
+    ".gitignore",
     "hardhat.config.ts",
     "README.md",
+    "sepolia.json",
+    "tsconfig.base.json",
     "tsconfig.json",
     "yarn.lock"
   ],
@@ -22,6 +32,8 @@
     "@nomicfoundation/hardhat-network-helpers": "^1.0.10",
     "@nomicfoundation/hardhat-toolbox": "4.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.5",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@typechain/ethers-v6": "^0.5.1",
     "@typechain/hardhat": "^9.1.0",
     "@types/chai": "^4.3.14",
@@ -30,18 +42,21 @@
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "chai": "^4.4.1",
+    "esbuild": "^0.20.2",
     "eslint": "^8.57.0",
-    "ethers": "^6.4.0",
     "hardhat": "2.20.1",
     "hardhat-gas-reporter": "^1.0.10",
     "hardhat-storage-layout": "^0.1.7",
     "hardhat-tracer": "^2.8.1",
+    "rollup": "^4.14.1",
+    "rollup-plugin-esbuild": "^6.1.1",
     "solidity-coverage": "^0.8.11",
     "ts-node": "^10.9.2",
     "typechain": "^8.3.2",
     "typescript": "^5.4.3"
   },
   "dependencies": {
+    "ethers": "^6.4.0",
     "@openzeppelin/contracts": "5.0.2",
     "@openzeppelin/contracts-v3": "npm:@openzeppelin/contracts@3.2.0-rc.0"
   }

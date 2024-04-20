@@ -5,8 +5,6 @@ This repository contains the current deployments of Tornado Cash Classic & Torna
 Try running some of the following tasks:
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
+yarn
+yarn build
 ```
