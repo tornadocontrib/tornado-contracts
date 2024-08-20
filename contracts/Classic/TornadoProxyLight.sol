@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// https://tornadocash.website
+// https://tornado.ws
 /*
 * d888888P                                           dP              a88888b.                   dP
 *    88                                              88             d8'   `88                   88

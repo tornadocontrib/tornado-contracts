@@ -1,4 +1,4 @@
-// https://tornadocash.website
+// https://tornado.ws
 /*
  * d888888P                                           dP              a88888b.                   dP
  *    88                                              88             d8'   `88                   88
@@ -14,7 +14,7 @@ pragma solidity ^0.8.20;
 
 import { IVerifier, IHasher, Tornado } from "./Tornado.sol";
 
-// Modified by https://git.tornadocash.website/tornadocontrib/tornado-contracts
+// Modified by https://git.tornado.ws/tornadocontrib/tornado-contracts
 contract ETHTornado is Tornado {
   constructor(
     IVerifier _verifier,
