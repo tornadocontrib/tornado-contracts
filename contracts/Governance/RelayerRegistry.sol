@@ -98,6 +98,7 @@ contract RelayerRegistry is Initializable {
     event MinimumStakeAmount(uint256 minStakeAmount);
     event RouterRegistered(address tornadoRouter);
     event RelayerRegistered(bytes32 relayer, string ensName, address relayerAddress, uint256 stakedAmount);
+    event RelayerUnregistered(address relayer);
 
     modifier onlyGovernance() {
         require(msg.sender == governance, "only governance");
@@ -114,9 +115,7 @@ contract RelayerRegistry is Initializable {
         _;
     }
 
-    constructor(address _torn, address _governance, address _ens, address _staking, address _feeManager)
-        public
-    {
+    constructor(address _torn, address _governance, address _ens, address _staking, address _feeManager) public {
         torn = TORN(_torn);
         governance = _governance;
         ens = IENS(_ens);
@@ -141,9 +140,7 @@ contract RelayerRegistry is Initializable {
      * @param stake the initial amount of stake in TORN the relayer is depositing
      *
      */
-    function register(string calldata ensName, uint256 stake, address[] calldata workersToRegister)
-        external
-    {
+    function register(string calldata ensName, uint256 stake, address[] calldata workersToRegister) external {
         _register(msg.sender, ensName, stake, workersToRegister);
     }
 
@@ -172,7 +169,11 @@ contract RelayerRegistry is Initializable {
         address[] calldata workersToRegister
     ) internal {
         bytes32 ensHash = bytes(ensName).namehash();
-        require(relayer == ens.owner(ensHash), "only ens owner");
+        address domainOwner = ens.owner(ensHash);
+        address ensNameWrapper = 0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401;
+
+        require(domainOwner != ensNameWrapper, "only unwrapped ens domains");
+        require(relayer == domainOwner, "only ens domain owner");
         require(workers[relayer] == address(0), "cant register again");
         RelayerState storage metadata = relayers[relayer];
 
@@ -223,6 +224,18 @@ contract RelayerRegistry is Initializable {
         require(workers[worker] != worker, "cant unregister master");
         emit WorkerUnregistered(workers[worker], worker);
         workers[worker] = address(0);
+    }
+
+    /**
+     * @notice This function should allow governance to unregister relayer
+     * @param relayer Address of the relayer
+     *
+     */
+    function unregisterRelayer(address relayer) external onlyGovernance {
+        nullifyBalance(relayer);
+        delete relayers[relayer];
+        delete workers[relayer];
+        emit RelayerUnregistered(relayer);
     }
 
     /**
@@ -314,7 +327,7 @@ contract RelayerRegistry is Initializable {
      * @param relayer address of relayer who's balance is to nullify
      *
      */
-    function nullifyBalance(address relayer) external onlyGovernance {
+    function nullifyBalance(address relayer) public onlyGovernance {
         address masterAddress = workers[relayer];
         require(relayer == masterAddress, "must be master");
         relayers[masterAddress].balance = 0;

@@ -104,6 +104,21 @@ contract TornadoStakingRewards is Initializable {
     }
 
     /**
+     * @notice This function should allow governance to directly set accumulated rewards amount for an account
+     * @dev IMPORTANT FUNCTION:
+     *      Do NOT use to update rewards in normal cases, see `updateRewardsOnLockedBalanceChange` function
+     *      for this purposes. This function should be used only for fix bugs with rewards.
+     *      You need to replenish Staking contract with TORN, if you increase staker rewards
+     *      amount with this function, or withdraw TORN from Staking contract, if staker rewards decreased.
+     * @param account address of account to set rewards amount
+     * @param amount expected account accumulated rewards balance
+     *
+     */
+    function setReward(address account, uint256 amount) external onlyGovernance {
+        accumulatedRewards[account] = amount;
+    }
+
+    /**
      * @notice This function should allow governance rescue tokens from the staking rewards contract
      *
      */

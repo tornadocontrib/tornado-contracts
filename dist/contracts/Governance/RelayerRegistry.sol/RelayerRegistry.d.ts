@@ -1,8 +1,8 @@
 import type { BaseContract, BigNumberish, BytesLike, FunctionFragment, Result, Interface, EventFragment, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers";
 import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedLogDescription, TypedListener, TypedContractMethod } from "../../../common";
 export interface RelayerRegistryInterface extends Interface {
-    getFunction(nameOrSignature: "burn" | "ens" | "feeManager" | "getRelayerBalance" | "getRelayerEnsHash" | "governance" | "initialize" | "isRelayer" | "isRelayerRegistered" | "minStakeAmount" | "nullifyBalance" | "register" | "registerPermit" | "registerWorker" | "relayers" | "setMinStakeAmount" | "setTornadoRouter" | "stakeToRelayer" | "stakeToRelayerPermit" | "staking" | "torn" | "tornadoRouter" | "unregisterWorker" | "workers"): FunctionFragment;
-    getEvent(nameOrSignatureOrTopic: "MinimumStakeAmount" | "RelayerBalanceNullified" | "RelayerRegistered" | "RouterRegistered" | "StakeAddedToRelayer" | "StakeBurned" | "WorkerRegistered" | "WorkerUnregistered"): EventFragment;
+    getFunction(nameOrSignature: "burn" | "ens" | "feeManager" | "getRelayerBalance" | "getRelayerEnsHash" | "governance" | "initialize" | "isRelayer" | "isRelayerRegistered" | "minStakeAmount" | "nullifyBalance" | "register" | "registerPermit" | "registerWorker" | "relayers" | "setMinStakeAmount" | "setTornadoRouter" | "stakeToRelayer" | "stakeToRelayerPermit" | "staking" | "torn" | "tornadoRouter" | "unregisterRelayer" | "unregisterWorker" | "workers"): FunctionFragment;
+    getEvent(nameOrSignatureOrTopic: "MinimumStakeAmount" | "RelayerBalanceNullified" | "RelayerRegistered" | "RelayerUnregistered" | "RouterRegistered" | "StakeAddedToRelayer" | "StakeBurned" | "WorkerRegistered" | "WorkerUnregistered"): EventFragment;
     encodeFunctionData(functionFragment: "burn", values: [AddressLike, AddressLike, AddressLike]): string;
     encodeFunctionData(functionFragment: "ens", values?: undefined): string;
     encodeFunctionData(functionFragment: "feeManager", values?: undefined): string;
@@ -42,6 +42,7 @@ export interface RelayerRegistryInterface extends Interface {
     encodeFunctionData(functionFragment: "staking", values?: undefined): string;
     encodeFunctionData(functionFragment: "torn", values?: undefined): string;
     encodeFunctionData(functionFragment: "tornadoRouter", values?: undefined): string;
+    encodeFunctionData(functionFragment: "unregisterRelayer", values: [AddressLike]): string;
     encodeFunctionData(functionFragment: "unregisterWorker", values: [AddressLike]): string;
     encodeFunctionData(functionFragment: "workers", values: [AddressLike]): string;
     decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
@@ -66,6 +67,7 @@ export interface RelayerRegistryInterface extends Interface {
     decodeFunctionResult(functionFragment: "staking", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "torn", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "tornadoRouter", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "unregisterRelayer", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "unregisterWorker", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "workers", data: BytesLike): Result;
 }
@@ -109,6 +111,17 @@ export declare namespace RelayerRegisteredEvent {
         ensName: string;
         relayerAddress: string;
         stakedAmount: bigint;
+    }
+    type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+    type Filter = TypedDeferredTopicFilter<Event>;
+    type Log = TypedEventLog<Event>;
+    type LogDescription = TypedLogDescription<Event>;
+}
+export declare namespace RelayerUnregisteredEvent {
+    type InputTuple = [relayer: AddressLike];
+    type OutputTuple = [relayer: string];
+    interface OutputObject {
+        relayer: string;
     }
     type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
     type Filter = TypedDeferredTopicFilter<Event>;
@@ -291,6 +304,11 @@ export interface RelayerRegistry extends BaseContract {
     staking: TypedContractMethod<[], [string], "view">;
     torn: TypedContractMethod<[], [string], "view">;
     tornadoRouter: TypedContractMethod<[], [string], "view">;
+    unregisterRelayer: TypedContractMethod<[
+        relayer: AddressLike
+    ], [
+        void
+    ], "nonpayable">;
     unregisterWorker: TypedContractMethod<[
         worker: AddressLike
     ], [
@@ -379,11 +397,13 @@ export interface RelayerRegistry extends BaseContract {
     getFunction(nameOrSignature: "staking"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "torn"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "tornadoRouter"): TypedContractMethod<[], [string], "view">;
+    getFunction(nameOrSignature: "unregisterRelayer"): TypedContractMethod<[relayer: AddressLike], [void], "nonpayable">;
     getFunction(nameOrSignature: "unregisterWorker"): TypedContractMethod<[worker: AddressLike], [void], "nonpayable">;
     getFunction(nameOrSignature: "workers"): TypedContractMethod<[arg0: AddressLike], [string], "view">;
     getEvent(key: "MinimumStakeAmount"): TypedContractEvent<MinimumStakeAmountEvent.InputTuple, MinimumStakeAmountEvent.OutputTuple, MinimumStakeAmountEvent.OutputObject>;
     getEvent(key: "RelayerBalanceNullified"): TypedContractEvent<RelayerBalanceNullifiedEvent.InputTuple, RelayerBalanceNullifiedEvent.OutputTuple, RelayerBalanceNullifiedEvent.OutputObject>;
     getEvent(key: "RelayerRegistered"): TypedContractEvent<RelayerRegisteredEvent.InputTuple, RelayerRegisteredEvent.OutputTuple, RelayerRegisteredEvent.OutputObject>;
+    getEvent(key: "RelayerUnregistered"): TypedContractEvent<RelayerUnregisteredEvent.InputTuple, RelayerUnregisteredEvent.OutputTuple, RelayerUnregisteredEvent.OutputObject>;
     getEvent(key: "RouterRegistered"): TypedContractEvent<RouterRegisteredEvent.InputTuple, RouterRegisteredEvent.OutputTuple, RouterRegisteredEvent.OutputObject>;
     getEvent(key: "StakeAddedToRelayer"): TypedContractEvent<StakeAddedToRelayerEvent.InputTuple, StakeAddedToRelayerEvent.OutputTuple, StakeAddedToRelayerEvent.OutputObject>;
     getEvent(key: "StakeBurned"): TypedContractEvent<StakeBurnedEvent.InputTuple, StakeBurnedEvent.OutputTuple, StakeBurnedEvent.OutputObject>;
@@ -396,6 +416,8 @@ export interface RelayerRegistry extends BaseContract {
         RelayerBalanceNullified: TypedContractEvent<RelayerBalanceNullifiedEvent.InputTuple, RelayerBalanceNullifiedEvent.OutputTuple, RelayerBalanceNullifiedEvent.OutputObject>;
         "RelayerRegistered(bytes32,string,address,uint256)": TypedContractEvent<RelayerRegisteredEvent.InputTuple, RelayerRegisteredEvent.OutputTuple, RelayerRegisteredEvent.OutputObject>;
         RelayerRegistered: TypedContractEvent<RelayerRegisteredEvent.InputTuple, RelayerRegisteredEvent.OutputTuple, RelayerRegisteredEvent.OutputObject>;
+        "RelayerUnregistered(address)": TypedContractEvent<RelayerUnregisteredEvent.InputTuple, RelayerUnregisteredEvent.OutputTuple, RelayerUnregisteredEvent.OutputObject>;
+        RelayerUnregistered: TypedContractEvent<RelayerUnregisteredEvent.InputTuple, RelayerUnregisteredEvent.OutputTuple, RelayerUnregisteredEvent.OutputObject>;
         "RouterRegistered(address)": TypedContractEvent<RouterRegisteredEvent.InputTuple, RouterRegisteredEvent.OutputTuple, RouterRegisteredEvent.OutputObject>;
         RouterRegistered: TypedContractEvent<RouterRegisteredEvent.InputTuple, RouterRegisteredEvent.OutputTuple, RouterRegisteredEvent.OutputObject>;
         "StakeAddedToRelayer(address,uint256)": TypedContractEvent<StakeAddedToRelayerEvent.InputTuple, StakeAddedToRelayerEvent.OutputTuple, StakeAddedToRelayerEvent.OutputObject>;

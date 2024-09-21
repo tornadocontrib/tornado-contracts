@@ -1,7 +1,7 @@
 import type { BaseContract, BigNumberish, BytesLike, FunctionFragment, Result, Interface, EventFragment, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers";
 import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedLogDescription, TypedListener, TypedContractMethod } from "../../../common";
 export interface TornadoStakingRewardsInterface extends Interface {
-    getFunction(nameOrSignature: "Governance" | "accumulatedRewardPerTorn" | "accumulatedRewardRateOnLastUpdate" | "accumulatedRewards" | "addBurnRewards" | "checkReward" | "getReward" | "ratioConstant" | "relayerRegistry" | "torn" | "updateRewardsOnLockedBalanceChange" | "withdrawTorn"): FunctionFragment;
+    getFunction(nameOrSignature: "Governance" | "accumulatedRewardPerTorn" | "accumulatedRewardRateOnLastUpdate" | "accumulatedRewards" | "addBurnRewards" | "checkReward" | "getReward" | "ratioConstant" | "relayerRegistry" | "setReward" | "torn" | "updateRewardsOnLockedBalanceChange" | "withdrawTorn"): FunctionFragment;
     getEvent(nameOrSignatureOrTopic: "RewardsClaimed" | "RewardsUpdated"): EventFragment;
     encodeFunctionData(functionFragment: "Governance", values?: undefined): string;
     encodeFunctionData(functionFragment: "accumulatedRewardPerTorn", values?: undefined): string;
@@ -12,6 +12,7 @@ export interface TornadoStakingRewardsInterface extends Interface {
     encodeFunctionData(functionFragment: "getReward", values?: undefined): string;
     encodeFunctionData(functionFragment: "ratioConstant", values?: undefined): string;
     encodeFunctionData(functionFragment: "relayerRegistry", values?: undefined): string;
+    encodeFunctionData(functionFragment: "setReward", values: [AddressLike, BigNumberish]): string;
     encodeFunctionData(functionFragment: "torn", values?: undefined): string;
     encodeFunctionData(functionFragment: "updateRewardsOnLockedBalanceChange", values: [AddressLike, BigNumberish]): string;
     encodeFunctionData(functionFragment: "withdrawTorn", values: [BigNumberish]): string;
@@ -24,6 +25,7 @@ export interface TornadoStakingRewardsInterface extends Interface {
     decodeFunctionResult(functionFragment: "getReward", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "ratioConstant", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "relayerRegistry", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "setReward", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "torn", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "updateRewardsOnLockedBalanceChange", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "withdrawTorn", data: BytesLike): Result;
@@ -86,6 +88,12 @@ export interface TornadoStakingRewards extends BaseContract {
     getReward: TypedContractMethod<[], [void], "nonpayable">;
     ratioConstant: TypedContractMethod<[], [bigint], "view">;
     relayerRegistry: TypedContractMethod<[], [string], "view">;
+    setReward: TypedContractMethod<[
+        account: AddressLike,
+        amount: BigNumberish
+    ], [
+        void
+    ], "nonpayable">;
     torn: TypedContractMethod<[], [string], "view">;
     updateRewardsOnLockedBalanceChange: TypedContractMethod<[
         account: AddressLike,
@@ -108,6 +116,12 @@ export interface TornadoStakingRewards extends BaseContract {
     getFunction(nameOrSignature: "getReward"): TypedContractMethod<[], [void], "nonpayable">;
     getFunction(nameOrSignature: "ratioConstant"): TypedContractMethod<[], [bigint], "view">;
     getFunction(nameOrSignature: "relayerRegistry"): TypedContractMethod<[], [string], "view">;
+    getFunction(nameOrSignature: "setReward"): TypedContractMethod<[
+        account: AddressLike,
+        amount: BigNumberish
+    ], [
+        void
+    ], "nonpayable">;
     getFunction(nameOrSignature: "torn"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "updateRewardsOnLockedBalanceChange"): TypedContractMethod<[
         account: AddressLike,
