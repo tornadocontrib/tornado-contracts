@@ -35,6 +35,7 @@ export interface TornadoStakingRewardsInterface extends Interface {
       | "getReward"
       | "ratioConstant"
       | "relayerRegistry"
+      | "setReward"
       | "torn"
       | "updateRewardsOnLockedBalanceChange"
       | "withdrawTorn"
@@ -77,6 +78,10 @@ export interface TornadoStakingRewardsInterface extends Interface {
     functionFragment: "relayerRegistry",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "setReward",
+    values: [AddressLike, BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "torn", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "updateRewardsOnLockedBalanceChange",
@@ -117,6 +122,7 @@ export interface TornadoStakingRewardsInterface extends Interface {
     functionFragment: "relayerRegistry",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setReward", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "torn", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "updateRewardsOnLockedBalanceChange",
@@ -227,6 +233,12 @@ export interface TornadoStakingRewards extends BaseContract {
 
   relayerRegistry: TypedContractMethod<[], [string], "view">;
 
+  setReward: TypedContractMethod<
+    [account: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
   torn: TypedContractMethod<[], [string], "view">;
 
   updateRewardsOnLockedBalanceChange: TypedContractMethod<
@@ -272,6 +284,13 @@ export interface TornadoStakingRewards extends BaseContract {
   getFunction(
     nameOrSignature: "relayerRegistry"
   ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "setReward"
+  ): TypedContractMethod<
+    [account: AddressLike, amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "torn"
   ): TypedContractMethod<[], [string], "view">;
