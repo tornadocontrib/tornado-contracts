@@ -90,6 +90,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
+      name: "ISignatureTransfer",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ISignatureTransfer__factory>;
+    getContractFactory(
       name: "IHasher",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IHasher__factory>;
@@ -121,6 +125,10 @@ declare module "hardhat/types/runtime" {
       name: "MerkleTreeWithHistoryMock",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MerkleTreeWithHistoryMock__factory>;
+    getContractFactory(
+      name: "PermitTornado",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.PermitTornado__factory>;
     getContractFactory(
       name: "IVerifier",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -217,6 +225,10 @@ declare module "hardhat/types/runtime" {
       name: "RelayerRegistry",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.RelayerRegistry__factory>;
+    getContractFactory(
+      name: "SingletonFactory",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.SingletonFactory__factory>;
     getContractFactory(
       name: "TestnetAdminProxy",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -542,6 +554,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
+      name: "ISignatureTransfer",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ISignatureTransfer>;
+    getContractAt(
       name: "IHasher",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -581,6 +598,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.MerkleTreeWithHistoryMock>;
+    getContractAt(
+      name: "PermitTornado",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.PermitTornado>;
     getContractAt(
       name: "IVerifier",
       address: string | ethers.Addressable,
@@ -701,6 +723,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.RelayerRegistry>;
+    getContractAt(
+      name: "SingletonFactory",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.SingletonFactory>;
     getContractAt(
       name: "TestnetAdminProxy",
       address: string | ethers.Addressable,
@@ -1064,6 +1091,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
     deployContract(
+      name: "ISignatureTransfer",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ISignatureTransfer>;
+    deployContract(
       name: "IHasher",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IHasher>;
@@ -1095,6 +1126,10 @@ declare module "hardhat/types/runtime" {
       name: "MerkleTreeWithHistoryMock",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MerkleTreeWithHistoryMock>;
+    deployContract(
+      name: "PermitTornado",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.PermitTornado>;
     deployContract(
       name: "IVerifier",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1191,6 +1226,10 @@ declare module "hardhat/types/runtime" {
       name: "RelayerRegistry",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.RelayerRegistry>;
+    deployContract(
+      name: "SingletonFactory",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SingletonFactory>;
     deployContract(
       name: "TestnetAdminProxy",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1516,6 +1555,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IERC20>;
     deployContract(
+      name: "ISignatureTransfer",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ISignatureTransfer>;
+    deployContract(
       name: "IHasher",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1555,6 +1599,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MerkleTreeWithHistoryMock>;
+    deployContract(
+      name: "PermitTornado",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.PermitTornado>;
     deployContract(
       name: "IVerifier",
       args: any[],
@@ -1675,6 +1724,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.RelayerRegistry>;
+    deployContract(
+      name: "SingletonFactory",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.SingletonFactory>;
     deployContract(
       name: "TestnetAdminProxy",
       args: any[],

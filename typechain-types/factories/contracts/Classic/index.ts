@@ -9,5 +9,6 @@ export * as interfaces from "./interfaces";
 export { ERC20Tornado__factory } from "./ERC20Tornado__factory";
 export { ETHTornado__factory } from "./ETHTornado__factory";
 export { Echoer__factory } from "./Echoer__factory";
+export { PermitTornado__factory } from "./PermitTornado__factory";
 export { Verifier__factory } from "./Verifier__factory";
 export { CTornado__factory } from "./CTornado__factory";

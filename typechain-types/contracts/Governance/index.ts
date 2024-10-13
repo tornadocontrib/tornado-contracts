@@ -35,5 +35,6 @@ export type { AdminUpgradeableProxy } from "./AdminUpgradeableProxy";
 export type { FeeManager } from "./FeeManager";
 export type { GasCompensationVault } from "./GasCompensationVault";
 export type { LoopbackProxy } from "./LoopbackProxy";
+export type { SingletonFactory } from "./SingletonFactory";
 export type { TornadoRouter } from "./TornadoRouter";
 export type { TornadoVault } from "./TornadoVault";

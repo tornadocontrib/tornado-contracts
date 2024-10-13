@@ -30,7 +30,7 @@ contract ERC20Tornado is Tornado {
     token = _token;
   }
 
-  function _processDeposit() internal override {
+  function _processDeposit() internal virtual override {
     require(msg.value == 0, "ETH value is supposed to be 0 for ERC20 instance");
     token.safeTransferFrom(msg.sender, address(this), denomination);
   }

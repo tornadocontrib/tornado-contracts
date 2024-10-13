@@ -14,5 +14,6 @@ export type { interfaces };
 export type { ERC20Tornado } from "./ERC20Tornado";
 export type { ETHTornado } from "./ETHTornado";
 export type { Echoer } from "./Echoer";
+export type { PermitTornado } from "./PermitTornado";
 export type { Verifier } from "./Verifier";
 export type { CTornado } from "./CTornado";

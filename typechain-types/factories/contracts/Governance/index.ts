@@ -20,5 +20,6 @@ export { AdminUpgradeableProxy__factory } from "./AdminUpgradeableProxy__factory
 export { FeeManager__factory } from "./FeeManager__factory";
 export { GasCompensationVault__factory } from "./GasCompensationVault__factory";
 export { LoopbackProxy__factory } from "./LoopbackProxy__factory";
+export { SingletonFactory__factory } from "./SingletonFactory__factory";
 export { TornadoRouter__factory } from "./TornadoRouter__factory";
 export { TornadoVault__factory } from "./TornadoVault__factory";
