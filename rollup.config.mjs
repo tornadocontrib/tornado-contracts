@@ -20,7 +20,7 @@ const config = [
         include: /\.[jt]sx?$/,
         minify: false,
         sourceMap: true,
-        target: 'es2015',
+        target: 'es2022',
       }),
       nodeResolve(),
       commonjs()
@@ -40,7 +40,7 @@ const config = [
         include: /\.[jt]sx?$/,
         minify: false,
         sourceMap: true,
-        target: 'es2015',
+        target: 'es2022',
       }),
       nodeResolve()
     ],

@@ -105,6 +105,7 @@ const _abi$1K = [
   }
 ];
 class IERC1155Errors__factory {
+  static abi = _abi$1K;
   static createInterface() {
     return new Interface(_abi$1K);
   }
@@ -112,7 +113,6 @@ class IERC1155Errors__factory {
     return new Contract(address, _abi$1K, runner);
   }
 }
-IERC1155Errors__factory.abi = _abi$1K;
 
 const _abi$1J = [
   {
@@ -203,6 +203,7 @@ const _abi$1J = [
   }
 ];
 class IERC20Errors__factory {
+  static abi = _abi$1J;
   static createInterface() {
     return new Interface(_abi$1J);
   }
@@ -210,7 +211,6 @@ class IERC20Errors__factory {
     return new Contract(address, _abi$1J, runner);
   }
 }
-IERC20Errors__factory.abi = _abi$1J;
 
 const _abi$1I = [
   {
@@ -318,6 +318,7 @@ const _abi$1I = [
   }
 ];
 class IERC721Errors__factory {
+  static abi = _abi$1I;
   static createInterface() {
     return new Interface(_abi$1I);
   }
@@ -325,7 +326,6 @@ class IERC721Errors__factory {
     return new Contract(address, _abi$1I, runner);
   }
 }
-IERC721Errors__factory.abi = _abi$1I;
 
 var index$T = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -564,6 +564,7 @@ const _abi$1H = [
   }
 ];
 class IERC20Metadata__factory {
+  static abi = _abi$1H;
   static createInterface() {
     return new Interface(_abi$1H);
   }
@@ -571,7 +572,6 @@ class IERC20Metadata__factory {
     return new Contract(address, _abi$1H, runner);
   }
 }
-IERC20Metadata__factory.abi = _abi$1H;
 
 var index$R = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -889,6 +889,7 @@ const _abi$1G = [
   }
 ];
 let ERC20__factory$1 = class ERC20__factory {
+  static abi = _abi$1G;
   static createInterface() {
     return new Interface(_abi$1G);
   }
@@ -896,7 +897,6 @@ let ERC20__factory$1 = class ERC20__factory {
     return new Contract(address, _abi$1G, runner);
   }
 };
-ERC20__factory$1.abi = _abi$1G;
 
 const _abi$1F = [
   {
@@ -1084,6 +1084,7 @@ const _abi$1F = [
   }
 ];
 let IERC20__factory$2 = class IERC20__factory {
+  static abi = _abi$1F;
   static createInterface() {
     return new Interface(_abi$1F);
   }
@@ -1091,7 +1092,6 @@ let IERC20__factory$2 = class IERC20__factory {
     return new Contract(address, _abi$1F, runner);
   }
 };
-IERC20__factory$2.abi = _abi$1F;
 
 var index$Q = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -1166,6 +1166,7 @@ const _abi$1E = [
   }
 ];
 class Ownable__factory {
+  static abi = _abi$1E;
   static createInterface() {
     return new Interface(_abi$1E);
   }
@@ -1173,7 +1174,6 @@ class Ownable__factory {
     return new Contract(address, _abi$1E, runner);
   }
 }
-Ownable__factory.abi = _abi$1E;
 
 var index$N = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -1191,6 +1191,7 @@ const _abi$1D = [
   }
 ];
 class Proxy__factory {
+  static abi = _abi$1D;
   static createInterface() {
     return new Interface(_abi$1D);
   }
@@ -1198,7 +1199,6 @@ class Proxy__factory {
     return new Contract(address, _abi$1D, runner);
   }
 }
-Proxy__factory.abi = _abi$1D;
 
 const _abi$1C = [
   {
@@ -1352,6 +1352,8 @@ class TransparentUpgradeableProxy__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$X;
+  static abi = _abi$1C;
   static createInterface() {
     return new Interface(_abi$1C);
   }
@@ -1363,8 +1365,6 @@ class TransparentUpgradeableProxy__factory extends ContractFactory {
     );
   }
 }
-TransparentUpgradeableProxy__factory.bytecode = _bytecode$X;
-TransparentUpgradeableProxy__factory.abi = _abi$1C;
 
 const _abi$1B = [
   {
@@ -1424,6 +1424,8 @@ class UpgradeableProxy__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$W;
+  static abi = _abi$1B;
   static createInterface() {
     return new Interface(_abi$1B);
   }
@@ -1431,8 +1433,6 @@ class UpgradeableProxy__factory extends ContractFactory {
     return new Contract(address, _abi$1B, runner);
   }
 }
-UpgradeableProxy__factory.bytecode = _bytecode$W;
-UpgradeableProxy__factory.abi = _abi$1B;
 
 var index$M = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -1748,6 +1748,8 @@ class ERC20__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$V;
+  static abi = _abi$1A;
   static createInterface() {
     return new Interface(_abi$1A);
   }
@@ -1755,8 +1757,6 @@ class ERC20__factory extends ContractFactory {
     return new Contract(address, _abi$1A, runner);
   }
 }
-ERC20__factory.bytecode = _bytecode$V;
-ERC20__factory.abi = _abi$1A;
 
 const _abi$1z = [
   {
@@ -2062,6 +2062,7 @@ const _abi$1z = [
   }
 ];
 class ERC20Burnable__factory {
+  static abi = _abi$1z;
   static createInterface() {
     return new Interface(_abi$1z);
   }
@@ -2069,7 +2070,6 @@ class ERC20Burnable__factory {
     return new Contract(address, _abi$1z, runner);
   }
 }
-ERC20Burnable__factory.abi = _abi$1z;
 
 const _abi$1y = [
   {
@@ -2257,6 +2257,7 @@ const _abi$1y = [
   }
 ];
 let IERC20__factory$1 = class IERC20__factory {
+  static abi = _abi$1y;
   static createInterface() {
     return new Interface(_abi$1y);
   }
@@ -2264,7 +2265,6 @@ let IERC20__factory$1 = class IERC20__factory {
     return new Contract(address, _abi$1y, runner);
   }
 };
-IERC20__factory$1.abi = _abi$1y;
 
 var index$L = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -2320,6 +2320,7 @@ const _abi$1x = [
   }
 ];
 class Pausable__factory {
+  static abi = _abi$1x;
   static createInterface() {
     return new Interface(_abi$1x);
   }
@@ -2327,7 +2328,6 @@ class Pausable__factory {
     return new Contract(address, _abi$1x, runner);
   }
 }
-Pausable__factory.abi = _abi$1x;
 
 var index$J = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -2380,6 +2380,7 @@ const _abi$1w = [
   }
 ];
 class IHasher__factory {
+  static abi = _abi$1w;
   static createInterface() {
     return new Interface(_abi$1w);
   }
@@ -2387,7 +2388,6 @@ class IHasher__factory {
     return new Contract(address, _abi$1w, runner);
   }
 }
-IHasher__factory.abi = _abi$1w;
 
 const _abi$1v = [
   {
@@ -2635,6 +2635,8 @@ class MerkleTreeWithHistory__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$U;
+  static abi = _abi$1v;
   static createInterface() {
     return new Interface(_abi$1v);
   }
@@ -2646,8 +2648,6 @@ class MerkleTreeWithHistory__factory extends ContractFactory {
     );
   }
 }
-MerkleTreeWithHistory__factory.bytecode = _bytecode$U;
-MerkleTreeWithHistory__factory.abi = _abi$1v;
 
 var index$G = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -2746,6 +2746,7 @@ const _abi$1u = [
   }
 ];
 class ERC20Basic__factory {
+  static abi = _abi$1u;
   static createInterface() {
     return new Interface(_abi$1u);
   }
@@ -2753,7 +2754,6 @@ class ERC20Basic__factory {
     return new Contract(address, _abi$1u, runner);
   }
 }
-ERC20Basic__factory.abi = _abi$1u;
 
 const _abi$1t = [
   {
@@ -2936,6 +2936,7 @@ const _abi$1t = [
   }
 ];
 class IUSDT__factory {
+  static abi = _abi$1t;
   static createInterface() {
     return new Interface(_abi$1t);
   }
@@ -2943,7 +2944,6 @@ class IUSDT__factory {
     return new Contract(address, _abi$1t, runner);
   }
 }
-IUSDT__factory.abi = _abi$1t;
 
 var index$F = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -2976,6 +2976,8 @@ class BadRecipient__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$T;
+  static abi = _abi$1s;
   static createInterface() {
     return new Interface(_abi$1s);
   }
@@ -2983,8 +2985,6 @@ class BadRecipient__factory extends ContractFactory {
     return new Contract(address, _abi$1s, runner);
   }
 }
-BadRecipient__factory.bytecode = _bytecode$T;
-BadRecipient__factory.abi = _abi$1s;
 
 const _abi$1r = [
   {
@@ -3333,6 +3333,8 @@ class ERC20Mock__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$S;
+  static abi = _abi$1r;
   static createInterface() {
     return new Interface(_abi$1r);
   }
@@ -3340,8 +3342,6 @@ class ERC20Mock__factory extends ContractFactory {
     return new Contract(address, _abi$1r, runner);
   }
 }
-ERC20Mock__factory.bytecode = _bytecode$S;
-ERC20Mock__factory.abi = _abi$1r;
 
 const _abi$1q = [
   {
@@ -3370,6 +3370,7 @@ const _abi$1q = [
   }
 ];
 let IDeployer__factory$1 = class IDeployer__factory {
+  static abi = _abi$1q;
   static createInterface() {
     return new Interface(_abi$1q);
   }
@@ -3377,7 +3378,6 @@ let IDeployer__factory$1 = class IDeployer__factory {
     return new Contract(address, _abi$1q, runner);
   }
 };
-IDeployer__factory$1.abi = _abi$1q;
 
 const _abi$1p = [
   {
@@ -3638,6 +3638,8 @@ class MerkleTreeWithHistoryMock__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$R;
+  static abi = _abi$1p;
   static createInterface() {
     return new Interface(_abi$1p);
   }
@@ -3649,8 +3651,6 @@ class MerkleTreeWithHistoryMock__factory extends ContractFactory {
     );
   }
 }
-MerkleTreeWithHistoryMock__factory.bytecode = _bytecode$R;
-MerkleTreeWithHistoryMock__factory.abi = _abi$1p;
 
 var index$E = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -3688,6 +3688,7 @@ const _abi$1o = [
   }
 ];
 class IVerifier__factory {
+  static abi = _abi$1o;
   static createInterface() {
     return new Interface(_abi$1o);
   }
@@ -3695,7 +3696,6 @@ class IVerifier__factory {
     return new Contract(address, _abi$1o, runner);
   }
 }
-IVerifier__factory.abi = _abi$1o;
 
 const _abi$1n = [
   {
@@ -4123,6 +4123,7 @@ const _abi$1n = [
   }
 ];
 class Tornado__factory {
+  static abi = _abi$1n;
   static createInterface() {
     return new Interface(_abi$1n);
   }
@@ -4130,7 +4131,6 @@ class Tornado__factory {
     return new Contract(address, _abi$1n, runner);
   }
 }
-Tornado__factory.abi = _abi$1n;
 
 var index$D = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -4223,6 +4223,7 @@ const _abi$1m = [
   }
 ];
 let ITornadoInstance__factory$1 = class ITornadoInstance__factory {
+  static abi = _abi$1m;
   static createInterface() {
     return new Interface(_abi$1m);
   }
@@ -4230,7 +4231,6 @@ let ITornadoInstance__factory$1 = class ITornadoInstance__factory {
     return new Contract(address, _abi$1m, runner);
   }
 };
-ITornadoInstance__factory$1.abi = _abi$1m;
 
 const _abi$1l = [
   {
@@ -4356,6 +4356,8 @@ class TornadoProxyLight__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$Q;
+  static abi = _abi$1l;
   static createInterface() {
     return new Interface(_abi$1l);
   }
@@ -4363,8 +4365,6 @@ class TornadoProxyLight__factory extends ContractFactory {
     return new Contract(address, _abi$1l, runner);
   }
 }
-TornadoProxyLight__factory.bytecode = _bytecode$Q;
-TornadoProxyLight__factory.abi = _abi$1l;
 
 var index$C = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -4583,6 +4583,7 @@ const _abi$1k = [
   }
 ];
 class IERC20__factory {
+  static abi = _abi$1k;
   static createInterface() {
     return new Interface(_abi$1k);
   }
@@ -4590,7 +4591,6 @@ class IERC20__factory {
     return new Contract(address, _abi$1k, runner);
   }
 }
-IERC20__factory.abi = _abi$1k;
 
 const _abi$1j = [
   {
@@ -4987,6 +4987,7 @@ const _abi$1j = [
   }
 ];
 class ISignatureTransfer__factory {
+  static abi = _abi$1j;
   static createInterface() {
     return new Interface(_abi$1j);
   }
@@ -4994,7 +4995,6 @@ class ISignatureTransfer__factory {
     return new Contract(address, _abi$1j, runner);
   }
 }
-ISignatureTransfer__factory.abi = _abi$1j;
 
 var index$B = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -5504,6 +5504,8 @@ class ERC20Tornado__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$P;
+  static abi = _abi$1i;
   static createInterface() {
     return new Interface(_abi$1i);
   }
@@ -5511,8 +5513,6 @@ class ERC20Tornado__factory extends ContractFactory {
     return new Contract(address, _abi$1i, runner);
   }
 }
-ERC20Tornado__factory.bytecode = _bytecode$P;
-ERC20Tornado__factory.abi = _abi$1i;
 
 const _abi$1h = [
   {
@@ -5996,6 +5996,8 @@ class ETHTornado__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$O;
+  static abi = _abi$1h;
   static createInterface() {
     return new Interface(_abi$1h);
   }
@@ -6003,8 +6005,6 @@ class ETHTornado__factory extends ContractFactory {
     return new Contract(address, _abi$1h, runner);
   }
 }
-ETHTornado__factory.bytecode = _bytecode$O;
-ETHTornado__factory.abi = _abi$1h;
 
 const _abi$1g = [
   {
@@ -6059,6 +6059,8 @@ class Echoer__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$N;
+  static abi = _abi$1g;
   static createInterface() {
     return new Interface(_abi$1g);
   }
@@ -6066,8 +6068,6 @@ class Echoer__factory extends ContractFactory {
     return new Contract(address, _abi$1g, runner);
   }
 }
-Echoer__factory.bytecode = _bytecode$N;
-Echoer__factory.abi = _abi$1g;
 
 const _abi$1f = [
   {
@@ -6699,6 +6699,8 @@ class PermitTornado__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$M;
+  static abi = _abi$1f;
   static createInterface() {
     return new Interface(_abi$1f);
   }
@@ -6706,8 +6708,6 @@ class PermitTornado__factory extends ContractFactory {
     return new Contract(address, _abi$1f, runner);
   }
 }
-PermitTornado__factory.bytecode = _bytecode$M;
-PermitTornado__factory.abi = _abi$1f;
 
 const _abi$1e = [
   {
@@ -6754,6 +6754,8 @@ class Verifier__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$L;
+  static abi = _abi$1e;
   static createInterface() {
     return new Interface(_abi$1e);
   }
@@ -6761,8 +6763,6 @@ class Verifier__factory extends ContractFactory {
     return new Contract(address, _abi$1e, runner);
   }
 }
-Verifier__factory.bytecode = _bytecode$L;
-Verifier__factory.abi = _abi$1e;
 
 const _abi$1d = [
   {
@@ -7313,6 +7313,8 @@ class CTornado__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$K;
+  static abi = _abi$1d;
   static createInterface() {
     return new Interface(_abi$1d);
   }
@@ -7320,8 +7322,6 @@ class CTornado__factory extends ContractFactory {
     return new Contract(address, _abi$1d, runner);
   }
 }
-CTornado__factory.bytecode = _bytecode$K;
-CTornado__factory.abi = _abi$1d;
 
 var index$A = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -7710,6 +7710,7 @@ const _abi$1c = [
   }
 ];
 class IENSRegistry__factory {
+  static abi = _abi$1c;
   static createInterface() {
     return new Interface(_abi$1c);
   }
@@ -7717,7 +7718,6 @@ class IENSRegistry__factory {
     return new Contract(address, _abi$1c, runner);
   }
 }
-IENSRegistry__factory.abi = _abi$1c;
 
 const _abi$1b = [
   {
@@ -7765,6 +7765,7 @@ const _abi$1b = [
   }
 ];
 class IENSResolver__factory {
+  static abi = _abi$1b;
   static createInterface() {
     return new Interface(_abi$1b);
   }
@@ -7772,7 +7773,6 @@ class IENSResolver__factory {
     return new Contract(address, _abi$1b, runner);
   }
 }
-IENSResolver__factory.abi = _abi$1b;
 
 const _abi$1a = [
   {
@@ -7820,6 +7820,7 @@ const _abi$1a = [
   }
 ];
 class IRelayerRegistry__factory {
+  static abi = _abi$1a;
   static createInterface() {
     return new Interface(_abi$1a);
   }
@@ -7827,7 +7828,6 @@ class IRelayerRegistry__factory {
     return new Contract(address, _abi$1a, runner);
   }
 }
-IRelayerRegistry__factory.abi = _abi$1a;
 
 const _abi$19 = [
   {
@@ -7946,6 +7946,8 @@ class RelayerAggregator__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$J;
+  static abi = _abi$19;
   static createInterface() {
     return new Interface(_abi$19);
   }
@@ -7953,8 +7955,6 @@ class RelayerAggregator__factory extends ContractFactory {
     return new Contract(address, _abi$19, runner);
   }
 }
-RelayerAggregator__factory.bytecode = _bytecode$J;
-RelayerAggregator__factory.abi = _abi$19;
 
 var index$z = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -8215,6 +8215,8 @@ class Aggregator__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$I;
+  static abi = _abi$18;
   static createInterface() {
     return new Interface(_abi$18);
   }
@@ -8222,8 +8224,6 @@ class Aggregator__factory extends ContractFactory {
     return new Contract(address, _abi$18, runner);
   }
 }
-Aggregator__factory.bytecode = _bytecode$I;
-Aggregator__factory.abi = _abi$18;
 
 const _abi$17 = [
   {
@@ -8380,6 +8380,8 @@ class GovernanceAggregator__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$H;
+  static abi = _abi$17;
   static createInterface() {
     return new Interface(_abi$17);
   }
@@ -8391,8 +8393,6 @@ class GovernanceAggregator__factory extends ContractFactory {
     );
   }
 }
-GovernanceAggregator__factory.bytecode = _bytecode$H;
-GovernanceAggregator__factory.abi = _abi$17;
 
 var index$y = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -8483,6 +8483,8 @@ class Deployer__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$G;
+  static abi = _abi$16;
   static createInterface() {
     return new Interface(_abi$16);
   }
@@ -8490,8 +8492,6 @@ class Deployer__factory extends ContractFactory {
     return new Contract(address, _abi$16, runner);
   }
 }
-Deployer__factory.bytecode = _bytecode$G;
-Deployer__factory.abi = _abi$16;
 
 const _abi$15 = [
   {
@@ -8520,6 +8520,7 @@ const _abi$15 = [
   }
 ];
 class IDeployer__factory {
+  static abi = _abi$15;
   static createInterface() {
     return new Interface(_abi$15);
   }
@@ -8527,7 +8528,6 @@ class IDeployer__factory {
     return new Contract(address, _abi$15, runner);
   }
 }
-IDeployer__factory.abi = _abi$15;
 
 var index$x = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -8561,6 +8561,7 @@ const _abi$14 = [
   }
 ];
 class ITornadoRouter__factory {
+  static abi = _abi$14;
   static createInterface() {
     return new Interface(_abi$14);
   }
@@ -8568,7 +8569,6 @@ class ITornadoRouter__factory {
     return new Contract(address, _abi$14, runner);
   }
 }
-ITornadoRouter__factory.abi = _abi$14;
 
 const _abi$13 = [
   {
@@ -8955,6 +8955,8 @@ class InstanceRegistry__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$F;
+  static abi = _abi$13;
   static createInterface() {
     return new Interface(_abi$13);
   }
@@ -8962,8 +8964,6 @@ class InstanceRegistry__factory extends ContractFactory {
     return new Contract(address, _abi$13, runner);
   }
 }
-InstanceRegistry__factory.bytecode = _bytecode$F;
-InstanceRegistry__factory.abi = _abi$13;
 
 var index$w = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -8993,6 +8993,7 @@ const _abi$12 = [
   }
 ];
 class IENS__factory {
+  static abi = _abi$12;
   static createInterface() {
     return new Interface(_abi$12);
   }
@@ -9000,7 +9001,6 @@ class IENS__factory {
     return new Contract(address, _abi$12, runner);
   }
 }
-IENS__factory.abi = _abi$12;
 
 const _abi$11 = [
   {
@@ -9024,6 +9024,7 @@ const _abi$11 = [
   }
 ];
 class IFeeManager__factory {
+  static abi = _abi$11;
   static createInterface() {
     return new Interface(_abi$11);
   }
@@ -9031,7 +9032,6 @@ class IFeeManager__factory {
     return new Contract(address, _abi$11, runner);
   }
 }
-IFeeManager__factory.abi = _abi$11;
 
 const _abi$10 = [
   {
@@ -9724,6 +9724,8 @@ class RelayerRegistry__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$E;
+  static abi = _abi$10;
   static createInterface() {
     return new Interface(_abi$10);
   }
@@ -9731,8 +9733,6 @@ class RelayerRegistry__factory extends ContractFactory {
     return new Contract(address, _abi$10, runner);
   }
 }
-RelayerRegistry__factory.bytecode = _bytecode$E;
-RelayerRegistry__factory.abi = _abi$10;
 
 var index$v = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -9763,6 +9763,7 @@ const _abi$$ = [
   }
 ];
 class ENS__factory {
+  static abi = _abi$$;
   static createInterface() {
     return new Interface(_abi$$);
   }
@@ -9770,7 +9771,6 @@ class ENS__factory {
     return new Contract(address, _abi$$, runner);
   }
 }
-ENS__factory.abi = _abi$$;
 
 const _abi$_ = [
   {
@@ -9831,6 +9831,8 @@ class EnsResolve__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$D;
+  static abi = _abi$_;
   static createInterface() {
     return new Interface(_abi$_);
   }
@@ -9838,8 +9840,6 @@ class EnsResolve__factory extends ContractFactory {
     return new Contract(address, _abi$_, runner);
   }
 }
-EnsResolve__factory.bytecode = _bytecode$D;
-EnsResolve__factory.abi = _abi$_;
 
 const _abi$Z = [
   {
@@ -9863,6 +9863,7 @@ const _abi$Z = [
   }
 ];
 class Resolver__factory {
+  static abi = _abi$Z;
   static createInterface() {
     return new Interface(_abi$Z);
   }
@@ -9870,7 +9871,6 @@ class Resolver__factory {
     return new Contract(address, _abi$Z, runner);
   }
 }
-Resolver__factory.abi = _abi$Z;
 
 var index$u = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -9966,6 +9966,8 @@ class AirdropMock__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$C;
+  static abi = _abi$Y;
   static createInterface() {
     return new Interface(_abi$Y);
   }
@@ -9973,8 +9975,6 @@ class AirdropMock__factory extends ContractFactory {
     return new Contract(address, _abi$Y, runner);
   }
 }
-AirdropMock__factory.bytecode = _bytecode$C;
-AirdropMock__factory.abi = _abi$Y;
 
 const _abi$X = [
   {
@@ -10091,6 +10091,8 @@ class ENSMock__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$B;
+  static abi = _abi$X;
   static createInterface() {
     return new Interface(_abi$X);
   }
@@ -10098,8 +10100,6 @@ class ENSMock__factory extends ContractFactory {
     return new Contract(address, _abi$X, runner);
   }
 }
-ENSMock__factory.bytecode = _bytecode$B;
-ENSMock__factory.abi = _abi$X;
 
 const _abi$W = [
   {
@@ -10778,6 +10778,8 @@ class TORNMock__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$A;
+  static abi = _abi$W;
   static createInterface() {
     return new Interface(_abi$W);
   }
@@ -10785,8 +10787,6 @@ class TORNMock__factory extends ContractFactory {
     return new Contract(address, _abi$W, runner);
   }
 }
-TORNMock__factory.bytecode = _bytecode$A;
-TORNMock__factory.abi = _abi$W;
 
 const _abi$V = [
   {
@@ -10848,6 +10848,8 @@ class Timestamp__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$z;
+  static abi = _abi$V;
   static createInterface() {
     return new Interface(_abi$V);
   }
@@ -10855,8 +10857,6 @@ class Timestamp__factory extends ContractFactory {
     return new Contract(address, _abi$V, runner);
   }
 }
-Timestamp__factory.bytecode = _bytecode$z;
-Timestamp__factory.abi = _abi$V;
 
 const _abi$U = [
   {
@@ -11087,6 +11087,8 @@ class VestingMock__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$y;
+  static abi = _abi$U;
   static createInterface() {
     return new Interface(_abi$U);
   }
@@ -11094,8 +11096,6 @@ class VestingMock__factory extends ContractFactory {
     return new Contract(address, _abi$U, runner);
   }
 }
-VestingMock__factory.bytecode = _bytecode$y;
-VestingMock__factory.abi = _abi$U;
 
 const _abi$T = [
   {
@@ -11587,6 +11587,8 @@ class VoucherMock__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$x;
+  static abi = _abi$T;
   static createInterface() {
     return new Interface(_abi$T);
   }
@@ -11594,8 +11596,6 @@ class VoucherMock__factory extends ContractFactory {
     return new Contract(address, _abi$T, runner);
   }
 }
-VoucherMock__factory.bytecode = _bytecode$x;
-VoucherMock__factory.abi = _abi$T;
 
 var index$t = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -11694,6 +11694,8 @@ class Airdrop__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$w;
+  static abi = _abi$S;
   static createInterface() {
     return new Interface(_abi$S);
   }
@@ -11701,8 +11703,6 @@ class Airdrop__factory extends ContractFactory {
     return new Contract(address, _abi$S, runner);
   }
 }
-Airdrop__factory.bytecode = _bytecode$w;
-Airdrop__factory.abi = _abi$S;
 
 const _abi$R = [
   {
@@ -12065,6 +12065,7 @@ const _abi$R = [
   }
 ];
 class ERC20Permit__factory {
+  static abi = _abi$R;
   static createInterface() {
     return new Interface(_abi$R);
   }
@@ -12072,7 +12073,6 @@ class ERC20Permit__factory {
     return new Contract(address, _abi$R, runner);
   }
 }
-ERC20Permit__factory.abi = _abi$R;
 
 const _abi$Q = [
   {
@@ -12699,6 +12699,8 @@ class TORN__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$v;
+  static abi = _abi$Q;
   static createInterface() {
     return new Interface(_abi$Q);
   }
@@ -12706,8 +12708,6 @@ class TORN__factory extends ContractFactory {
     return new Contract(address, _abi$Q, runner);
   }
 }
-TORN__factory.bytecode = _bytecode$v;
-TORN__factory.abi = _abi$Q;
 
 const _abi$P = [
   {
@@ -12912,6 +12912,8 @@ class Vesting__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$u;
+  static abi = _abi$P;
   static createInterface() {
     return new Interface(_abi$P);
   }
@@ -12919,8 +12921,6 @@ class Vesting__factory extends ContractFactory {
     return new Contract(address, _abi$P, runner);
   }
 }
-Vesting__factory.bytecode = _bytecode$u;
-Vesting__factory.abi = _abi$P;
 
 const _abi$O = [
   {
@@ -13386,6 +13386,8 @@ class Voucher__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$t;
+  static abi = _abi$O;
   static createInterface() {
     return new Interface(_abi$O);
   }
@@ -13393,8 +13395,6 @@ class Voucher__factory extends ContractFactory {
     return new Contract(address, _abi$O, runner);
   }
 }
-Voucher__factory.bytecode = _bytecode$t;
-Voucher__factory.abi = _abi$O;
 
 var index$s = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -13634,6 +13634,8 @@ class TestnetAdminProxy__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$s;
+  static abi = _abi$N;
   static createInterface() {
     return new Interface(_abi$N);
   }
@@ -13641,8 +13643,6 @@ class TestnetAdminProxy__factory extends ContractFactory {
     return new Contract(address, _abi$N, runner);
   }
 }
-TestnetAdminProxy__factory.bytecode = _bytecode$s;
-TestnetAdminProxy__factory.abi = _abi$N;
 
 const _abi$M = [
   {
@@ -14034,6 +14034,8 @@ class TestnetFeeManager__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$r;
+  static abi = _abi$M;
   static createInterface() {
     return new Interface(_abi$M);
   }
@@ -14041,8 +14043,6 @@ class TestnetFeeManager__factory extends ContractFactory {
     return new Contract(address, _abi$M, runner);
   }
 }
-TestnetFeeManager__factory.bytecode = _bytecode$r;
-TestnetFeeManager__factory.abi = _abi$M;
 
 const _abi$L = [
   {
@@ -14266,6 +14266,8 @@ class TestnetGovernanceProxy__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$q;
+  static abi = _abi$L;
   static createInterface() {
     return new Interface(_abi$L);
   }
@@ -14277,8 +14279,6 @@ class TestnetGovernanceProxy__factory extends ContractFactory {
     );
   }
 }
-TestnetGovernanceProxy__factory.bytecode = _bytecode$q;
-TestnetGovernanceProxy__factory.abi = _abi$L;
 
 var index$r = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -14322,6 +14322,7 @@ const _abi$K = [
   }
 ];
 class ITornadoGovernance__factory {
+  static abi = _abi$K;
   static createInterface() {
     return new Interface(_abi$K);
   }
@@ -14329,7 +14330,6 @@ class ITornadoGovernance__factory {
     return new Contract(address, _abi$K, runner);
   }
 }
-ITornadoGovernance__factory.abi = _abi$K;
 
 const _abi$J = [
   {
@@ -14352,6 +14352,7 @@ const _abi$J = [
   }
 ];
 let ITornadoVault__factory$1 = class ITornadoVault__factory {
+  static abi = _abi$J;
   static createInterface() {
     return new Interface(_abi$J);
   }
@@ -14359,7 +14360,6 @@ let ITornadoVault__factory$1 = class ITornadoVault__factory {
     return new Contract(address, _abi$J, runner);
   }
 };
-ITornadoVault__factory$1.abi = _abi$J;
 
 const _abi$I = [
   {
@@ -14642,6 +14642,8 @@ class TornadoStakingRewards__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$p;
+  static abi = _abi$I;
   static createInterface() {
     return new Interface(_abi$I);
   }
@@ -14653,8 +14655,6 @@ class TornadoStakingRewards__factory extends ContractFactory {
     );
   }
 }
-TornadoStakingRewards__factory.bytecode = _bytecode$p;
-TornadoStakingRewards__factory.abi = _abi$I;
 
 var index$q = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -14886,6 +14886,7 @@ const _abi$H = [
   }
 ];
 class IUniswapV3PoolActions__factory {
+  static abi = _abi$H;
   static createInterface() {
     return new Interface(_abi$H);
   }
@@ -14897,7 +14898,6 @@ class IUniswapV3PoolActions__factory {
     );
   }
 }
-IUniswapV3PoolActions__factory.abi = _abi$H;
 
 const _abi$G = [
   {
@@ -14960,6 +14960,7 @@ const _abi$G = [
   }
 ];
 class IUniswapV3PoolDerivedState__factory {
+  static abi = _abi$G;
   static createInterface() {
     return new Interface(_abi$G);
   }
@@ -14971,7 +14972,6 @@ class IUniswapV3PoolDerivedState__factory {
     );
   }
 }
-IUniswapV3PoolDerivedState__factory.abi = _abi$G;
 
 const _abi$F = [
   {
@@ -15303,6 +15303,7 @@ const _abi$F = [
   }
 ];
 class IUniswapV3PoolEvents__factory {
+  static abi = _abi$F;
   static createInterface() {
     return new Interface(_abi$F);
   }
@@ -15314,7 +15315,6 @@ class IUniswapV3PoolEvents__factory {
     );
   }
 }
-IUniswapV3PoolEvents__factory.abi = _abi$F;
 
 const _abi$E = [
   {
@@ -15397,6 +15397,7 @@ const _abi$E = [
   }
 ];
 class IUniswapV3PoolImmutables__factory {
+  static abi = _abi$E;
   static createInterface() {
     return new Interface(_abi$E);
   }
@@ -15408,7 +15409,6 @@ class IUniswapV3PoolImmutables__factory {
     );
   }
 }
-IUniswapV3PoolImmutables__factory.abi = _abi$E;
 
 const _abi$D = [
   {
@@ -15465,6 +15465,7 @@ const _abi$D = [
   }
 ];
 class IUniswapV3PoolOwnerActions__factory {
+  static abi = _abi$D;
   static createInterface() {
     return new Interface(_abi$D);
   }
@@ -15476,7 +15477,6 @@ class IUniswapV3PoolOwnerActions__factory {
     );
   }
 }
-IUniswapV3PoolOwnerActions__factory.abi = _abi$D;
 
 const _abi$C = [
   {
@@ -15727,6 +15727,7 @@ const _abi$C = [
   }
 ];
 class IUniswapV3PoolState__factory {
+  static abi = _abi$C;
   static createInterface() {
     return new Interface(_abi$C);
   }
@@ -15738,7 +15739,6 @@ class IUniswapV3PoolState__factory {
     );
   }
 }
-IUniswapV3PoolState__factory.abi = _abi$C;
 
 var index$p = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -15949,6 +15949,7 @@ const _abi$B = [
   }
 ];
 class IUniswapV3Factory__factory {
+  static abi = _abi$B;
   static createInterface() {
     return new Interface(_abi$B);
   }
@@ -15956,7 +15957,6 @@ class IUniswapV3Factory__factory {
     return new Contract(address, _abi$B, runner);
   }
 }
-IUniswapV3Factory__factory.abi = _abi$B;
 
 const _abi$A = [
   {
@@ -16942,6 +16942,7 @@ const _abi$A = [
   }
 ];
 class IUniswapV3Pool__factory {
+  static abi = _abi$A;
   static createInterface() {
     return new Interface(_abi$A);
   }
@@ -16949,7 +16950,6 @@ class IUniswapV3Pool__factory {
     return new Contract(address, _abi$A, runner);
   }
 }
-IUniswapV3Pool__factory.abi = _abi$A;
 
 var index$o = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -17058,6 +17058,7 @@ const _abi$z = [
   }
 ];
 class ITornadoInstance__factory {
+  static abi = _abi$z;
   static createInterface() {
     return new Interface(_abi$z);
   }
@@ -17065,7 +17066,6 @@ class ITornadoInstance__factory {
     return new Contract(address, _abi$z, runner);
   }
 }
-ITornadoInstance__factory.abi = _abi$z;
 
 var index$k = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -17088,6 +17088,7 @@ const _abi$y = [
   }
 ];
 class IERC20Decimals__factory {
+  static abi = _abi$y;
   static createInterface() {
     return new Interface(_abi$y);
   }
@@ -17095,7 +17096,6 @@ class IERC20Decimals__factory {
     return new Contract(address, _abi$y, runner);
   }
 }
-IERC20Decimals__factory.abi = _abi$y;
 
 var index$j = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -17161,6 +17161,8 @@ class Dummy__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$o;
+  static abi = _abi$x;
   static createInterface() {
     return new Interface(_abi$x);
   }
@@ -17168,8 +17170,6 @@ class Dummy__factory extends ContractFactory {
     return new Contract(address, _abi$x, runner);
   }
 }
-Dummy__factory.bytecode = _bytecode$o;
-Dummy__factory.abi = _abi$x;
 
 const _abi$w = [
   {
@@ -17225,6 +17225,8 @@ class DummySecond__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$n;
+  static abi = _abi$w;
   static createInterface() {
     return new Interface(_abi$w);
   }
@@ -17232,8 +17234,6 @@ class DummySecond__factory extends ContractFactory {
     return new Contract(address, _abi$w, runner);
   }
 }
-DummySecond__factory.bytecode = _bytecode$n;
-DummySecond__factory.abi = _abi$w;
 
 var index$h = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -17257,6 +17257,7 @@ const _abi$v = [
   }
 ];
 class IGovernance__factory {
+  static abi = _abi$v;
   static createInterface() {
     return new Interface(_abi$v);
   }
@@ -17264,7 +17265,6 @@ class IGovernance__factory {
     return new Contract(address, _abi$v, runner);
   }
 }
-IGovernance__factory.abi = _abi$v;
 
 const _abi$u = [
   {
@@ -17294,6 +17294,8 @@ class ProposalStateChangeGovernance__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$m;
+  static abi = _abi$u;
   static createInterface() {
     return new Interface(_abi$u);
   }
@@ -17305,8 +17307,6 @@ class ProposalStateChangeGovernance__factory extends ContractFactory {
     );
   }
 }
-ProposalStateChangeGovernance__factory.bytecode = _bytecode$m;
-ProposalStateChangeGovernance__factory.abi = _abi$u;
 
 var index$g = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -17330,6 +17330,7 @@ const _abi$t = [
   }
 ];
 class IProxy__factory {
+  static abi = _abi$t;
   static createInterface() {
     return new Interface(_abi$t);
   }
@@ -17337,7 +17338,6 @@ class IProxy__factory {
     return new Contract(address, _abi$t, runner);
   }
 }
-IProxy__factory.abi = _abi$t;
 
 const _abi$s = [
   {
@@ -18178,6 +18178,8 @@ class NewImplementation__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$l;
+  static abi = _abi$s;
   static createInterface() {
     return new Interface(_abi$s);
   }
@@ -18185,8 +18187,6 @@ class NewImplementation__factory extends ContractFactory {
     return new Contract(address, _abi$s, runner);
   }
 }
-NewImplementation__factory.bytecode = _bytecode$l;
-NewImplementation__factory.abi = _abi$s;
 
 const _abi$r = [
   {
@@ -18240,6 +18240,8 @@ class ProposalUpgrade__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$k;
+  static abi = _abi$r;
   static createInterface() {
     return new Interface(_abi$r);
   }
@@ -18247,8 +18249,6 @@ class ProposalUpgrade__factory extends ContractFactory {
     return new Contract(address, _abi$r, runner);
   }
 }
-ProposalUpgrade__factory.bytecode = _bytecode$k;
-ProposalUpgrade__factory.abi = _abi$r;
 
 var index$f = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -19070,6 +19070,8 @@ class MockGovernance__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$j;
+  static abi = _abi$q;
   static createInterface() {
     return new Interface(_abi$q);
   }
@@ -19077,8 +19079,6 @@ class MockGovernance__factory extends ContractFactory {
     return new Contract(address, _abi$q, runner);
   }
 }
-MockGovernance__factory.bytecode = _bytecode$j;
-MockGovernance__factory.abi = _abi$q;
 
 const _abi$p = [
   {
@@ -19121,6 +19121,8 @@ class Proposal__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$i;
+  static abi = _abi$p;
   static createInterface() {
     return new Interface(_abi$p);
   }
@@ -19128,8 +19130,6 @@ class Proposal__factory extends ContractFactory {
     return new Contract(address, _abi$p, runner);
   }
 }
-Proposal__factory.bytecode = _bytecode$i;
-Proposal__factory.abi = _abi$p;
 
 var index$e = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -19369,6 +19369,8 @@ class Configuration__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$h;
+  static abi = _abi$o;
   static createInterface() {
     return new Interface(_abi$o);
   }
@@ -19376,8 +19378,6 @@ class Configuration__factory extends ContractFactory {
     return new Contract(address, _abi$o, runner);
   }
 }
-Configuration__factory.bytecode = _bytecode$h;
-Configuration__factory.abi = _abi$o;
 
 const _abi$n = [
   {
@@ -19401,6 +19401,7 @@ const _abi$n = [
   }
 ];
 class Core__factory {
+  static abi = _abi$n;
   static createInterface() {
     return new Interface(_abi$n);
   }
@@ -19408,7 +19409,6 @@ class Core__factory {
     return new Contract(address, _abi$n, runner);
   }
 }
-Core__factory.abi = _abi$n;
 
 const _abi$m = [
   {
@@ -19561,6 +19561,7 @@ const _abi$m = [
   }
 ];
 class Delegation__factory {
+  static abi = _abi$m;
   static createInterface() {
     return new Interface(_abi$m);
   }
@@ -19568,7 +19569,6 @@ class Delegation__factory {
     return new Contract(address, _abi$m, runner);
   }
 }
-Delegation__factory.abi = _abi$m;
 
 const _abi$l = [
   {
@@ -20349,6 +20349,8 @@ class Governance__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$g;
+  static abi = _abi$l;
   static createInterface() {
     return new Interface(_abi$l);
   }
@@ -20356,8 +20358,6 @@ class Governance__factory extends ContractFactory {
     return new Contract(address, _abi$l, runner);
   }
 }
-Governance__factory.bytecode = _bytecode$g;
-Governance__factory.abi = _abi$l;
 
 var index$d = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -20421,6 +20421,7 @@ const _abi$k = [
   }
 ];
 class GasCompensator__factory {
+  static abi = _abi$k;
   static createInterface() {
     return new Interface(_abi$k);
   }
@@ -20428,7 +20429,6 @@ class GasCompensator__factory {
     return new Contract(address, _abi$k, runner);
   }
 }
-GasCompensator__factory.abi = _abi$k;
 
 const _abi$j = [
   {
@@ -20464,6 +20464,7 @@ const _abi$j = [
   }
 ];
 class IGasCompensationVault__factory {
+  static abi = _abi$j;
   static createInterface() {
     return new Interface(_abi$j);
   }
@@ -20475,7 +20476,6 @@ class IGasCompensationVault__factory {
     );
   }
 }
-IGasCompensationVault__factory.abi = _abi$j;
 
 var index$c = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -20504,6 +20504,7 @@ const _abi$i = [
   }
 ];
 class ITornadoVault__factory {
+  static abi = _abi$i;
   static createInterface() {
     return new Interface(_abi$i);
   }
@@ -20511,7 +20512,6 @@ class ITornadoVault__factory {
     return new Contract(address, _abi$i, runner);
   }
 }
-ITornadoVault__factory.abi = _abi$i;
 
 var index$b = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -21437,6 +21437,8 @@ class GovernanceGasUpgrade__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$f;
+  static abi = _abi$h;
   static createInterface() {
     return new Interface(_abi$h);
   }
@@ -21448,8 +21450,6 @@ class GovernanceGasUpgrade__factory extends ContractFactory {
     );
   }
 }
-GovernanceGasUpgrade__factory.bytecode = _bytecode$f;
-GovernanceGasUpgrade__factory.abi = _abi$h;
 
 const _abi$g = [
   {
@@ -22262,6 +22262,8 @@ class GovernanceVaultUpgrade__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$e;
+  static abi = _abi$g;
   static createInterface() {
     return new Interface(_abi$g);
   }
@@ -22273,8 +22275,6 @@ class GovernanceVaultUpgrade__factory extends ContractFactory {
     );
   }
 }
-GovernanceVaultUpgrade__factory.bytecode = _bytecode$e;
-GovernanceVaultUpgrade__factory.abi = _abi$g;
 
 var index$a = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -22305,6 +22305,7 @@ const _abi$f = [
   }
 ];
 class ITornadoStakingRewards__factory {
+  static abi = _abi$f;
   static createInterface() {
     return new Interface(_abi$f);
   }
@@ -22316,7 +22317,6 @@ class ITornadoStakingRewards__factory {
     );
   }
 }
-ITornadoStakingRewards__factory.abi = _abi$f;
 
 var index$9 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -23298,6 +23298,8 @@ class GovernanceStakingUpgrade__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$d;
+  static abi = _abi$e;
   static createInterface() {
     return new Interface(_abi$e);
   }
@@ -23309,8 +23311,6 @@ class GovernanceStakingUpgrade__factory extends ContractFactory {
     );
   }
 }
-GovernanceStakingUpgrade__factory.bytecode = _bytecode$d;
-GovernanceStakingUpgrade__factory.abi = _abi$e;
 
 var index$8 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -23369,6 +23369,7 @@ const _abi$d = [
   }
 ];
 class IMetamorphicContractFactory__factory {
+  static abi = _abi$d;
   static createInterface() {
     return new Interface(_abi$d);
   }
@@ -23380,7 +23381,6 @@ class IMetamorphicContractFactory__factory {
     );
   }
 }
-IMetamorphicContractFactory__factory.abi = _abi$d;
 
 var index$7 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -23435,6 +23435,8 @@ class InitialProposal__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$c;
+  static abi = _abi$c;
   static createInterface() {
     return new Interface(_abi$c);
   }
@@ -23442,8 +23444,6 @@ class InitialProposal__factory extends ContractFactory {
     return new Contract(address, _abi$c, runner);
   }
 }
-InitialProposal__factory.bytecode = _bytecode$c;
-InitialProposal__factory.abi = _abi$c;
 
 const _abi$b = [
   {
@@ -23511,6 +23511,8 @@ class MaliciousProposal__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$b;
+  static abi = _abi$b;
   static createInterface() {
     return new Interface(_abi$b);
   }
@@ -23518,8 +23520,6 @@ class MaliciousProposal__factory extends ContractFactory {
     return new Contract(address, _abi$b, runner);
   }
 }
-MaliciousProposal__factory.bytecode = _bytecode$b;
-MaliciousProposal__factory.abi = _abi$b;
 
 var index$6 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -23684,6 +23684,8 @@ let AdminUpgradeableProxy__factory$1 = class AdminUpgradeableProxy__factory exte
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$a;
+  static abi = _abi$a;
   static createInterface() {
     return new Interface(_abi$a);
   }
@@ -23695,8 +23697,6 @@ let AdminUpgradeableProxy__factory$1 = class AdminUpgradeableProxy__factory exte
     );
   }
 };
-AdminUpgradeableProxy__factory$1.bytecode = _bytecode$a;
-AdminUpgradeableProxy__factory$1.abi = _abi$a;
 
 const _abi$9 = [
   {
@@ -24692,6 +24692,8 @@ class GovernanceExploitPatchUpgrade__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$9;
+  static abi = _abi$9;
   static createInterface() {
     return new Interface(_abi$9);
   }
@@ -24703,8 +24705,6 @@ class GovernanceExploitPatchUpgrade__factory extends ContractFactory {
     );
   }
 }
-GovernanceExploitPatchUpgrade__factory.bytecode = _bytecode$9;
-GovernanceExploitPatchUpgrade__factory.abi = _abi$9;
 
 const _abi$8 = [
   {
@@ -24862,6 +24862,8 @@ class PatchProposal__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$8;
+  static abi = _abi$8;
   static createInterface() {
     return new Interface(_abi$8);
   }
@@ -24869,8 +24871,6 @@ class PatchProposal__factory extends ContractFactory {
     return new Contract(address, _abi$8, runner);
   }
 }
-PatchProposal__factory.bytecode = _bytecode$8;
-PatchProposal__factory.abi = _abi$8;
 
 var index$4 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -25875,6 +25875,8 @@ class GovernanceProposalStateUpgrade__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$7;
+  static abi = _abi$7;
   static createInterface() {
     return new Interface(_abi$7);
   }
@@ -25886,8 +25888,6 @@ class GovernanceProposalStateUpgrade__factory extends ContractFactory {
     );
   }
 }
-GovernanceProposalStateUpgrade__factory.bytecode = _bytecode$7;
-GovernanceProposalStateUpgrade__factory.abi = _abi$7;
 
 var index$3 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -26046,6 +26046,8 @@ class AdminUpgradeableProxy__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$6;
+  static abi = _abi$6;
   static createInterface() {
     return new Interface(_abi$6);
   }
@@ -26057,8 +26059,6 @@ class AdminUpgradeableProxy__factory extends ContractFactory {
     );
   }
 }
-AdminUpgradeableProxy__factory.bytecode = _bytecode$6;
-AdminUpgradeableProxy__factory.abi = _abi$6;
 
 const _abi$5 = [
   {
@@ -26408,6 +26408,8 @@ class FeeManager__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$5;
+  static abi = _abi$5;
   static createInterface() {
     return new Interface(_abi$5);
   }
@@ -26415,8 +26417,6 @@ class FeeManager__factory extends ContractFactory {
     return new Contract(address, _abi$5, runner);
   }
 }
-FeeManager__factory.bytecode = _bytecode$5;
-FeeManager__factory.abi = _abi$5;
 
 const _abi$4 = [
   {
@@ -26498,6 +26498,8 @@ class GasCompensationVault__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$4;
+  static abi = _abi$4;
   static createInterface() {
     return new Interface(_abi$4);
   }
@@ -26509,8 +26511,6 @@ class GasCompensationVault__factory extends ContractFactory {
     );
   }
 }
-GasCompensationVault__factory.bytecode = _bytecode$4;
-GasCompensationVault__factory.abi = _abi$4;
 
 const _abi$3 = [
   {
@@ -26659,6 +26659,8 @@ class LoopbackProxy__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$3;
+  static abi = _abi$3;
   static createInterface() {
     return new Interface(_abi$3);
   }
@@ -26666,8 +26668,6 @@ class LoopbackProxy__factory extends ContractFactory {
     return new Contract(address, _abi$3, runner);
   }
 }
-LoopbackProxy__factory.bytecode = _bytecode$3;
-LoopbackProxy__factory.abi = _abi$3;
 
 const _abi$2 = [
   {
@@ -26714,6 +26714,8 @@ class SingletonFactory__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$2;
+  static abi = _abi$2;
   static createInterface() {
     return new Interface(_abi$2);
   }
@@ -26721,8 +26723,6 @@ class SingletonFactory__factory extends ContractFactory {
     return new Contract(address, _abi$2, runner);
   }
 }
-SingletonFactory__factory.bytecode = _bytecode$2;
-SingletonFactory__factory.abi = _abi$2;
 
 const _abi$1 = [
   {
@@ -26964,6 +26964,8 @@ class TornadoRouter__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode$1;
+  static abi = _abi$1;
   static createInterface() {
     return new Interface(_abi$1);
   }
@@ -26971,8 +26973,6 @@ class TornadoRouter__factory extends ContractFactory {
     return new Contract(address, _abi$1, runner);
   }
 }
-TornadoRouter__factory.bytecode = _bytecode$1;
-TornadoRouter__factory.abi = _abi$1;
 
 const _abi = [
   {
@@ -27029,6 +27029,8 @@ class TornadoVault__factory extends ContractFactory {
   connect(runner) {
     return super.connect(runner);
   }
+  static bytecode = _bytecode;
+  static abi = _abi;
   static createInterface() {
     return new Interface(_abi);
   }
@@ -27036,8 +27038,6 @@ class TornadoVault__factory extends ContractFactory {
     return new Contract(address, _abi, runner);
   }
 }
-TornadoVault__factory.bytecode = _bytecode;
-TornadoVault__factory.abi = _abi;
 
 var index$2 = /*#__PURE__*/Object.freeze({
   __proto__: null,
