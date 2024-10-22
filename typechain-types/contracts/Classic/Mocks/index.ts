@@ -7,3 +7,4 @@ export type { BadRecipient } from "./BadRecipient";
 export type { ERC20Mock } from "./ERC20Mock";
 export type { IDeployer } from "./IDeployer";
 export type { MerkleTreeWithHistoryMock } from "./MerkleTreeWithHistoryMock";
+export type { Permit2Mock } from "./Permit2Mock";
