@@ -45,6 +45,7 @@ export interface ERC20TornadoInterface extends Interface {
       | "nullifierHashes"
       | "roots"
       | "token"
+      | "tornadoProxyLight"
       | "verifier"
       | "withdraw"
       | "zeros"
@@ -107,6 +108,10 @@ export interface ERC20TornadoInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "roots", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "tornadoProxyLight",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "verifier", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdraw",
@@ -171,6 +176,10 @@ export interface ERC20TornadoInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "roots", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "tornadoProxyLight",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "verifier", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "zeros", data: BytesLike): Result;
@@ -312,6 +321,8 @@ export interface ERC20Tornado extends BaseContract {
 
   token: TypedContractMethod<[], [string], "view">;
 
+  tornadoProxyLight: TypedContractMethod<[], [string], "view">;
+
   verifier: TypedContractMethod<[], [string], "view">;
 
   withdraw: TypedContractMethod<
@@ -394,6 +405,9 @@ export interface ERC20Tornado extends BaseContract {
   ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
   getFunction(
     nameOrSignature: "token"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "tornadoProxyLight"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "verifier"

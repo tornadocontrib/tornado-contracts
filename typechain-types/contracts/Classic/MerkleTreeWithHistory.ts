@@ -8,7 +8,6 @@ import type {
   FunctionFragment,
   Result,
   Interface,
-  EventFragment,
   AddressLike,
   ContractRunner,
   ContractMethod,
@@ -18,38 +17,27 @@ import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
   TypedEventLog,
-  TypedLogDescription,
   TypedListener,
   TypedContractMethod,
-} from "../../../common";
+} from "../../common";
 
-export interface TornadoInterface extends Interface {
+export interface MerkleTreeWithHistoryInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "FIELD_SIZE"
       | "ROOT_HISTORY_SIZE"
       | "ZERO_VALUE"
-      | "commitments"
       | "currentRootIndex"
-      | "denomination"
-      | "deposit"
       | "filledSubtrees"
       | "getLastRoot"
       | "hashLeftRight"
       | "hasher"
       | "isKnownRoot"
-      | "isSpent"
-      | "isSpentArray"
       | "levels"
       | "nextIndex"
-      | "nullifierHashes"
       | "roots"
-      | "verifier"
-      | "withdraw"
       | "zeros"
   ): FunctionFragment;
-
-  getEvent(nameOrSignatureOrTopic: "Deposit" | "Withdrawal"): EventFragment;
 
   encodeFunctionData(
     functionFragment: "FIELD_SIZE",
@@ -64,18 +52,9 @@ export interface TornadoInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "commitments",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
     functionFragment: "currentRootIndex",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "denomination",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "deposit", values: [BytesLike]): string;
   encodeFunctionData(
     functionFragment: "filledSubtrees",
     values: [BigNumberish]
@@ -93,31 +72,9 @@ export interface TornadoInterface extends Interface {
     functionFragment: "isKnownRoot",
     values: [BytesLike]
   ): string;
-  encodeFunctionData(functionFragment: "isSpent", values: [BytesLike]): string;
-  encodeFunctionData(
-    functionFragment: "isSpentArray",
-    values: [BytesLike[]]
-  ): string;
   encodeFunctionData(functionFragment: "levels", values?: undefined): string;
   encodeFunctionData(functionFragment: "nextIndex", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "nullifierHashes",
-    values: [BytesLike]
-  ): string;
   encodeFunctionData(functionFragment: "roots", values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: "verifier", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "withdraw",
-    values: [
-      BytesLike,
-      BytesLike,
-      BytesLike,
-      AddressLike,
-      AddressLike,
-      BigNumberish,
-      BigNumberish
-    ]
-  ): string;
   encodeFunctionData(functionFragment: "zeros", values: [BigNumberish]): string;
 
   decodeFunctionResult(functionFragment: "FIELD_SIZE", data: BytesLike): Result;
@@ -127,18 +84,9 @@ export interface TornadoInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "ZERO_VALUE", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "commitments",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "currentRootIndex",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "denomination",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "filledSubtrees",
     data: BytesLike
@@ -156,75 +104,17 @@ export interface TornadoInterface extends Interface {
     functionFragment: "isKnownRoot",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "isSpent", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "isSpentArray",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "levels", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "nextIndex", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "nullifierHashes",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "roots", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "verifier", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "zeros", data: BytesLike): Result;
 }
 
-export namespace DepositEvent {
-  export type InputTuple = [
-    commitment: BytesLike,
-    leafIndex: BigNumberish,
-    timestamp: BigNumberish
-  ];
-  export type OutputTuple = [
-    commitment: string,
-    leafIndex: bigint,
-    timestamp: bigint
-  ];
-  export interface OutputObject {
-    commitment: string;
-    leafIndex: bigint;
-    timestamp: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace WithdrawalEvent {
-  export type InputTuple = [
-    to: AddressLike,
-    nullifierHash: BytesLike,
-    relayer: AddressLike,
-    fee: BigNumberish
-  ];
-  export type OutputTuple = [
-    to: string,
-    nullifierHash: string,
-    relayer: string,
-    fee: bigint
-  ];
-  export interface OutputObject {
-    to: string;
-    nullifierHash: string;
-    relayer: string;
-    fee: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export interface Tornado extends BaseContract {
-  connect(runner?: ContractRunner | null): Tornado;
+export interface MerkleTreeWithHistory extends BaseContract {
+  connect(runner?: ContractRunner | null): MerkleTreeWithHistory;
   waitForDeployment(): Promise<this>;
 
-  interface: TornadoInterface;
+  interface: MerkleTreeWithHistoryInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -269,13 +159,7 @@ export interface Tornado extends BaseContract {
 
   ZERO_VALUE: TypedContractMethod<[], [bigint], "view">;
 
-  commitments: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
-
   currentRootIndex: TypedContractMethod<[], [bigint], "view">;
-
-  denomination: TypedContractMethod<[], [bigint], "view">;
-
-  deposit: TypedContractMethod<[_commitment: BytesLike], [void], "payable">;
 
   filledSubtrees: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
@@ -291,37 +175,11 @@ export interface Tornado extends BaseContract {
 
   isKnownRoot: TypedContractMethod<[_root: BytesLike], [boolean], "view">;
 
-  isSpent: TypedContractMethod<[_nullifierHash: BytesLike], [boolean], "view">;
-
-  isSpentArray: TypedContractMethod<
-    [_nullifierHashes: BytesLike[]],
-    [boolean[]],
-    "view"
-  >;
-
   levels: TypedContractMethod<[], [bigint], "view">;
 
   nextIndex: TypedContractMethod<[], [bigint], "view">;
 
-  nullifierHashes: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
-
   roots: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
-
-  verifier: TypedContractMethod<[], [string], "view">;
-
-  withdraw: TypedContractMethod<
-    [
-      _proof: BytesLike,
-      _root: BytesLike,
-      _nullifierHash: BytesLike,
-      _recipient: AddressLike,
-      _relayer: AddressLike,
-      _fee: BigNumberish,
-      _refund: BigNumberish
-    ],
-    [void],
-    "payable"
-  >;
 
   zeros: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
@@ -339,17 +197,8 @@ export interface Tornado extends BaseContract {
     nameOrSignature: "ZERO_VALUE"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "commitments"
-  ): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
-  getFunction(
     nameOrSignature: "currentRootIndex"
   ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "denomination"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "deposit"
-  ): TypedContractMethod<[_commitment: BytesLike], [void], "payable">;
   getFunction(
     nameOrSignature: "filledSubtrees"
   ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
@@ -370,81 +219,17 @@ export interface Tornado extends BaseContract {
     nameOrSignature: "isKnownRoot"
   ): TypedContractMethod<[_root: BytesLike], [boolean], "view">;
   getFunction(
-    nameOrSignature: "isSpent"
-  ): TypedContractMethod<[_nullifierHash: BytesLike], [boolean], "view">;
-  getFunction(
-    nameOrSignature: "isSpentArray"
-  ): TypedContractMethod<[_nullifierHashes: BytesLike[]], [boolean[]], "view">;
-  getFunction(
     nameOrSignature: "levels"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "nextIndex"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "nullifierHashes"
-  ): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
-  getFunction(
     nameOrSignature: "roots"
   ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
-  getFunction(
-    nameOrSignature: "verifier"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "withdraw"
-  ): TypedContractMethod<
-    [
-      _proof: BytesLike,
-      _root: BytesLike,
-      _nullifierHash: BytesLike,
-      _recipient: AddressLike,
-      _relayer: AddressLike,
-      _fee: BigNumberish,
-      _refund: BigNumberish
-    ],
-    [void],
-    "payable"
-  >;
   getFunction(
     nameOrSignature: "zeros"
   ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
-  getEvent(
-    key: "Deposit"
-  ): TypedContractEvent<
-    DepositEvent.InputTuple,
-    DepositEvent.OutputTuple,
-    DepositEvent.OutputObject
-  >;
-  getEvent(
-    key: "Withdrawal"
-  ): TypedContractEvent<
-    WithdrawalEvent.InputTuple,
-    WithdrawalEvent.OutputTuple,
-    WithdrawalEvent.OutputObject
-  >;
-
-  filters: {
-    "Deposit(bytes32,uint32,uint256)": TypedContractEvent<
-      DepositEvent.InputTuple,
-      DepositEvent.OutputTuple,
-      DepositEvent.OutputObject
-    >;
-    Deposit: TypedContractEvent<
-      DepositEvent.InputTuple,
-      DepositEvent.OutputTuple,
-      DepositEvent.OutputObject
-    >;
-
-    "Withdrawal(address,bytes32,address,uint256)": TypedContractEvent<
-      WithdrawalEvent.InputTuple,
-      WithdrawalEvent.OutputTuple,
-      WithdrawalEvent.OutputObject
-    >;
-    Withdrawal: TypedContractEvent<
-      WithdrawalEvent.InputTuple,
-      WithdrawalEvent.OutputTuple,
-      WithdrawalEvent.OutputObject
-    >;
-  };
+  filters: {};
 }

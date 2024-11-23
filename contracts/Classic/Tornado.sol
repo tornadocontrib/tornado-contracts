@@ -14,10 +14,7 @@ pragma solidity ^0.8.20;
 
 import { IHasher, MerkleTreeWithHistory } from "./MerkleTreeWithHistory.sol";
 import { ReentrancyGuard } from "./libraries/ReentrancyGuard.sol";
-
-interface IVerifier {
-  function verifyProof(bytes memory _proof, uint256[6] memory _input) external returns (bool);
-}
+import { IVerifier } from './interfaces/IVerifier.sol';
 
 abstract contract Tornado is MerkleTreeWithHistory, ReentrancyGuard {
   IVerifier public immutable verifier;

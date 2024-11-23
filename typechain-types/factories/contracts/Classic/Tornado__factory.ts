@@ -6,7 +6,7 @@ import { Contract, Interface, type ContractRunner } from "ethers";
 import type {
   Tornado,
   TornadoInterface,
-} from "../../../../contracts/Classic/Tornado.sol/Tornado";
+} from "../../../contracts/Classic/Tornado";
 
 const _abi = [
   {

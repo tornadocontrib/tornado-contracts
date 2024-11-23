@@ -1,5 +1,5 @@
-import type { BaseContract, BigNumberish, BytesLike, FunctionFragment, Result, Interface, EventFragment, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers";
-import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedLogDescription, TypedListener, TypedContractMethod } from "../../../common";
+import type { BaseContract, BytesLike, FunctionFragment, Result, Interface, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers";
+import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedListener, TypedContractMethod } from "../../../common";
 export declare namespace Permit2Mock {
     type PermitCommitmentsStruct = {
         instance: AddressLike;
@@ -14,40 +14,27 @@ export declare namespace Permit2Mock {
     };
 }
 export interface Permit2MockInterface extends Interface {
-    getFunction(nameOrSignature: "COMMITMENT_TYPE" | "COMMITMENT_TYPEHASH" | "WITNESS_TYPE_STRING" | "denomination" | "permit2" | "permit2Commitments" | "permit2Test" | "token" | "verifiedCommitments" | "witness"): FunctionFragment;
-    getEvent(nameOrSignatureOrTopic: "VerifiedCommitment"): EventFragment;
+    getFunction(nameOrSignature: "COMMITMENT_TYPE" | "COMMITMENT_TYPEHASH" | "WITNESS_TYPE_STRING" | "commitments" | "denomination" | "depositPermit" | "getSignatureType" | "permit2" | "token" | "witness"): FunctionFragment;
     encodeFunctionData(functionFragment: "COMMITMENT_TYPE", values?: undefined): string;
     encodeFunctionData(functionFragment: "COMMITMENT_TYPEHASH", values?: undefined): string;
     encodeFunctionData(functionFragment: "WITNESS_TYPE_STRING", values?: undefined): string;
+    encodeFunctionData(functionFragment: "commitments", values: [BytesLike]): string;
     encodeFunctionData(functionFragment: "denomination", values?: undefined): string;
+    encodeFunctionData(functionFragment: "depositPermit", values: [BytesLike[], BytesLike]): string;
+    encodeFunctionData(functionFragment: "getSignatureType", values: [BytesLike]): string;
     encodeFunctionData(functionFragment: "permit2", values?: undefined): string;
-    encodeFunctionData(functionFragment: "permit2Commitments", values: [AddressLike, BytesLike[], BigNumberish, BigNumberish, BytesLike]): string;
-    encodeFunctionData(functionFragment: "permit2Test", values: [AddressLike, BigNumberish, BigNumberish, BytesLike]): string;
     encodeFunctionData(functionFragment: "token", values?: undefined): string;
-    encodeFunctionData(functionFragment: "verifiedCommitments", values: [BytesLike]): string;
     encodeFunctionData(functionFragment: "witness", values: [Permit2Mock.PermitCommitmentsStruct]): string;
     decodeFunctionResult(functionFragment: "COMMITMENT_TYPE", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "COMMITMENT_TYPEHASH", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "WITNESS_TYPE_STRING", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "commitments", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "denomination", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "depositPermit", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getSignatureType", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "permit2", data: BytesLike): Result;
-    decodeFunctionResult(functionFragment: "permit2Commitments", data: BytesLike): Result;
-    decodeFunctionResult(functionFragment: "permit2Test", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
-    decodeFunctionResult(functionFragment: "verifiedCommitments", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "witness", data: BytesLike): Result;
-}
-export declare namespace VerifiedCommitmentEvent {
-    type InputTuple = [commitment: BytesLike, owner: AddressLike];
-    type OutputTuple = [commitment: string, owner: string];
-    interface OutputObject {
-        commitment: string;
-        owner: string;
-    }
-    type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-    type Filter = TypedDeferredTopicFilter<Event>;
-    type Log = TypedEventLog<Event>;
-    type LogDescription = TypedLogDescription<Event>;
 }
 export interface Permit2Mock extends BaseContract {
     connect(runner?: ContractRunner | null): Permit2Mock;
@@ -65,27 +52,21 @@ export interface Permit2Mock extends BaseContract {
     COMMITMENT_TYPE: TypedContractMethod<[], [string], "view">;
     COMMITMENT_TYPEHASH: TypedContractMethod<[], [string], "view">;
     WITNESS_TYPE_STRING: TypedContractMethod<[], [string], "view">;
+    commitments: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
     denomination: TypedContractMethod<[], [bigint], "view">;
-    permit2: TypedContractMethod<[], [string], "view">;
-    permit2Commitments: TypedContractMethod<[
-        owner: AddressLike,
+    depositPermit: TypedContractMethod<[
         _commitments: BytesLike[],
-        nonce: BigNumberish,
-        deadline: BigNumberish,
-        _signature: BytesLike
+        permitData: BytesLike
     ], [
         void
     ], "nonpayable">;
-    permit2Test: TypedContractMethod<[
-        owner: AddressLike,
-        nonce: BigNumberish,
-        deadline: BigNumberish,
-        _signature: BytesLike
+    getSignatureType: TypedContractMethod<[
+        permitData: BytesLike
     ], [
-        void
-    ], "nonpayable">;
+        bigint
+    ], "view">;
+    permit2: TypedContractMethod<[], [string], "view">;
     token: TypedContractMethod<[], [string], "view">;
-    verifiedCommitments: TypedContractMethod<[arg0: BytesLike], [string], "view">;
     witness: TypedContractMethod<[
         permitData: Permit2Mock.PermitCommitmentsStruct
     ], [
@@ -95,35 +76,21 @@ export interface Permit2Mock extends BaseContract {
     getFunction(nameOrSignature: "COMMITMENT_TYPE"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "COMMITMENT_TYPEHASH"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "WITNESS_TYPE_STRING"): TypedContractMethod<[], [string], "view">;
+    getFunction(nameOrSignature: "commitments"): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
     getFunction(nameOrSignature: "denomination"): TypedContractMethod<[], [bigint], "view">;
-    getFunction(nameOrSignature: "permit2"): TypedContractMethod<[], [string], "view">;
-    getFunction(nameOrSignature: "permit2Commitments"): TypedContractMethod<[
-        owner: AddressLike,
+    getFunction(nameOrSignature: "depositPermit"): TypedContractMethod<[
         _commitments: BytesLike[],
-        nonce: BigNumberish,
-        deadline: BigNumberish,
-        _signature: BytesLike
+        permitData: BytesLike
     ], [
         void
     ], "nonpayable">;
-    getFunction(nameOrSignature: "permit2Test"): TypedContractMethod<[
-        owner: AddressLike,
-        nonce: BigNumberish,
-        deadline: BigNumberish,
-        _signature: BytesLike
-    ], [
-        void
-    ], "nonpayable">;
+    getFunction(nameOrSignature: "getSignatureType"): TypedContractMethod<[permitData: BytesLike], [bigint], "view">;
+    getFunction(nameOrSignature: "permit2"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "token"): TypedContractMethod<[], [string], "view">;
-    getFunction(nameOrSignature: "verifiedCommitments"): TypedContractMethod<[arg0: BytesLike], [string], "view">;
     getFunction(nameOrSignature: "witness"): TypedContractMethod<[
         permitData: Permit2Mock.PermitCommitmentsStruct
     ], [
         string
     ], "view">;
-    getEvent(key: "VerifiedCommitment"): TypedContractEvent<VerifiedCommitmentEvent.InputTuple, VerifiedCommitmentEvent.OutputTuple, VerifiedCommitmentEvent.OutputObject>;
-    filters: {
-        "VerifiedCommitment(bytes32,address)": TypedContractEvent<VerifiedCommitmentEvent.InputTuple, VerifiedCommitmentEvent.OutputTuple, VerifiedCommitmentEvent.OutputObject>;
-        VerifiedCommitment: TypedContractEvent<VerifiedCommitmentEvent.InputTuple, VerifiedCommitmentEvent.OutputTuple, VerifiedCommitmentEvent.OutputObject>;
-    };
+    filters: {};
 }

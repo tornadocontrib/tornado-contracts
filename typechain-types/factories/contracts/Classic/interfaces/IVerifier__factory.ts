@@ -6,7 +6,7 @@ import { Contract, Interface, type ContractRunner } from "ethers";
 import type {
   IVerifier,
   IVerifierInterface,
-} from "../../../../contracts/Classic/Tornado.sol/IVerifier";
+} from "../../../../contracts/Classic/interfaces/IVerifier";
 
 const _abi = [
   {

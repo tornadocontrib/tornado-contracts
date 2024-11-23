@@ -10,7 +10,8 @@
     "compile": "hardhat clean && hardhat compile && hardhat flatten:all",
     "build": "yarn compile && yarn types && rollup -c",
     "deploy": "hardhat run ./scripts/deploy.ts",
-    "lint": "eslint . --ext .ts --ignore-pattern dist"
+    "lint": "eslint . --ext .ts --ignore-pattern dist",
+    "test": "hardhat test"
   },
   "files": [
     "contracts",

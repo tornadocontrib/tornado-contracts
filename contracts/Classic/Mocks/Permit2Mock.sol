@@ -1,16 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import { IERC20 } from '../interfaces/IERC20.sol';
+import { ParseSignature } from '../libraries/ParseSignature.sol';
 import { ISignatureTransfer } from '../interfaces/ISignatureTransfer.sol';
 
 contract Permit2Mock {
+    enum SignatureType {
+        PERMIT,
+        PERMIT2
+    }
+    
     struct PermitCommitments {
         address instance;
         bytes32 commitmentsHash;
     }
 
     uint256 public denomination;
-    address public token;
+    IERC20 public token;
 
     bytes public constant COMMITMENT_TYPE = "PermitCommitments(address instance,bytes32 commitmentsHash)";
 
@@ -21,27 +28,13 @@ contract Permit2Mock {
     // https://docs.uniswap.org/contracts/v3/reference/deployments/ethereum-deployments
     ISignatureTransfer public constant permit2 = ISignatureTransfer(0x000000000022D473030F116dDEE9F6B43aC78BA3);
 
-    mapping(bytes32 => address) public verifiedCommitments;
+    mapping(bytes32 => bool) public commitments;
 
-    event VerifiedCommitment(bytes32 indexed commitment, address owner);
+    error InvalidSignatureType();
 
-    constructor(uint256 _denomination, address _token) {
+    constructor(uint256 _denomination, IERC20 _token) {
         denomination = _denomination;
         token = _token;
-    }
-
-    function pushVerifiedCommitments(bytes32[] memory _commitments, address owner) internal {
-        for (uint256 i = 0; i < _commitments.length; i++) {
-            bytes32 _commitment = _commitments[i];
-
-            // Prevent losing money with wrong commitment
-            require(verifiedCommitments[_commitment] == address(0), "The commitment has been verified");
-            // require(!commitments[_commitment], "The commitment has been submitted");
-
-            verifiedCommitments[_commitment] = owner;
-
-            emit VerifiedCommitment(_commitment, owner);
-        }
     }
 
     function witness(PermitCommitments memory permitData) public pure returns (bytes32) {
@@ -50,65 +43,69 @@ contract Permit2Mock {
         );
     }
 
-    /**
-     * https://docs.uniswap.org/contracts/permit2/reference/signature-transfer#batch-permitwitnesstransferfrom
-     */
-    function permit2Commitments(
-        address owner,
-        bytes32[] memory _commitments,
-        uint256 nonce,
-        uint256 deadline,
-        bytes calldata _signature
-    ) external {
-        uint256 amount = denomination * _commitments.length;
-        bytes32 commitmentsHash = keccak256(abi.encodePacked(_commitments));
+    function getSignatureType(bytes memory permitData) public pure returns (SignatureType) {
+        (bytes1 sigType) = abi.decode(permitData, (bytes1));
 
-        permit2.permitWitnessTransferFrom(
-            ISignatureTransfer.PermitTransferFrom({
-                permitted: ISignatureTransfer.TokenPermissions({
-                    token: address(token),
-                    amount: amount
-                }),
-                nonce: nonce,
-                deadline: deadline
-            }),
-            ISignatureTransfer.SignatureTransferDetails({
-                to: address(this),
-                requestedAmount: amount
-            }),
-            owner,
-            witness(PermitCommitments({
-                instance: address(this),
-                commitmentsHash: commitmentsHash
-            })),
-            WITNESS_TYPE_STRING,
-            _signature
-        );
-
-        pushVerifiedCommitments(_commitments, owner);
+        if (uint8(sigType) == uint8(0)) {
+            return SignatureType.PERMIT;
+        } else if (uint8(sigType) == uint8(1)) {
+            return SignatureType.PERMIT2;
+        } else {
+            revert InvalidSignatureType();
+        }
     }
 
-    function permit2Test(
-        address owner,
-        uint256 nonce,
-        uint256 deadline,
-        bytes calldata _signature
+    function depositPermit(
+        bytes32[] memory _commitments,
+        bytes memory permitData
     ) external {
-        permit2.permitTransferFrom(
-            ISignatureTransfer.PermitTransferFrom({
-                permitted: ISignatureTransfer.TokenPermissions({
-                    token: address(token),
-                    amount: denomination
+        // Process token transfer with permit signatures
+
+        SignatureType sigType = getSignatureType(permitData);
+
+        if (sigType == SignatureType.PERMIT) {
+
+            (, address owner, bytes memory signature) = abi.decode(permitData, (bytes1, address, bytes));
+
+            (uint8 v, bytes32 r, bytes32 s) = ParseSignature.parse(signature);
+
+            uint256 amount = denomination * _commitments.length;
+            bytes32 commitmentsHash = keccak256(abi.encodePacked(_commitments));
+            
+            token.permit(owner, address(this), amount, uint256(commitmentsHash), v, r, s);
+            token.transferFrom(owner, address(this), amount);
+
+        } else {
+
+            (, address owner, uint256 nonce, uint256 deadline, bytes memory signature) = abi.decode(
+                permitData, (bytes1, address, uint256, uint256, bytes)
+            );
+
+            uint256 amount = denomination * _commitments.length;
+            bytes32 commitmentsHash = keccak256(abi.encodePacked(_commitments));
+            
+            permit2.permitWitnessTransferFrom(
+                ISignatureTransfer.PermitTransferFrom({
+                    permitted: ISignatureTransfer.TokenPermissions({
+                        token: address(token),
+                        amount: amount
+                    }),
+                    nonce: nonce,
+                    deadline: deadline
                 }),
-                nonce: nonce,
-                deadline: deadline
-            }),
-            ISignatureTransfer.SignatureTransferDetails({
-                to: address(this),
-                requestedAmount: denomination
-            }),
-            owner,
-            _signature
-        );
+                ISignatureTransfer.SignatureTransferDetails({
+                    to: address(this),
+                    requestedAmount: amount
+                }),
+                owner,
+                witness(PermitCommitments({
+                    instance: address(this),
+                    commitmentsHash: commitmentsHash
+                })),
+                WITNESS_TYPE_STRING,
+                signature
+            );
+
+        }
     }
 }

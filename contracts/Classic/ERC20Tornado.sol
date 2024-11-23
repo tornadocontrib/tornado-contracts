@@ -15,23 +15,33 @@ pragma solidity ^0.8.20;
 import { IVerifier, IHasher, Tornado } from "./Tornado.sol";
 import { IERC20, SafeERC20 } from "./libraries/SafeERC20.sol";
 
-// Modified by https://git.tornado.ws/tornadocontrib/tornado-contracts
+/**
+ * @dev Modified by tornadocontrib.eth to make it compatible with tornadoProxyLite contract
+ */
 contract ERC20Tornado is Tornado {
   using SafeERC20 for IERC20;
   IERC20 public immutable token;
+
+  address public immutable tornadoProxyLight;
 
   constructor(
     IVerifier _verifier,
     IHasher _hasher,
     uint256 _denomination,
     uint32 _merkleTreeHeight,
-    IERC20 _token
+    IERC20 _token,
+    address _tornadoProxyLight
   ) Tornado(_verifier, _hasher, _denomination, _merkleTreeHeight) {
     token = _token;
+    tornadoProxyLight = _tornadoProxyLight;
   }
 
   function _processDeposit() internal virtual override {
     require(msg.value == 0, "ETH value is supposed to be 0 for ERC20 instance");
+    if (msg.sender == tornadoProxyLight) {
+      token.safeTransferFrom(tx.origin, address(this), denomination);
+      return;
+    }
     token.safeTransferFrom(msg.sender, address(this), denomination);
   }
 

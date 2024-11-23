@@ -3,12 +3,10 @@
 /* eslint-disable */
 import type {
   BaseContract,
-  BigNumberish,
   BytesLike,
   FunctionFragment,
   Result,
   Interface,
-  EventFragment,
   AddressLike,
   ContractRunner,
   ContractMethod,
@@ -18,7 +16,6 @@ import type {
   TypedContractEvent,
   TypedDeferredTopicFilter,
   TypedEventLog,
-  TypedLogDescription,
   TypedListener,
   TypedContractMethod,
 } from "../../../common";
@@ -41,16 +38,14 @@ export interface Permit2MockInterface extends Interface {
       | "COMMITMENT_TYPE"
       | "COMMITMENT_TYPEHASH"
       | "WITNESS_TYPE_STRING"
+      | "commitments"
       | "denomination"
+      | "depositPermit"
+      | "getSignatureType"
       | "permit2"
-      | "permit2Commitments"
-      | "permit2Test"
       | "token"
-      | "verifiedCommitments"
       | "witness"
   ): FunctionFragment;
-
-  getEvent(nameOrSignatureOrTopic: "VerifiedCommitment"): EventFragment;
 
   encodeFunctionData(
     functionFragment: "COMMITMENT_TYPE",
@@ -65,23 +60,23 @@ export interface Permit2MockInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "commitments",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "denomination",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "permit2", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "permit2Commitments",
-    values: [AddressLike, BytesLike[], BigNumberish, BigNumberish, BytesLike]
+    functionFragment: "depositPermit",
+    values: [BytesLike[], BytesLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "permit2Test",
-    values: [AddressLike, BigNumberish, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "token", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "verifiedCommitments",
+    functionFragment: "getSignatureType",
     values: [BytesLike]
   ): string;
+  encodeFunctionData(functionFragment: "permit2", values?: undefined): string;
+  encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "witness",
     values: [Permit2Mock.PermitCommitmentsStruct]
@@ -100,37 +95,24 @@ export interface Permit2MockInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "commitments",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "denomination",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "depositPermit",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getSignatureType",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "permit2", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "permit2Commitments",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "permit2Test",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "verifiedCommitments",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "witness", data: BytesLike): Result;
-}
-
-export namespace VerifiedCommitmentEvent {
-  export type InputTuple = [commitment: BytesLike, owner: AddressLike];
-  export type OutputTuple = [commitment: string, owner: string];
-  export interface OutputObject {
-    commitment: string;
-    owner: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export interface Permit2Mock extends BaseContract {
@@ -182,36 +164,25 @@ export interface Permit2Mock extends BaseContract {
 
   WITNESS_TYPE_STRING: TypedContractMethod<[], [string], "view">;
 
+  commitments: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
+
   denomination: TypedContractMethod<[], [bigint], "view">;
+
+  depositPermit: TypedContractMethod<
+    [_commitments: BytesLike[], permitData: BytesLike],
+    [void],
+    "nonpayable"
+  >;
+
+  getSignatureType: TypedContractMethod<
+    [permitData: BytesLike],
+    [bigint],
+    "view"
+  >;
 
   permit2: TypedContractMethod<[], [string], "view">;
 
-  permit2Commitments: TypedContractMethod<
-    [
-      owner: AddressLike,
-      _commitments: BytesLike[],
-      nonce: BigNumberish,
-      deadline: BigNumberish,
-      _signature: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-
-  permit2Test: TypedContractMethod<
-    [
-      owner: AddressLike,
-      nonce: BigNumberish,
-      deadline: BigNumberish,
-      _signature: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-
   token: TypedContractMethod<[], [string], "view">;
-
-  verifiedCommitments: TypedContractMethod<[arg0: BytesLike], [string], "view">;
 
   witness: TypedContractMethod<
     [permitData: Permit2Mock.PermitCommitmentsStruct],
@@ -233,42 +204,27 @@ export interface Permit2Mock extends BaseContract {
     nameOrSignature: "WITNESS_TYPE_STRING"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "commitments"
+  ): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
+  getFunction(
     nameOrSignature: "denomination"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "depositPermit"
+  ): TypedContractMethod<
+    [_commitments: BytesLike[], permitData: BytesLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "getSignatureType"
+  ): TypedContractMethod<[permitData: BytesLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "permit2"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "permit2Commitments"
-  ): TypedContractMethod<
-    [
-      owner: AddressLike,
-      _commitments: BytesLike[],
-      nonce: BigNumberish,
-      deadline: BigNumberish,
-      _signature: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "permit2Test"
-  ): TypedContractMethod<
-    [
-      owner: AddressLike,
-      nonce: BigNumberish,
-      deadline: BigNumberish,
-      _signature: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
     nameOrSignature: "token"
   ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "verifiedCommitments"
-  ): TypedContractMethod<[arg0: BytesLike], [string], "view">;
   getFunction(
     nameOrSignature: "witness"
   ): TypedContractMethod<
@@ -277,24 +233,5 @@ export interface Permit2Mock extends BaseContract {
     "view"
   >;
 
-  getEvent(
-    key: "VerifiedCommitment"
-  ): TypedContractEvent<
-    VerifiedCommitmentEvent.InputTuple,
-    VerifiedCommitmentEvent.OutputTuple,
-    VerifiedCommitmentEvent.OutputObject
-  >;
-
-  filters: {
-    "VerifiedCommitment(bytes32,address)": TypedContractEvent<
-      VerifiedCommitmentEvent.InputTuple,
-      VerifiedCommitmentEvent.OutputTuple,
-      VerifiedCommitmentEvent.OutputObject
-    >;
-    VerifiedCommitment: TypedContractEvent<
-      VerifiedCommitmentEvent.InputTuple,
-      VerifiedCommitmentEvent.OutputTuple,
-      VerifiedCommitmentEvent.OutputObject
-    >;
-  };
+  filters: {};
 }

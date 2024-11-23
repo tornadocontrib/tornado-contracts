@@ -12,9 +12,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-interface IHasher {
-  function MiMCSponge(uint256 in_xL, uint256 in_xR) external pure returns (uint256 xL, uint256 xR);
-}
+import { IHasher } from './interfaces/IHasher.sol';
 
 contract MerkleTreeWithHistory {
   uint256 public constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;

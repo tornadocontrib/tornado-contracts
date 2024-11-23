@@ -23,36 +23,86 @@ import type {
   TypedContractMethod,
 } from "../../common";
 
-export declare namespace PermitTornado {
+export declare namespace TornadoV2 {
+  export type CreateInstanceStruct = {
+    token: AddressLike;
+    denomination: BigNumberish;
+    vault: AddressLike;
+  };
+
+  export type CreateInstanceStructOutput = [
+    token: string,
+    denomination: bigint,
+    vault: string
+  ] & { token: string; denomination: bigint; vault: string };
+
+  export type InstanceViewStruct = {
+    currentRootIndex: BigNumberish;
+    nextIndex: BigNumberish;
+    token: AddressLike;
+    native: boolean;
+    denomination: BigNumberish;
+    delta: BigNumberish;
+    rewards: BigNumberish;
+    vault: AddressLike;
+  };
+
+  export type InstanceViewStructOutput = [
+    currentRootIndex: bigint,
+    nextIndex: bigint,
+    token: string,
+    native: boolean,
+    denomination: bigint,
+    delta: bigint,
+    rewards: bigint,
+    vault: string
+  ] & {
+    currentRootIndex: bigint;
+    nextIndex: bigint;
+    token: string;
+    native: boolean;
+    denomination: bigint;
+    delta: bigint;
+    rewards: bigint;
+    vault: string;
+  };
+
   export type PermitCommitmentsStruct = {
-    instance: AddressLike;
+    instancesHash: BytesLike;
     commitmentsHash: BytesLike;
   };
 
   export type PermitCommitmentsStructOutput = [
-    instance: string,
+    instancesHash: string,
     commitmentsHash: string
-  ] & { instance: string; commitmentsHash: string };
+  ] & { instancesHash: string; commitmentsHash: string };
 }
 
-export interface PermitTornadoInterface extends Interface {
+export interface TornadoV2Interface extends Interface {
   getFunction(
     nameOrSignature:
       | "COMMITMENT_TYPE"
       | "COMMITMENT_TYPEHASH"
       | "FIELD_SIZE"
+      | "REVISION"
       | "ROOT_HISTORY_SIZE"
       | "WITNESS_TYPE_STRING"
       | "ZERO_VALUE"
       | "commitments"
-      | "currentRootIndex"
+      | "createInstance"
       | "denomination"
       | "deposit"
-      | "depositCommitment"
+      | "feeRate"
+      | "feeTo"
       | "filledSubtrees"
       | "getLastRoot"
+      | "getSignatureType"
+      | "hasInstance"
       | "hashLeftRight"
       | "hasher"
+      | "initialize"
+      | "instance"
+      | "instanceIndex"
       | "isKnownRoot"
       | "isSpent"
       | "isSpentArray"
@@ -60,21 +110,16 @@ export interface PermitTornadoInterface extends Interface {
       | "nextIndex"
       | "nullifierHashes"
       | "permit2"
-      | "permit2Commitments"
-      | "permitCommitments"
       | "roots"
       | "token"
-      | "tornadoProxyLight"
-      | "verifiedCommitments"
       | "verifier"
+      | "weth"
       | "withdraw"
       | "witness"
       | "zeros"
   ): FunctionFragment;
 
-  getEvent(
-    nameOrSignatureOrTopic: "Deposit" | "VerifiedCommitment" | "Withdrawal"
-  ): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Deposit" | "Withdrawal"): EventFragment;
 
   encodeFunctionData(
     functionFragment: "COMMITMENT_TYPE",
@@ -88,6 +133,7 @@ export interface PermitTornadoInterface extends Interface {
     functionFragment: "FIELD_SIZE",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "REVISION", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "ROOT_HISTORY_SIZE",
     values?: undefined
@@ -105,34 +151,62 @@ export interface PermitTornadoInterface extends Interface {
     values: [BytesLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "currentRootIndex",
-    values?: undefined
+    functionFragment: "createInstance",
+    values: [AddressLike, BigNumberish, AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "denomination",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "deposit", values: [BytesLike]): string;
-  encodeFunctionData(
-    functionFragment: "depositCommitment",
-    values: [BytesLike, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "filledSubtrees",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "deposit",
+    values: [BigNumberish[], BytesLike[], BytesLike]
+  ): string;
+  encodeFunctionData(functionFragment: "feeRate", values?: undefined): string;
+  encodeFunctionData(functionFragment: "feeTo", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "filledSubtrees",
+    values: [BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getLastRoot",
-    values?: undefined
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getSignatureType",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasInstance",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "hashLeftRight",
-    values: [AddressLike, BytesLike, BytesLike]
+    values: [BytesLike, BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "hasher", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "initialize",
+    values: [
+      AddressLike,
+      AddressLike,
+      AddressLike,
+      BigNumberish,
+      AddressLike,
+      TornadoV2.CreateInstanceStruct[]
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "instance",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "instanceIndex",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "isKnownRoot",
-    values: [BytesLike]
+    values: [BigNumberish, BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "isSpent", values: [BytesLike]): string;
   encodeFunctionData(
@@ -140,48 +214,44 @@ export interface PermitTornadoInterface extends Interface {
     values: [BytesLike[]]
   ): string;
   encodeFunctionData(functionFragment: "levels", values?: undefined): string;
-  encodeFunctionData(functionFragment: "nextIndex", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "nextIndex",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "nullifierHashes",
     values: [BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "permit2", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "permit2Commitments",
-    values: [AddressLike, BytesLike[], BigNumberish, BigNumberish, BytesLike]
+    functionFragment: "roots",
+    values: [BigNumberish, BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "permitCommitments",
-    values: [AddressLike, BytesLike[], BigNumberish, BytesLike, BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "roots", values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: "token", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "tornadoProxyLight",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "verifiedCommitments",
-    values: [BytesLike]
-  ): string;
+  encodeFunctionData(functionFragment: "token", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "verifier", values?: undefined): string;
+  encodeFunctionData(functionFragment: "weth", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdraw",
     values: [
+      BigNumberish,
       BytesLike,
       BytesLike,
       BytesLike,
       AddressLike,
       AddressLike,
       BigNumberish,
-      BigNumberish
+      BigNumberish,
+      BytesLike
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "witness",
-    values: [PermitTornado.PermitCommitmentsStruct]
+    values: [TornadoV2.PermitCommitmentsStruct]
   ): string;
-  encodeFunctionData(functionFragment: "zeros", values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "zeros",
+    values: [BigNumberish, BigNumberish]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "COMMITMENT_TYPE",
@@ -192,6 +262,7 @@ export interface PermitTornadoInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "FIELD_SIZE", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "REVISION", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "ROOT_HISTORY_SIZE",
     data: BytesLike
@@ -206,7 +277,7 @@ export interface PermitTornadoInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "currentRootIndex",
+    functionFragment: "createInstance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -214,10 +285,8 @@ export interface PermitTornadoInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "depositCommitment",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "feeRate", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "feeTo", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "filledSubtrees",
     data: BytesLike
@@ -227,10 +296,24 @@ export interface PermitTornadoInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getSignatureType",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "hasInstance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "hashLeftRight",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "hasher", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "instance", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "instanceIndex",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "isKnownRoot",
     data: BytesLike
@@ -247,25 +330,10 @@ export interface PermitTornadoInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "permit2", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "permit2Commitments",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "permitCommitments",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "roots", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "tornadoProxyLight",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "verifiedCommitments",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "verifier", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "weth", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "witness", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "zeros", data: BytesLike): Result;
@@ -273,16 +341,22 @@ export interface PermitTornadoInterface extends Interface {
 
 export namespace DepositEvent {
   export type InputTuple = [
+    id: BigNumberish,
+    from: AddressLike,
     commitment: BytesLike,
     leafIndex: BigNumberish,
     timestamp: BigNumberish
   ];
   export type OutputTuple = [
+    id: bigint,
+    from: string,
     commitment: string,
     leafIndex: bigint,
     timestamp: bigint
   ];
   export interface OutputObject {
+    id: bigint;
+    from: string;
     commitment: string;
     leafIndex: bigint;
     timestamp: bigint;
@@ -293,37 +367,30 @@ export namespace DepositEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace VerifiedCommitmentEvent {
-  export type InputTuple = [commitment: BytesLike, owner: AddressLike];
-  export type OutputTuple = [commitment: string, owner: string];
-  export interface OutputObject {
-    commitment: string;
-    owner: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
 export namespace WithdrawalEvent {
   export type InputTuple = [
+    id: BigNumberish,
     to: AddressLike,
     nullifierHash: BytesLike,
     relayer: AddressLike,
-    fee: BigNumberish
+    fee: BigNumberish,
+    timestamp: BigNumberish
   ];
   export type OutputTuple = [
+    id: bigint,
     to: string,
     nullifierHash: string,
     relayer: string,
-    fee: bigint
+    fee: bigint,
+    timestamp: bigint
   ];
   export interface OutputObject {
+    id: bigint;
     to: string;
     nullifierHash: string;
     relayer: string;
     fee: bigint;
+    timestamp: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -331,11 +398,11 @@ export namespace WithdrawalEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export interface PermitTornado extends BaseContract {
-  connect(runner?: ContractRunner | null): PermitTornado;
+export interface TornadoV2 extends BaseContract {
+  connect(runner?: ContractRunner | null): TornadoV2;
   waitForDeployment(): Promise<this>;
 
-  interface: PermitTornadoInterface;
+  interface: TornadoV2Interface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -380,6 +447,8 @@ export interface PermitTornado extends BaseContract {
 
   FIELD_SIZE: TypedContractMethod<[], [bigint], "view">;
 
+  REVISION: TypedContractMethod<[], [bigint], "view">;
+
   ROOT_HISTORY_SIZE: TypedContractMethod<[], [bigint], "view">;
 
   WITNESS_TYPE_STRING: TypedContractMethod<[], [string], "view">;
@@ -388,31 +457,74 @@ export interface PermitTornado extends BaseContract {
 
   commitments: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
 
-  currentRootIndex: TypedContractMethod<[], [bigint], "view">;
-
-  denomination: TypedContractMethod<[], [bigint], "view">;
-
-  deposit: TypedContractMethod<[_commitment: BytesLike], [void], "payable">;
-
-  depositCommitment: TypedContractMethod<
-    [_commitment: BytesLike, owner: AddressLike],
-    [void],
+  createInstance: TypedContractMethod<
+    [_token: AddressLike, _denomination: BigNumberish, _vault: AddressLike],
+    [bigint],
     "nonpayable"
   >;
 
-  filledSubtrees: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  denomination: TypedContractMethod<[id: BigNumberish], [bigint], "view">;
 
-  getLastRoot: TypedContractMethod<[], [string], "view">;
+  deposit: TypedContractMethod<
+    [_ids: BigNumberish[], _commitments: BytesLike[], permitData: BytesLike],
+    [void],
+    "payable"
+  >;
+
+  feeRate: TypedContractMethod<[], [bigint], "view">;
+
+  feeTo: TypedContractMethod<[], [string], "view">;
+
+  filledSubtrees: TypedContractMethod<
+    [id: BigNumberish, index: BigNumberish],
+    [string],
+    "view"
+  >;
+
+  getLastRoot: TypedContractMethod<[id: BigNumberish], [string], "view">;
+
+  getSignatureType: TypedContractMethod<
+    [permitData: BytesLike],
+    [bigint],
+    "view"
+  >;
+
+  hasInstance: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
 
   hashLeftRight: TypedContractMethod<
-    [_hasher: AddressLike, _left: BytesLike, _right: BytesLike],
+    [_left: BytesLike, _right: BytesLike],
     [string],
     "view"
   >;
 
   hasher: TypedContractMethod<[], [string], "view">;
 
-  isKnownRoot: TypedContractMethod<[_root: BytesLike], [boolean], "view">;
+  initialize: TypedContractMethod<
+    [
+      _weth: AddressLike,
+      _verifier: AddressLike,
+      _hasher: AddressLike,
+      _levels: BigNumberish,
+      _feeTo: AddressLike,
+      _instances: TornadoV2.CreateInstanceStruct[]
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  instance: TypedContractMethod<
+    [id: BigNumberish],
+    [TornadoV2.InstanceViewStructOutput],
+    "view"
+  >;
+
+  instanceIndex: TypedContractMethod<[], [bigint], "view">;
+
+  isKnownRoot: TypedContractMethod<
+    [id: BigNumberish, _root: BytesLike],
+    [boolean],
+    "view"
+  >;
 
   isSpent: TypedContractMethod<[_nullifierHash: BytesLike], [boolean], "view">;
 
@@ -424,67 +536,51 @@ export interface PermitTornado extends BaseContract {
 
   levels: TypedContractMethod<[], [bigint], "view">;
 
-  nextIndex: TypedContractMethod<[], [bigint], "view">;
+  nextIndex: TypedContractMethod<[id: BigNumberish], [bigint], "view">;
 
   nullifierHashes: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
 
   permit2: TypedContractMethod<[], [string], "view">;
 
-  permit2Commitments: TypedContractMethod<
-    [
-      owner: AddressLike,
-      _commitments: BytesLike[],
-      nonce: BigNumberish,
-      deadline: BigNumberish,
-      _signature: BytesLike
-    ],
-    [void],
-    "nonpayable"
+  roots: TypedContractMethod<
+    [id: BigNumberish, index: BigNumberish],
+    [string],
+    "view"
   >;
 
-  permitCommitments: TypedContractMethod<
-    [
-      owner: AddressLike,
-      _commitments: BytesLike[],
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-
-  roots: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
-
-  token: TypedContractMethod<[], [string], "view">;
-
-  tornadoProxyLight: TypedContractMethod<[], [string], "view">;
-
-  verifiedCommitments: TypedContractMethod<[arg0: BytesLike], [string], "view">;
+  token: TypedContractMethod<[id: BigNumberish], [string], "view">;
 
   verifier: TypedContractMethod<[], [string], "view">;
 
+  weth: TypedContractMethod<[], [string], "view">;
+
   withdraw: TypedContractMethod<
     [
+      id: BigNumberish,
       _proof: BytesLike,
       _root: BytesLike,
       _nullifierHash: BytesLike,
       _recipient: AddressLike,
       _relayer: AddressLike,
-      _fee: BigNumberish,
-      _refund: BigNumberish
+      _relayerFee: BigNumberish,
+      _refund: BigNumberish,
+      _data: BytesLike
     ],
     [void],
     "payable"
   >;
 
   witness: TypedContractMethod<
-    [permitData: PermitTornado.PermitCommitmentsStruct],
+    [permitData: TornadoV2.PermitCommitmentsStruct],
     [string],
     "view"
   >;
 
-  zeros: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  zeros: TypedContractMethod<
+    [id: BigNumberish, index: BigNumberish],
+    [string],
+    "view"
+  >;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -500,6 +596,9 @@ export interface PermitTornado extends BaseContract {
     nameOrSignature: "FIELD_SIZE"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
+    nameOrSignature: "REVISION"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "ROOT_HISTORY_SIZE"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
@@ -512,31 +611,48 @@ export interface PermitTornado extends BaseContract {
     nameOrSignature: "commitments"
   ): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
   getFunction(
-    nameOrSignature: "currentRootIndex"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "denomination"
-  ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "deposit"
-  ): TypedContractMethod<[_commitment: BytesLike], [void], "payable">;
-  getFunction(
-    nameOrSignature: "depositCommitment"
+    nameOrSignature: "createInstance"
   ): TypedContractMethod<
-    [_commitment: BytesLike, owner: AddressLike],
-    [void],
+    [_token: AddressLike, _denomination: BigNumberish, _vault: AddressLike],
+    [bigint],
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "denomination"
+  ): TypedContractMethod<[id: BigNumberish], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "deposit"
+  ): TypedContractMethod<
+    [_ids: BigNumberish[], _commitments: BytesLike[], permitData: BytesLike],
+    [void],
+    "payable"
+  >;
+  getFunction(
+    nameOrSignature: "feeRate"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "feeTo"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
     nameOrSignature: "filledSubtrees"
-  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  ): TypedContractMethod<
+    [id: BigNumberish, index: BigNumberish],
+    [string],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "getLastRoot"
-  ): TypedContractMethod<[], [string], "view">;
+  ): TypedContractMethod<[id: BigNumberish], [string], "view">;
+  getFunction(
+    nameOrSignature: "getSignatureType"
+  ): TypedContractMethod<[permitData: BytesLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "hasInstance"
+  ): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "hashLeftRight"
   ): TypedContractMethod<
-    [_hasher: AddressLike, _left: BytesLike, _right: BytesLike],
+    [_left: BytesLike, _right: BytesLike],
     [string],
     "view"
   >;
@@ -544,8 +660,36 @@ export interface PermitTornado extends BaseContract {
     nameOrSignature: "hasher"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "initialize"
+  ): TypedContractMethod<
+    [
+      _weth: AddressLike,
+      _verifier: AddressLike,
+      _hasher: AddressLike,
+      _levels: BigNumberish,
+      _feeTo: AddressLike,
+      _instances: TornadoV2.CreateInstanceStruct[]
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "instance"
+  ): TypedContractMethod<
+    [id: BigNumberish],
+    [TornadoV2.InstanceViewStructOutput],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "instanceIndex"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "isKnownRoot"
-  ): TypedContractMethod<[_root: BytesLike], [boolean], "view">;
+  ): TypedContractMethod<
+    [id: BigNumberish, _root: BytesLike],
+    [boolean],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "isSpent"
   ): TypedContractMethod<[_nullifierHash: BytesLike], [boolean], "view">;
@@ -557,7 +701,7 @@ export interface PermitTornado extends BaseContract {
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "nextIndex"
-  ): TypedContractMethod<[], [bigint], "view">;
+  ): TypedContractMethod<[id: BigNumberish], [bigint], "view">;
   getFunction(
     nameOrSignature: "nullifierHashes"
   ): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
@@ -565,57 +709,34 @@ export interface PermitTornado extends BaseContract {
     nameOrSignature: "permit2"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "permit2Commitments"
-  ): TypedContractMethod<
-    [
-      owner: AddressLike,
-      _commitments: BytesLike[],
-      nonce: BigNumberish,
-      deadline: BigNumberish,
-      _signature: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "permitCommitments"
-  ): TypedContractMethod<
-    [
-      owner: AddressLike,
-      _commitments: BytesLike[],
-      v: BigNumberish,
-      r: BytesLike,
-      s: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
     nameOrSignature: "roots"
-  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  ): TypedContractMethod<
+    [id: BigNumberish, index: BigNumberish],
+    [string],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "token"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "tornadoProxyLight"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "verifiedCommitments"
-  ): TypedContractMethod<[arg0: BytesLike], [string], "view">;
+  ): TypedContractMethod<[id: BigNumberish], [string], "view">;
   getFunction(
     nameOrSignature: "verifier"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "weth"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "withdraw"
   ): TypedContractMethod<
     [
+      id: BigNumberish,
       _proof: BytesLike,
       _root: BytesLike,
       _nullifierHash: BytesLike,
       _recipient: AddressLike,
       _relayer: AddressLike,
-      _fee: BigNumberish,
-      _refund: BigNumberish
+      _relayerFee: BigNumberish,
+      _refund: BigNumberish,
+      _data: BytesLike
     ],
     [void],
     "payable"
@@ -623,13 +744,17 @@ export interface PermitTornado extends BaseContract {
   getFunction(
     nameOrSignature: "witness"
   ): TypedContractMethod<
-    [permitData: PermitTornado.PermitCommitmentsStruct],
+    [permitData: TornadoV2.PermitCommitmentsStruct],
     [string],
     "view"
   >;
   getFunction(
     nameOrSignature: "zeros"
-  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
+  ): TypedContractMethod<
+    [id: BigNumberish, index: BigNumberish],
+    [string],
+    "view"
+  >;
 
   getEvent(
     key: "Deposit"
@@ -637,13 +762,6 @@ export interface PermitTornado extends BaseContract {
     DepositEvent.InputTuple,
     DepositEvent.OutputTuple,
     DepositEvent.OutputObject
-  >;
-  getEvent(
-    key: "VerifiedCommitment"
-  ): TypedContractEvent<
-    VerifiedCommitmentEvent.InputTuple,
-    VerifiedCommitmentEvent.OutputTuple,
-    VerifiedCommitmentEvent.OutputObject
   >;
   getEvent(
     key: "Withdrawal"
@@ -654,7 +772,7 @@ export interface PermitTornado extends BaseContract {
   >;
 
   filters: {
-    "Deposit(bytes32,uint32,uint256)": TypedContractEvent<
+    "Deposit(uint256,address,bytes32,uint32,uint256)": TypedContractEvent<
       DepositEvent.InputTuple,
       DepositEvent.OutputTuple,
       DepositEvent.OutputObject
@@ -665,18 +783,7 @@ export interface PermitTornado extends BaseContract {
       DepositEvent.OutputObject
     >;
 
-    "VerifiedCommitment(bytes32,address)": TypedContractEvent<
-      VerifiedCommitmentEvent.InputTuple,
-      VerifiedCommitmentEvent.OutputTuple,
-      VerifiedCommitmentEvent.OutputObject
-    >;
-    VerifiedCommitment: TypedContractEvent<
-      VerifiedCommitmentEvent.InputTuple,
-      VerifiedCommitmentEvent.OutputTuple,
-      VerifiedCommitmentEvent.OutputObject
-    >;
-
-    "Withdrawal(address,bytes32,address,uint256)": TypedContractEvent<
+    "Withdrawal(uint256,address,bytes32,address,uint256,uint256)": TypedContractEvent<
       WithdrawalEvent.InputTuple,
       WithdrawalEvent.OutputTuple,
       WithdrawalEvent.OutputObject

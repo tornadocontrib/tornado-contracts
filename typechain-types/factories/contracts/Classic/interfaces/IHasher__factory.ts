@@ -6,7 +6,7 @@ import { Contract, Interface, type ContractRunner } from "ethers";
 import type {
   IHasher,
   IHasherInterface,
-} from "../../../../contracts/Classic/MerkleTreeWithHistory.sol/IHasher";
+} from "../../../../contracts/Classic/interfaces/IHasher";
 
 const _abi = [
   {
