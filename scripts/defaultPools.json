@@ -1,0 +1,26 @@
+[
+    {
+        "amount": "0.001",
+        "symbol": "ETH"
+    },
+    {
+        "amount": "0.01",
+        "symbol": "ETH"
+    },
+    {
+        "amount": "0.1",
+        "symbol": "ETH"
+    },
+    {
+        "amount": "1",
+        "symbol": "ETH"
+    },
+    {
+        "amount": "10",
+        "symbol": "ETH"
+    },
+    {
+        "amount": "100",
+        "symbol": "ETH"
+    }
+]
