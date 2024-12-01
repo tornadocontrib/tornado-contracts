@@ -12,7 +12,7 @@ interface ICore {
 /**
  * @dev Staked Balance Aggregator
  */
-contract StakedView {
+contract BalanceAggregator {
     struct StakedBalance {
         uint256 balance;
         bool isContract;

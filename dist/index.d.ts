@@ -85,10 +85,10 @@ export type { AdminUpgradeableProxy } from "./contracts/Governance/AdminUpgradea
 export { AdminUpgradeableProxy__factory } from "./factories/contracts/Governance/AdminUpgradeableProxy__factory";
 export type { Aggregator } from "./contracts/Governance/Aggregator/Aggregator";
 export { Aggregator__factory } from "./factories/contracts/Governance/Aggregator/Aggregator__factory";
+export type { BalanceAggregator } from "./contracts/Governance/Aggregator/BalanceAggregator.sol/BalanceAggregator";
+export { BalanceAggregator__factory } from "./factories/contracts/Governance/Aggregator/BalanceAggregator.sol/BalanceAggregator__factory";
 export type { ICore } from "./contracts/Governance/Aggregator/BalanceAggregator.sol/ICore";
 export { ICore__factory } from "./factories/contracts/Governance/Aggregator/BalanceAggregator.sol/ICore__factory";
-export type { StakedView } from "./contracts/Governance/Aggregator/BalanceAggregator.sol/StakedView";
-export { StakedView__factory } from "./factories/contracts/Governance/Aggregator/BalanceAggregator.sol/StakedView__factory";
 export type { GovernanceAggregator } from "./contracts/Governance/Aggregator/GovernanceAggregator";
 export { GovernanceAggregator__factory } from "./factories/contracts/Governance/Aggregator/GovernanceAggregator__factory";
 export type { IENSRegistry } from "./contracts/Governance/Aggregator/RelayerAggregator.sol/IENSRegistry";

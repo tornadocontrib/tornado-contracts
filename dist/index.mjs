@@ -7950,37 +7950,6 @@ const _abi$1p = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_addr",
-        type: "address"
-      }
-    ],
-    name: "lockedBalance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  }
-];
-class ICore__factory {
-  static abi = _abi$1p;
-  static createInterface() {
-    return new Interface(_abi$1p);
-  }
-  static connect(address, runner) {
-    return new Contract(address, _abi$1p, runner);
-  }
-}
-
-const _abi$1o = [
-  {
-    inputs: [
-      {
         internalType: "contract IERC20",
         name: "_torn",
         type: "address"
@@ -8035,7 +8004,7 @@ const _abi$1o = [
             type: "bool"
           }
         ],
-        internalType: "struct StakedView.StakedBalance",
+        internalType: "struct BalanceAggregator.StakedBalance",
         name: "",
         type: "tuple"
       }
@@ -8066,7 +8035,7 @@ const _abi$1o = [
             type: "bool"
           }
         ],
-        internalType: "struct StakedView.StakedBalance[]",
+        internalType: "struct BalanceAggregator.StakedBalance[]",
         name: "",
         type: "tuple[]"
       }
@@ -8120,14 +8089,14 @@ const _abi$1o = [
     type: "function"
   }
 ];
-const _bytecode$Q = "0x60e060405234801561001057600080fd5b5060405161072138038061072183398101604081905261002f91610056565b6001600160601b0319606093841b811660805291831b821660a05290911b1660c0526100ba565b60008060006060848603121561006a578283fd5b8351610075816100a2565b6020850151909350610086816100a2565b6040850151909250610097816100a2565b809150509250925092565b6001600160a01b03811681146100b757600080fd5b50565b60805160601c60a05160601c60c05160601c6106236100fe6000398061012a52806103005250806101c352806103ee52508061025f528061032452506106236000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c80631627905514610067578063399080ec1461009057806347ff589d146100b0578063adf898a4146100c5578063e94eab5b146100cd578063f2f4eb26146100ed575b600080fd5b61007a610075366004610444565b6100f5565b604051610087919061058d565b60405180910390f35b6100a361009e366004610444565b610101565b6040516100879190610598565b6100b86102fe565b604051610087919061052c565b6100b8610322565b6100e06100db366004610466565b610346565b6040516100879190610540565b6100b86103ec565b3b63ffffffff16151590565b610109610410565b604080518082019182905263b971a6bf60e01b909152806001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b971a6bf61015c866044850161052c565b60206040518083038186803b15801561017457600080fd5b505afa158015610188573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101ac9190610503565b604051639ae697bf60e01b81526001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690639ae697bf906101f890889060040161052c565b60206040518083038186803b15801561021057600080fd5b505afa158015610224573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102489190610503565b6040516370a0823160e01b81526001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016906370a082319061029490899060040161052c565b60206040518083038186803b1580156102ac57600080fd5b505afa1580156102c0573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102e49190610503565b010181526020016102f4846100f5565b1515905292915050565b7f000000000000000000000000000000000000000000000000000000000000000081565b7f000000000000000000000000000000000000000000000000000000000000000081565b606080825167ffffffffffffffff8111801561036157600080fd5b5060405190808252806020026020018201604052801561039b57816020015b610388610410565b8152602001906001900390816103805790505b50905060005b83518110156103e5576103c68482815181106103b957fe5b6020026020010151610101565b8282815181106103d257fe5b60209081029190910101526001016103a1565b5092915050565b7f000000000000000000000000000000000000000000000000000000000000000081565b604080518082019091526000808252602082015290565b80356001600160a01b038116811461043e57600080fd5b92915050565b600060208284031215610455578081fd5b61045f8383610427565b9392505050565b60006020808385031215610478578182fd5b823567ffffffffffffffff81111561048e578283fd5b8301601f8101851361049e578283fd5b80356104b16104ac826105cd565b6105a6565b81815283810190838501858402850186018910156104cd578687fd5b8694505b838510156104f7576104e38982610427565b8352600194909401939185019185016104d1565b50979650505050505050565b600060208284031215610514578081fd5b5051919050565b805182526020908101511515910152565b6001600160a01b0391909116815260200190565b602080825282518282018190526000919060409081850190868401855b828110156105805761057084835161051b565b928401929085019060010161055d565b5091979650505050505050565b901515815260200190565b6040810161043e828461051b565b60405181810167ffffffffffffffff811182821017156105c557600080fd5b604052919050565b600067ffffffffffffffff8211156105e3578081fd5b506020908102019056fea2646970667358221220d49d4126dd758ca7faef3d919ec8b7c9459f4b02ff7c92500d739f14d535b8b864736f6c634300060c0033";
+const _bytecode$Q = "0x60e060405234801561001057600080fd5b5060405161072138038061072183398101604081905261002f91610056565b6001600160601b0319606093841b811660805291831b821660a05290911b1660c0526100ba565b60008060006060848603121561006a578283fd5b8351610075816100a2565b6020850151909350610086816100a2565b6040850151909250610097816100a2565b809150509250925092565b6001600160a01b03811681146100b757600080fd5b50565b60805160601c60a05160601c60c05160601c6106236100fe6000398061012a52806103005250806101c352806103ee52508061025f528061032452506106236000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c80631627905514610067578063399080ec1461009057806347ff589d146100b0578063adf898a4146100c5578063e94eab5b146100cd578063f2f4eb26146100ed575b600080fd5b61007a610075366004610444565b6100f5565b604051610087919061058d565b60405180910390f35b6100a361009e366004610444565b610101565b6040516100879190610598565b6100b86102fe565b604051610087919061052c565b6100b8610322565b6100e06100db366004610466565b610346565b6040516100879190610540565b6100b86103ec565b3b63ffffffff16151590565b610109610410565b604080518082019182905263b971a6bf60e01b909152806001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001663b971a6bf61015c866044850161052c565b60206040518083038186803b15801561017457600080fd5b505afa158015610188573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101ac9190610503565b604051639ae697bf60e01b81526001600160a01b037f00000000000000000000000000000000000000000000000000000000000000001690639ae697bf906101f890889060040161052c565b60206040518083038186803b15801561021057600080fd5b505afa158015610224573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102489190610503565b6040516370a0823160e01b81526001600160a01b037f000000000000000000000000000000000000000000000000000000000000000016906370a082319061029490899060040161052c565b60206040518083038186803b1580156102ac57600080fd5b505afa1580156102c0573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102e49190610503565b010181526020016102f4846100f5565b1515905292915050565b7f000000000000000000000000000000000000000000000000000000000000000081565b7f000000000000000000000000000000000000000000000000000000000000000081565b606080825167ffffffffffffffff8111801561036157600080fd5b5060405190808252806020026020018201604052801561039b57816020015b610388610410565b8152602001906001900390816103805790505b50905060005b83518110156103e5576103c68482815181106103b957fe5b6020026020010151610101565b8282815181106103d257fe5b60209081029190910101526001016103a1565b5092915050565b7f000000000000000000000000000000000000000000000000000000000000000081565b604080518082019091526000808252602082015290565b80356001600160a01b038116811461043e57600080fd5b92915050565b600060208284031215610455578081fd5b61045f8383610427565b9392505050565b60006020808385031215610478578182fd5b823567ffffffffffffffff81111561048e578283fd5b8301601f8101851361049e578283fd5b80356104b16104ac826105cd565b6105a6565b81815283810190838501858402850186018910156104cd578687fd5b8694505b838510156104f7576104e38982610427565b8352600194909401939185019185016104d1565b50979650505050505050565b600060208284031215610514578081fd5b5051919050565b805182526020908101511515910152565b6001600160a01b0391909116815260200190565b602080825282518282018190526000919060409081850190868401855b828110156105805761057084835161051b565b928401929085019060010161055d565b5091979650505050505050565b901515815260200190565b6040810161043e828461051b565b60405181810167ffffffffffffffff811182821017156105c557600080fd5b604052919050565b600067ffffffffffffffff8211156105e3578081fd5b506020908102019056fea2646970667358221220e5142547c57c81cd9fccefae8aceef832e51b855cd260d11ba2de7a0942fcf7064736f6c634300060c0033";
 const isSuperArgs$Q = (xs) => xs.length > 1;
-class StakedView__factory extends ContractFactory {
+class BalanceAggregator__factory extends ContractFactory {
   constructor(...args) {
     if (isSuperArgs$Q(args)) {
       super(...args);
     } else {
-      super(_abi$1o, _bytecode$Q, args[0]);
+      super(_abi$1p, _bytecode$Q, args[0]);
     }
   }
   getDeployTransaction(_torn, _core, _relayerRegistry, overrides) {
@@ -8150,6 +8119,37 @@ class StakedView__factory extends ContractFactory {
     return super.connect(runner);
   }
   static bytecode = _bytecode$Q;
+  static abi = _abi$1p;
+  static createInterface() {
+    return new Interface(_abi$1p);
+  }
+  static connect(address, runner) {
+    return new Contract(address, _abi$1p, runner);
+  }
+}
+
+const _abi$1o = [
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_addr",
+        type: "address"
+      }
+    ],
+    name: "lockedBalance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  }
+];
+class ICore__factory {
   static abi = _abi$1o;
   static createInterface() {
     return new Interface(_abi$1o);
@@ -8161,8 +8161,8 @@ class StakedView__factory extends ContractFactory {
 
 var index$F = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  ICore__factory: ICore__factory,
-  StakedView__factory: StakedView__factory
+  BalanceAggregator__factory: BalanceAggregator__factory,
+  ICore__factory: ICore__factory
 });
 
 const _abi$1n = [
@@ -30998,4 +30998,4 @@ var index = /*#__PURE__*/Object.freeze({
   openzeppelin: index$L
 });
 
-export { AdminUpgradeableProxy__factory, Aggregator__factory, AirdropMock__factory, Airdrop__factory, ApprovalTornado__factory, BadRecipient__factory, CTornado__factory, Configuration__factory, Core__factory, Delegation__factory, Deployer__factory, DummySecond__factory, Dummy__factory, ECDSA__factory, EIP712__factory, ENSMock__factory, ENS__factory, ERC20Basic__factory, ERC20Burnable__factory, ERC20Mock__factory, ERC20Permit__factory$1 as ERC20Permit__factory, ERC20Tornado__factory, ERC20__factory, ETHTornado__factory, Echoer__factory, EnsResolve__factory, FeeManager__factory, GasCompensationVault__factory, GasCompensator__factory, GovernanceAggregator__factory, GovernanceExploitPatchUpgrade__factory, GovernanceGasUpgrade__factory, GovernanceProposalStateUpgrade__factory, GovernanceStakingUpgrade__factory, GovernanceVaultUpgrade__factory, Governance__factory, IChainlinkOracle__factory, ICore__factory, IDeployer__factory$1 as IDeployer__factory, IENSRegistry__factory, IENSResolver__factory, IENS__factory, IERC1155Errors__factory, IERC20Decimals__factory, IERC20Errors__factory, IERC20Metadata__factory, IERC20Permit__factory, IERC20__factory$1 as IERC20__factory, IERC5267__factory, IERC721Errors__factory, IFeeManager__factory, IGasCompensationVault__factory, IGovernance__factory, IHasher__factory, IMetamorphicContractFactory__factory, IOffchainOracle__factory, IProxy__factory, IRelayerRegistry__factory, ISignatureTransfer__factory, ITornadoGovernance__factory, ITornadoInstance__factory$1 as ITornadoInstance__factory, ITornadoRouter__factory, ITornadoStakingRewards__factory, ITornadoV2__factory, ITornadoVault__factory$1 as ITornadoVault__factory, IUSDT__factory, IUniswapV3Factory__factory, IUniswapV3PoolActions__factory, IUniswapV3PoolDerivedState__factory, IUniswapV3PoolEvents__factory, IUniswapV3PoolImmutables__factory, IUniswapV3PoolOwnerActions__factory, IUniswapV3PoolState__factory, IUniswapV3Pool__factory, IVault__factory, IVerifier__factory, IWETH__factory, InitialProposal__factory, InstanceRegistry__factory, LoopbackProxy__factory, MaliciousProposal__factory, Math__factory, MerkleTreeWithHistoryMock__factory, MerkleTreeWithHistory__factory, MockGovernance__factory, NewImplementation__factory, Nonces__factory, Ownable__factory, ParseSignature__factory, PatchProposal__factory, Pausable__factory, Permit2Mock__factory, ProposalStateChangeGovernance__factory, ProposalUpgrade__factory, Proposal__factory, Proxy__factory, RelayerAggregator__factory, RelayerRegistry__factory, Resolver__factory, ShortStrings__factory, SingletonFactory__factory, StakedView__factory, Strings__factory, TORNMock__factory, TORN__factory, TestnetAdminProxy__factory, TestnetFeeManager__factory, TestnetGovernanceProxy__factory, TestnetOracle__factory, Timestamp__factory, TornadoProxyLight__factory, TornadoRouter__factory, TornadoStakingRewards__factory, TornadoV2__factory, TornadoVault__factory, Tornado__factory, TransparentUpgradeableProxy__factory, UpgradeableProxy__factory, V2Bridge__factory, Verifier__factory, VestingMock__factory, Vesting__factory, VoucherMock__factory, Voucher__factory, index as factories };
+export { AdminUpgradeableProxy__factory, Aggregator__factory, AirdropMock__factory, Airdrop__factory, ApprovalTornado__factory, BadRecipient__factory, BalanceAggregator__factory, CTornado__factory, Configuration__factory, Core__factory, Delegation__factory, Deployer__factory, DummySecond__factory, Dummy__factory, ECDSA__factory, EIP712__factory, ENSMock__factory, ENS__factory, ERC20Basic__factory, ERC20Burnable__factory, ERC20Mock__factory, ERC20Permit__factory$1 as ERC20Permit__factory, ERC20Tornado__factory, ERC20__factory, ETHTornado__factory, Echoer__factory, EnsResolve__factory, FeeManager__factory, GasCompensationVault__factory, GasCompensator__factory, GovernanceAggregator__factory, GovernanceExploitPatchUpgrade__factory, GovernanceGasUpgrade__factory, GovernanceProposalStateUpgrade__factory, GovernanceStakingUpgrade__factory, GovernanceVaultUpgrade__factory, Governance__factory, IChainlinkOracle__factory, ICore__factory, IDeployer__factory$1 as IDeployer__factory, IENSRegistry__factory, IENSResolver__factory, IENS__factory, IERC1155Errors__factory, IERC20Decimals__factory, IERC20Errors__factory, IERC20Metadata__factory, IERC20Permit__factory, IERC20__factory$1 as IERC20__factory, IERC5267__factory, IERC721Errors__factory, IFeeManager__factory, IGasCompensationVault__factory, IGovernance__factory, IHasher__factory, IMetamorphicContractFactory__factory, IOffchainOracle__factory, IProxy__factory, IRelayerRegistry__factory, ISignatureTransfer__factory, ITornadoGovernance__factory, ITornadoInstance__factory$1 as ITornadoInstance__factory, ITornadoRouter__factory, ITornadoStakingRewards__factory, ITornadoV2__factory, ITornadoVault__factory$1 as ITornadoVault__factory, IUSDT__factory, IUniswapV3Factory__factory, IUniswapV3PoolActions__factory, IUniswapV3PoolDerivedState__factory, IUniswapV3PoolEvents__factory, IUniswapV3PoolImmutables__factory, IUniswapV3PoolOwnerActions__factory, IUniswapV3PoolState__factory, IUniswapV3Pool__factory, IVault__factory, IVerifier__factory, IWETH__factory, InitialProposal__factory, InstanceRegistry__factory, LoopbackProxy__factory, MaliciousProposal__factory, Math__factory, MerkleTreeWithHistoryMock__factory, MerkleTreeWithHistory__factory, MockGovernance__factory, NewImplementation__factory, Nonces__factory, Ownable__factory, ParseSignature__factory, PatchProposal__factory, Pausable__factory, Permit2Mock__factory, ProposalStateChangeGovernance__factory, ProposalUpgrade__factory, Proposal__factory, Proxy__factory, RelayerAggregator__factory, RelayerRegistry__factory, Resolver__factory, ShortStrings__factory, SingletonFactory__factory, Strings__factory, TORNMock__factory, TORN__factory, TestnetAdminProxy__factory, TestnetFeeManager__factory, TestnetGovernanceProxy__factory, TestnetOracle__factory, Timestamp__factory, TornadoProxyLight__factory, TornadoRouter__factory, TornadoStakingRewards__factory, TornadoV2__factory, TornadoVault__factory, Tornado__factory, TransparentUpgradeableProxy__factory, UpgradeableProxy__factory, V2Bridge__factory, Verifier__factory, VestingMock__factory, Vesting__factory, VoucherMock__factory, Voucher__factory, index as factories };

@@ -194,13 +194,13 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Aggregator__factory>;
     getContractFactory(
+      name: "BalanceAggregator",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BalanceAggregator__factory>;
+    getContractFactory(
       name: "ICore",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ICore__factory>;
-    getContractFactory(
-      name: "StakedView",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.StakedView__factory>;
     getContractFactory(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -772,15 +772,15 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Aggregator>;
     getContractAt(
+      name: "BalanceAggregator",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BalanceAggregator>;
+    getContractAt(
       name: "ICore",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.ICore>;
-    getContractAt(
-      name: "StakedView",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.StakedView>;
     getContractAt(
       name: "GovernanceAggregator",
       address: string | ethers.Addressable,
@@ -1393,13 +1393,13 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Aggregator>;
     deployContract(
+      name: "BalanceAggregator",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BalanceAggregator>;
+    deployContract(
       name: "ICore",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ICore>;
-    deployContract(
-      name: "StakedView",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.StakedView>;
     deployContract(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1971,15 +1971,15 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Aggregator>;
     deployContract(
+      name: "BalanceAggregator",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BalanceAggregator>;
+    deployContract(
       name: "ICore",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ICore>;
-    deployContract(
-      name: "StakedView",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.StakedView>;
     deployContract(
       name: "GovernanceAggregator",
       args: any[],

@@ -21,7 +21,7 @@ import type {
   TypedContractMethod,
 } from "../../../../common";
 
-export declare namespace StakedView {
+export declare namespace BalanceAggregator {
   export type StakedBalanceStruct = {
     balance: BigNumberish;
     isContract: boolean;
@@ -33,7 +33,7 @@ export declare namespace StakedView {
   ] & { balance: bigint; isContract: boolean };
 }
 
-export interface StakedViewInterface extends Interface {
+export interface BalanceAggregatorInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "core"
@@ -77,11 +77,11 @@ export interface StakedViewInterface extends Interface {
   decodeFunctionResult(functionFragment: "torn", data: BytesLike): Result;
 }
 
-export interface StakedView extends BaseContract {
-  connect(runner?: ContractRunner | null): StakedView;
+export interface BalanceAggregator extends BaseContract {
+  connect(runner?: ContractRunner | null): BalanceAggregator;
   waitForDeployment(): Promise<this>;
 
-  interface: StakedViewInterface;
+  interface: BalanceAggregatorInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -124,13 +124,13 @@ export interface StakedView extends BaseContract {
 
   getStaked: TypedContractMethod<
     [_addr: AddressLike],
-    [StakedView.StakedBalanceStructOutput],
+    [BalanceAggregator.StakedBalanceStructOutput],
     "view"
   >;
 
   getStakedBalances: TypedContractMethod<
     [addresses: AddressLike[]],
-    [StakedView.StakedBalanceStructOutput[]],
+    [BalanceAggregator.StakedBalanceStructOutput[]],
     "view"
   >;
 
@@ -151,14 +151,14 @@ export interface StakedView extends BaseContract {
     nameOrSignature: "getStaked"
   ): TypedContractMethod<
     [_addr: AddressLike],
-    [StakedView.StakedBalanceStructOutput],
+    [BalanceAggregator.StakedBalanceStructOutput],
     "view"
   >;
   getFunction(
     nameOrSignature: "getStakedBalances"
   ): TypedContractMethod<
     [addresses: AddressLike[]],
-    [StakedView.StakedBalanceStructOutput[]],
+    [BalanceAggregator.StakedBalanceStructOutput[]],
     "view"
   >;
   getFunction(
