@@ -134,18 +134,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IHasher__factory>;
     getContractFactory(
-      name: "ISignatureTransfer",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ISignatureTransfer__factory>;
-    getContractFactory(
-      name: "ITornadoV2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ITornadoV2__factory>;
-    getContractFactory(
-      name: "IVault",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IVault__factory>;
-    getContractFactory(
       name: "IVerifier",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IVerifier__factory>;
@@ -153,10 +141,6 @@ declare module "hardhat/types/runtime" {
       name: "IWETH",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IWETH__factory>;
-    getContractFactory(
-      name: "ParseSignature",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ParseSignature__factory>;
     getContractFactory(
       name: "MerkleTreeWithHistory",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -186,10 +170,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MerkleTreeWithHistoryMock__factory>;
     getContractFactory(
-      name: "Permit2Mock",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Permit2Mock__factory>;
-    getContractFactory(
       name: "Tornado",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Tornado__factory>;
@@ -202,14 +182,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TornadoProxyLight__factory>;
     getContractFactory(
-      name: "TornadoV2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TornadoV2__factory>;
-    getContractFactory(
-      name: "V2Bridge",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.V2Bridge__factory>;
-    getContractFactory(
       name: "Verifier",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Verifier__factory>;
@@ -221,6 +193,14 @@ declare module "hardhat/types/runtime" {
       name: "Aggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Aggregator__factory>;
+    getContractFactory(
+      name: "ICore",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ICore__factory>;
+    getContractFactory(
+      name: "StakedView",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.StakedView__factory>;
     getContractFactory(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -533,6 +513,38 @@ declare module "hardhat/types/runtime" {
       name: "GovernanceProposalStateUpgrade",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.GovernanceProposalStateUpgrade__factory>;
+    getContractFactory(
+      name: "ApprovalTornado",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ApprovalTornado__factory>;
+    getContractFactory(
+      name: "ISignatureTransfer",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ISignatureTransfer__factory>;
+    getContractFactory(
+      name: "ITornadoV2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ITornadoV2__factory>;
+    getContractFactory(
+      name: "IVault",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IVault__factory>;
+    getContractFactory(
+      name: "ParseSignature",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ParseSignature__factory>;
+    getContractFactory(
+      name: "Permit2Mock",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Permit2Mock__factory>;
+    getContractFactory(
+      name: "TornadoV2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TornadoV2__factory>;
+    getContractFactory(
+      name: "V2Bridge",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.V2Bridge__factory>;
 
     getContractAt(
       name: "Ownable",
@@ -685,21 +697,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IHasher>;
     getContractAt(
-      name: "ISignatureTransfer",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ISignatureTransfer>;
-    getContractAt(
-      name: "ITornadoV2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ITornadoV2>;
-    getContractAt(
-      name: "IVault",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IVault>;
-    getContractAt(
       name: "IVerifier",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -709,11 +706,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.IWETH>;
-    getContractAt(
-      name: "ParseSignature",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ParseSignature>;
     getContractAt(
       name: "MerkleTreeWithHistory",
       address: string | ethers.Addressable,
@@ -750,11 +742,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.MerkleTreeWithHistoryMock>;
     getContractAt(
-      name: "Permit2Mock",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Permit2Mock>;
-    getContractAt(
       name: "Tornado",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -770,16 +757,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.TornadoProxyLight>;
     getContractAt(
-      name: "TornadoV2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TornadoV2>;
-    getContractAt(
-      name: "V2Bridge",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.V2Bridge>;
-    getContractAt(
       name: "Verifier",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -794,6 +771,16 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.Aggregator>;
+    getContractAt(
+      name: "ICore",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ICore>;
+    getContractAt(
+      name: "StakedView",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.StakedView>;
     getContractAt(
       name: "GovernanceAggregator",
       address: string | ethers.Addressable,
@@ -1184,6 +1171,46 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.GovernanceProposalStateUpgrade>;
+    getContractAt(
+      name: "ApprovalTornado",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ApprovalTornado>;
+    getContractAt(
+      name: "ISignatureTransfer",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ISignatureTransfer>;
+    getContractAt(
+      name: "ITornadoV2",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ITornadoV2>;
+    getContractAt(
+      name: "IVault",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IVault>;
+    getContractAt(
+      name: "ParseSignature",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ParseSignature>;
+    getContractAt(
+      name: "Permit2Mock",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Permit2Mock>;
+    getContractAt(
+      name: "TornadoV2",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TornadoV2>;
+    getContractAt(
+      name: "V2Bridge",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.V2Bridge>;
 
     deployContract(
       name: "Ownable",
@@ -1306,18 +1333,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IHasher>;
     deployContract(
-      name: "ISignatureTransfer",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ISignatureTransfer>;
-    deployContract(
-      name: "ITornadoV2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITornadoV2>;
-    deployContract(
-      name: "IVault",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IVault>;
-    deployContract(
       name: "IVerifier",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IVerifier>;
@@ -1325,10 +1340,6 @@ declare module "hardhat/types/runtime" {
       name: "IWETH",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IWETH>;
-    deployContract(
-      name: "ParseSignature",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ParseSignature>;
     deployContract(
       name: "MerkleTreeWithHistory",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1358,10 +1369,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MerkleTreeWithHistoryMock>;
     deployContract(
-      name: "Permit2Mock",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Permit2Mock>;
-    deployContract(
       name: "Tornado",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Tornado>;
@@ -1374,14 +1381,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TornadoProxyLight>;
     deployContract(
-      name: "TornadoV2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TornadoV2>;
-    deployContract(
-      name: "V2Bridge",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.V2Bridge>;
-    deployContract(
       name: "Verifier",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Verifier>;
@@ -1393,6 +1392,14 @@ declare module "hardhat/types/runtime" {
       name: "Aggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Aggregator>;
+    deployContract(
+      name: "ICore",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ICore>;
+    deployContract(
+      name: "StakedView",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.StakedView>;
     deployContract(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1705,6 +1712,38 @@ declare module "hardhat/types/runtime" {
       name: "GovernanceProposalStateUpgrade",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.GovernanceProposalStateUpgrade>;
+    deployContract(
+      name: "ApprovalTornado",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ApprovalTornado>;
+    deployContract(
+      name: "ISignatureTransfer",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ISignatureTransfer>;
+    deployContract(
+      name: "ITornadoV2",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ITornadoV2>;
+    deployContract(
+      name: "IVault",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IVault>;
+    deployContract(
+      name: "ParseSignature",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ParseSignature>;
+    deployContract(
+      name: "Permit2Mock",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Permit2Mock>;
+    deployContract(
+      name: "TornadoV2",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TornadoV2>;
+    deployContract(
+      name: "V2Bridge",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.V2Bridge>;
 
     deployContract(
       name: "Ownable",
@@ -1857,21 +1896,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IHasher>;
     deployContract(
-      name: "ISignatureTransfer",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ISignatureTransfer>;
-    deployContract(
-      name: "ITornadoV2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITornadoV2>;
-    deployContract(
-      name: "IVault",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IVault>;
-    deployContract(
       name: "IVerifier",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1881,11 +1905,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IWETH>;
-    deployContract(
-      name: "ParseSignature",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ParseSignature>;
     deployContract(
       name: "MerkleTreeWithHistory",
       args: any[],
@@ -1922,11 +1941,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.MerkleTreeWithHistoryMock>;
     deployContract(
-      name: "Permit2Mock",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Permit2Mock>;
-    deployContract(
       name: "Tornado",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1942,16 +1956,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TornadoProxyLight>;
     deployContract(
-      name: "TornadoV2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TornadoV2>;
-    deployContract(
-      name: "V2Bridge",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.V2Bridge>;
-    deployContract(
       name: "Verifier",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1966,6 +1970,16 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Aggregator>;
+    deployContract(
+      name: "ICore",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ICore>;
+    deployContract(
+      name: "StakedView",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.StakedView>;
     deployContract(
       name: "GovernanceAggregator",
       args: any[],
@@ -2356,6 +2370,46 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.GovernanceProposalStateUpgrade>;
+    deployContract(
+      name: "ApprovalTornado",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ApprovalTornado>;
+    deployContract(
+      name: "ISignatureTransfer",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ISignatureTransfer>;
+    deployContract(
+      name: "ITornadoV2",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ITornadoV2>;
+    deployContract(
+      name: "IVault",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IVault>;
+    deployContract(
+      name: "ParseSignature",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ParseSignature>;
+    deployContract(
+      name: "Permit2Mock",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Permit2Mock>;
+    deployContract(
+      name: "TornadoV2",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TornadoV2>;
+    deployContract(
+      name: "V2Bridge",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.V2Bridge>;
 
     // default types
     getContractFactory(

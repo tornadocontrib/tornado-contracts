@@ -1,7 +1,7 @@
 import type { BaseContract, BigNumberish, BytesLike, FunctionFragment, Result, Interface, EventFragment, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers";
 import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedLogDescription, TypedListener, TypedContractMethod } from "../../common";
 export interface CTornadoInterface extends Interface {
-    getFunction(nameOrSignature: "FIELD_SIZE" | "ROOT_HISTORY_SIZE" | "ZERO_VALUE" | "claimComp" | "commitments" | "comp" | "currentRootIndex" | "denomination" | "deposit" | "filledSubtrees" | "getLastRoot" | "governance" | "hashLeftRight" | "hasher" | "isKnownRoot" | "isSpent" | "isSpentArray" | "levels" | "nextIndex" | "nullifierHashes" | "roots" | "token" | "tornadoProxyLight" | "verifier" | "withdraw" | "zeros"): FunctionFragment;
+    getFunction(nameOrSignature: "FIELD_SIZE" | "ROOT_HISTORY_SIZE" | "ZERO_VALUE" | "claimComp" | "commitments" | "comp" | "currentRootIndex" | "denomination" | "deposit" | "filledSubtrees" | "getLastRoot" | "governance" | "hashLeftRight" | "hasher" | "isKnownRoot" | "isSpent" | "isSpentArray" | "levels" | "nextIndex" | "nullifierHashes" | "roots" | "token" | "verifier" | "withdraw" | "zeros"): FunctionFragment;
     getEvent(nameOrSignatureOrTopic: "Deposit" | "Withdrawal"): EventFragment;
     encodeFunctionData(functionFragment: "FIELD_SIZE", values?: undefined): string;
     encodeFunctionData(functionFragment: "ROOT_HISTORY_SIZE", values?: undefined): string;
@@ -25,7 +25,6 @@ export interface CTornadoInterface extends Interface {
     encodeFunctionData(functionFragment: "nullifierHashes", values: [BytesLike]): string;
     encodeFunctionData(functionFragment: "roots", values: [BigNumberish]): string;
     encodeFunctionData(functionFragment: "token", values?: undefined): string;
-    encodeFunctionData(functionFragment: "tornadoProxyLight", values?: undefined): string;
     encodeFunctionData(functionFragment: "verifier", values?: undefined): string;
     encodeFunctionData(functionFragment: "withdraw", values: [
         BytesLike,
@@ -59,7 +58,6 @@ export interface CTornadoInterface extends Interface {
     decodeFunctionResult(functionFragment: "nullifierHashes", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "roots", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
-    decodeFunctionResult(functionFragment: "tornadoProxyLight", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "verifier", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "zeros", data: BytesLike): Result;
@@ -154,7 +152,6 @@ export interface CTornado extends BaseContract {
     nullifierHashes: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
     roots: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
     token: TypedContractMethod<[], [string], "view">;
-    tornadoProxyLight: TypedContractMethod<[], [string], "view">;
     verifier: TypedContractMethod<[], [string], "view">;
     withdraw: TypedContractMethod<[
         _proof: BytesLike,
@@ -197,7 +194,6 @@ export interface CTornado extends BaseContract {
     getFunction(nameOrSignature: "nullifierHashes"): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
     getFunction(nameOrSignature: "roots"): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
     getFunction(nameOrSignature: "token"): TypedContractMethod<[], [string], "view">;
-    getFunction(nameOrSignature: "tornadoProxyLight"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "verifier"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "withdraw"): TypedContractMethod<[
         _proof: BytesLike,

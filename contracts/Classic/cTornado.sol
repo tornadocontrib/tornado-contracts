@@ -27,7 +27,7 @@ contract cTornado is ERC20Tornado {
     uint256 _denomination,
     uint32 _merkleTreeHeight,
     IERC20 _token
-  ) ERC20Tornado(_verifier, _hasher, _denomination, _merkleTreeHeight, _token, address(0)) {
+  ) ERC20Tornado(_verifier, _hasher, _denomination, _merkleTreeHeight, _token) {
     require(address(_comp) != address(0), "Invalid COMP token address");
     governance = _governance;
     comp = _comp;
