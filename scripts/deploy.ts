@@ -26,12 +26,13 @@ import {
 } from '../typechain-types';
 const { ZeroAddress, parseEther, deployContract } = ethers;
 
-type contracts = {
-    [key in string]: {
+type contracts = Record<
+    string,
+    {
         DAI: string;
         ENS: string;
-    };
-};
+    }
+>;
 
 const contracts: contracts = {
     hardhat: {

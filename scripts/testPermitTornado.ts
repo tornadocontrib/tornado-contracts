@@ -98,9 +98,7 @@ async function getPermitSignature(Token: ERC20 | ERC20Mock, { spender, value, no
  */
 interface Witness {
     witnessTypeName: string;
-    witnessType: {
-        [key: string]: TypedDataField[];
-    };
+    witnessType: Record<string, TypedDataField[]>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     witness: any;
 }
@@ -118,11 +116,11 @@ function bytesToBN(bytes: Uint8Array) {
     return BigInt(bytesToHex(bytes));
 }
 
-function rBigInt(nbytes: number = 31) {
+function rBigInt(nbytes = 31) {
     return bytesToBN(crypto.getRandomValues(new Uint8Array(nbytes)));
 }
 
-function rHex(nbytes: number = 31) {
+function rHex(nbytes = 31) {
     return bytesToHex(crypto.getRandomValues(new Uint8Array(nbytes)));
 }
 
@@ -140,9 +138,7 @@ async function getPermit2Signature(
         verifyingContract: permit2Address,
     };
 
-    const types: {
-        [key: string]: TypedDataField[];
-    } = !witness
+    const types: Record<string, TypedDataField[]> = !witness
         ? {
               PermitTransferFrom: [
                   { name: 'permitted', type: 'TokenPermissions' },

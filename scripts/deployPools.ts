@@ -332,6 +332,7 @@ async function deploy() {
                 if (!acc[curr.symbol.toLowerCase()]) {
                     acc[curr.symbol.toLowerCase()] = {
                         instanceAddress: {},
+                        instanceApproval: curr.tokenAddress ? true : undefined,
                         tokenAddress: curr.tokenAddress,
                         symbol: curr.symbol,
                         decimals: curr.decimals,
@@ -344,16 +345,16 @@ async function deploy() {
 
                 return acc;
             },
-            {} as {
-                [key: string]: {
-                    instanceAddress: {
-                        [key: string]: string;
-                    };
+            {} as Record<
+                string,
+                {
+                    instanceAddress: Record<string, string>;
+                    instanceApproval?: boolean;
                     tokenAddress?: string;
                     symbol: string;
                     decimals: number;
-                };
-            },
+                }
+            >,
         ),
     };
 

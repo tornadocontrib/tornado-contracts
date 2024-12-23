@@ -1,15 +1,15 @@
 {
-  "compilerOptions": {
-    "target": "es2022",
-    "lib": ["es5", "es6", "es2021", "es2022", "esnext"],
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./typechain-types",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "resolveJsonModule": true
-  },
-  "include": ["./typechain-types/**/*"],
-  "exclude": ["node_modules"]
+    "compilerOptions": {
+        "target": "es2022",
+        "lib": ["es5", "es6", "es2021", "es2022", "esnext"],
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./typechain-types",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "resolveJsonModule": true
+    },
+    "include": ["./typechain-types/**/*"],
+    "exclude": ["node_modules"]
 }

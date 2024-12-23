@@ -1,30 +1,36 @@
-import fs from 'fs';
 import path from 'path';
 import process from 'process';
+import { readdir, stat, mkdir, rm, writeFile } from 'fs/promises';
 import { task, HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomicfoundation/hardhat-ethers';
 import 'hardhat-storage-layout';
 import 'hardhat-tracer';
 
-task('flatten:all', 'Flatten all contracts each file under flatten directory').setAction(async (taskArgs, hre) => {
-    const allFilesAndFolders = fs.readdirSync('contracts', { recursive: true }) as Array<string>;
-    const allFolders = allFilesAndFolders.filter((f) => fs.statSync(path.join('contracts', f)).isDirectory());
-    const allFiles = allFilesAndFolders.filter((f) => !allFolders.includes(f));
+task('flatten:all', 'Flatten all contracts under flatten directory').setAction(async (taskArgs, hre) => {
+    const dirFiles = (await readdir('contracts', { recursive: true })) as string[];
+    const directories = (
+        await Promise.all(
+            dirFiles.map(async (f) => {
+                const isDirectory = (await stat(path.join('contracts', f))).isDirectory();
 
-    fs.rmSync('flatten', { force: true, recursive: true });
-    fs.mkdirSync('flatten');
-    allFolders.forEach((f) => {
-        fs.mkdirSync(path.join('flatten', f), { recursive: true });
-    });
+                return isDirectory ? f : null;
+            }),
+        )
+    ).filter((f) => f) as string[];
+    const contracts = dirFiles.filter((f) => !directories.includes(f));
+
+    await rm('flatten', { force: true, recursive: true });
+    await mkdir('flatten');
+    await Promise.all(directories.map((f) => mkdir(path.join('flatten', f), { recursive: true })));
 
     await Promise.all(
-        allFiles.map(async (f) => {
+        contracts.map(async (f) => {
             const contract = path.join('contracts', f);
             const contractTo = path.join('flatten', f);
             try {
                 const flatten = await hre.run('flatten:get-flattened-sources', { files: [contract] });
-                fs.writeFileSync(contractTo, flatten);
+                await writeFile(contractTo, flatten);
                 console.log(`Wrote ${contractTo} contract`);
             } catch (e) {
                 // Catching circular contracts
