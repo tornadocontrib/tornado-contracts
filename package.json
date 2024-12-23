@@ -10,7 +10,7 @@
         "compile": "hardhat clean && hardhat compile && hardhat flatten:all",
         "build": "yarn compile && yarn types && rollup -c",
         "deploy": "hardhat run ./scripts/deploy.ts",
-        "lint": "eslint \"scripts/**/*.ts\"",
+        "lint": "eslint scripts/**/*.ts",
         "test": "hardhat test"
     },
     "files": [
@@ -18,12 +18,17 @@
         "dist",
         "scripts",
         "typechain-types",
-        ".eslintrc.js",
+        ".gitattributes",
         ".gitignore",
+        "eslint.config.mjs",
         "hardhat.config.ts",
+        "LICENSE",
+        "logo.png",
+        "logo2.png",
         "README.md",
+        "rollup.config.mjs",
         "sepolia.json",
-        "tsconfig.base.json",
+        "tsconfig.types.json",
         "tsconfig.json",
         "yarn.lock"
     ],
