@@ -1,11 +1,16 @@
-import type { BaseContract, FunctionFragment, Interface, ContractRunner, ContractMethod, Listener } from "ethers";
-import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedListener } from "../../../../common";
-export interface MathInterface extends Interface {
+import type { BaseContract, BytesLike, FunctionFragment, Result, Interface, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers";
+import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedListener, TypedContractMethod } from "../../common";
+export interface PuppetInterface extends Interface {
+    getFunction(nameOrSignature: "admin" | "callTo"): FunctionFragment;
+    encodeFunctionData(functionFragment: "admin", values?: undefined): string;
+    encodeFunctionData(functionFragment: "callTo", values: [AddressLike, BytesLike]): string;
+    decodeFunctionResult(functionFragment: "admin", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "callTo", data: BytesLike): Result;
 }
-export interface Math extends BaseContract {
-    connect(runner?: ContractRunner | null): Math;
+export interface Puppet extends BaseContract {
+    connect(runner?: ContractRunner | null): Puppet;
     waitForDeployment(): Promise<this>;
-    interface: MathInterface;
+    interface: PuppetInterface;
     queryFilter<TCEvent extends TypedContractEvent>(event: TCEvent, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TypedEventLog<TCEvent>>>;
     queryFilter<TCEvent extends TypedContractEvent>(filter: TypedDeferredTopicFilter<TCEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TypedEventLog<TCEvent>>>;
     on<TCEvent extends TypedContractEvent>(event: TCEvent, listener: TypedListener<TCEvent>): Promise<this>;
@@ -15,6 +20,20 @@ export interface Math extends BaseContract {
     listeners<TCEvent extends TypedContractEvent>(event: TCEvent): Promise<Array<TypedListener<TCEvent>>>;
     listeners(eventName?: string): Promise<Array<Listener>>;
     removeAllListeners<TCEvent extends TypedContractEvent>(event?: TCEvent): Promise<this>;
+    admin: TypedContractMethod<[], [string], "view">;
+    callTo: TypedContractMethod<[
+        _to: AddressLike,
+        _data: BytesLike
+    ], [
+        string
+    ], "payable">;
     getFunction<T extends ContractMethod = ContractMethod>(key: string | FunctionFragment): T;
+    getFunction(nameOrSignature: "admin"): TypedContractMethod<[], [string], "view">;
+    getFunction(nameOrSignature: "callTo"): TypedContractMethod<[
+        _to: AddressLike,
+        _data: BytesLike
+    ], [
+        string
+    ], "payable">;
     filters: {};
 }

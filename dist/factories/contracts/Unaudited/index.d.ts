@@ -1,6 +1,10 @@
 export * as mocks from "./Mocks";
+export * as tovarishRegistrySol from "./TovarishRegistry.sol";
 export * as interfaces from "./interfaces";
 export * as libraries from "./libraries";
 export { ApprovalTornado__factory } from "./ApprovalTornado__factory";
+export { InfoRegistry__factory } from "./InfoRegistry__factory";
+export { MultiLock__factory } from "./MultiLock__factory";
+export { Puppet__factory } from "./Puppet__factory";
 export { TornadoV2__factory } from "./TornadoV2__factory";
 export { V2Bridge__factory } from "./V2Bridge__factory";
