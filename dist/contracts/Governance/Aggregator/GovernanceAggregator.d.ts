@@ -1,7 +1,7 @@
 import type { BaseContract, BigNumberish, BytesLike, FunctionFragment, Result, Interface, AddressLike, ContractRunner, ContractMethod, Listener } from "ethers";
 import type { TypedContractEvent, TypedDeferredTopicFilter, TypedEventLog, TypedListener, TypedContractMethod } from "../../../common";
 export declare namespace GovernanceAggregator {
-    type ProposalStruct = {
+    type ProposalWithStateStruct = {
         proposer: AddressLike;
         target: AddressLike;
         startTime: BigNumberish;
@@ -12,7 +12,7 @@ export declare namespace GovernanceAggregator {
         extended: boolean;
         state: BigNumberish;
     };
-    type ProposalStructOutput = [
+    type ProposalWithStateStructOutput = [
         proposer: string,
         target: string,
         startTime: bigint,
@@ -59,7 +59,7 @@ export interface GovernanceAggregator extends BaseContract {
     getAllProposals: TypedContractMethod<[
         governance: AddressLike
     ], [
-        GovernanceAggregator.ProposalStructOutput[]
+        GovernanceAggregator.ProposalWithStateStructOutput[]
     ], "view">;
     getGovernanceBalances: TypedContractMethod<[
         governance: AddressLike,
@@ -89,7 +89,7 @@ export interface GovernanceAggregator extends BaseContract {
     getFunction(nameOrSignature: "getAllProposals"): TypedContractMethod<[
         governance: AddressLike
     ], [
-        GovernanceAggregator.ProposalStructOutput[]
+        GovernanceAggregator.ProposalWithStateStructOutput[]
     ], "view">;
     getFunction(nameOrSignature: "getGovernanceBalances"): TypedContractMethod<[
         governance: AddressLike,

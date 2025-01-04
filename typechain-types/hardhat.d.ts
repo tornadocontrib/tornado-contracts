@@ -14,6 +14,58 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
+      name: "ENS",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ENS__factory>;
+    getContractFactory(
+      name: "IABIResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IABIResolver__factory>;
+    getContractFactory(
+      name: "IAddressResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IAddressResolver__factory>;
+    getContractFactory(
+      name: "IAddrResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IAddrResolver__factory>;
+    getContractFactory(
+      name: "IContentHashResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IContentHashResolver__factory>;
+    getContractFactory(
+      name: "IDNSRecordResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDNSRecordResolver__factory>;
+    getContractFactory(
+      name: "IDNSZoneResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDNSZoneResolver__factory>;
+    getContractFactory(
+      name: "IExtendedResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IExtendedResolver__factory>;
+    getContractFactory(
+      name: "IInterfaceResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IInterfaceResolver__factory>;
+    getContractFactory(
+      name: "INameResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.INameResolver__factory>;
+    getContractFactory(
+      name: "IPubkeyResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IPubkeyResolver__factory>;
+    getContractFactory(
+      name: "ITextResolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ITextResolver__factory>;
+    getContractFactory(
+      name: "Resolver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Resolver__factory>;
+    getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
@@ -242,25 +294,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BalanceAggregator__factory>;
     getContractFactory(
-      name: "ICore",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ICore__factory>;
-    getContractFactory(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.GovernanceAggregator__factory>;
-    getContractFactory(
-      name: "IENSRegistry",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IENSRegistry__factory>;
-    getContractFactory(
-      name: "IENSResolver",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IENSResolver__factory>;
-    getContractFactory(
-      name: "IRelayerRegistry",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IRelayerRegistry__factory>;
     getContractFactory(
       name: "RelayerAggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -289,6 +325,14 @@ declare module "hardhat/types/runtime" {
       name: "ITornadoRouter",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ITornadoRouter__factory>;
+    getContractFactory(
+      name: "IGovernance",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IGovernance__factory>;
+    getContractFactory(
+      name: "IRelayerRegistry",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IRelayerRegistry__factory>;
     getContractFactory(
       name: "ITornadoInstance",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -482,9 +526,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Proposal__factory>;
     getContractFactory(
-      name: "IGovernance",
+      name: "IGovernance2",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IGovernance__factory>;
+    ): Promise<Contracts.IGovernance2__factory>;
     getContractFactory(
       name: "ProposalStateChangeGovernance",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -598,25 +642,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TornadoV2__factory>;
     getContractFactory(
-      name: "IENSRegistry2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IENSRegistry2__factory>;
-    getContractFactory(
-      name: "IENSResolver2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IENSResolver2__factory>;
-    getContractFactory(
       name: "INameWrapper",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.INameWrapper__factory>;
-    getContractFactory(
-      name: "IRelayerRegistry2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IRelayerRegistry2__factory>;
-    getContractFactory(
-      name: "ITovarishRegistry",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ITovarishRegistry__factory>;
     getContractFactory(
       name: "TovarishRegistry",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -627,6 +655,71 @@ declare module "hardhat/types/runtime" {
     ): Promise<Contracts.V2Bridge__factory>;
 
     getContractAt(
+      name: "ENS",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ENS>;
+    getContractAt(
+      name: "IABIResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IABIResolver>;
+    getContractAt(
+      name: "IAddressResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IAddressResolver>;
+    getContractAt(
+      name: "IAddrResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IAddrResolver>;
+    getContractAt(
+      name: "IContentHashResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IContentHashResolver>;
+    getContractAt(
+      name: "IDNSRecordResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IDNSRecordResolver>;
+    getContractAt(
+      name: "IDNSZoneResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IDNSZoneResolver>;
+    getContractAt(
+      name: "IExtendedResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IExtendedResolver>;
+    getContractAt(
+      name: "IInterfaceResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IInterfaceResolver>;
+    getContractAt(
+      name: "INameResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.INameResolver>;
+    getContractAt(
+      name: "IPubkeyResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IPubkeyResolver>;
+    getContractAt(
+      name: "ITextResolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ITextResolver>;
+    getContractAt(
+      name: "Resolver",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Resolver>;
+    getContractAt(
       name: "Ownable",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -912,30 +1005,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.BalanceAggregator>;
     getContractAt(
-      name: "ICore",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ICore>;
-    getContractAt(
       name: "GovernanceAggregator",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.GovernanceAggregator>;
-    getContractAt(
-      name: "IENSRegistry",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IENSRegistry>;
-    getContractAt(
-      name: "IENSResolver",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IENSResolver>;
-    getContractAt(
-      name: "IRelayerRegistry",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IRelayerRegistry>;
     getContractAt(
       name: "RelayerAggregator",
       address: string | ethers.Addressable,
@@ -971,6 +1044,16 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.ITornadoRouter>;
+    getContractAt(
+      name: "IGovernance",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IGovernance>;
+    getContractAt(
+      name: "IRelayerRegistry",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IRelayerRegistry>;
     getContractAt(
       name: "ITornadoInstance",
       address: string | ethers.Addressable,
@@ -1212,10 +1295,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Proposal>;
     getContractAt(
-      name: "IGovernance",
+      name: "IGovernance2",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
-    ): Promise<Contracts.IGovernance>;
+    ): Promise<Contracts.IGovernance2>;
     getContractAt(
       name: "ProposalStateChangeGovernance",
       address: string | ethers.Addressable,
@@ -1357,30 +1440,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.TornadoV2>;
     getContractAt(
-      name: "IENSRegistry2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IENSRegistry2>;
-    getContractAt(
-      name: "IENSResolver2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IENSResolver2>;
-    getContractAt(
       name: "INameWrapper",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.INameWrapper>;
-    getContractAt(
-      name: "IRelayerRegistry2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IRelayerRegistry2>;
-    getContractAt(
-      name: "ITovarishRegistry",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ITovarishRegistry>;
     getContractAt(
       name: "TovarishRegistry",
       address: string | ethers.Addressable,
@@ -1393,6 +1456,58 @@ declare module "hardhat/types/runtime" {
     ): Promise<Contracts.V2Bridge>;
 
     deployContract(
+      name: "ENS",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ENS>;
+    deployContract(
+      name: "IABIResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IABIResolver>;
+    deployContract(
+      name: "IAddressResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAddressResolver>;
+    deployContract(
+      name: "IAddrResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAddrResolver>;
+    deployContract(
+      name: "IContentHashResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IContentHashResolver>;
+    deployContract(
+      name: "IDNSRecordResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IDNSRecordResolver>;
+    deployContract(
+      name: "IDNSZoneResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IDNSZoneResolver>;
+    deployContract(
+      name: "IExtendedResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IExtendedResolver>;
+    deployContract(
+      name: "IInterfaceResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IInterfaceResolver>;
+    deployContract(
+      name: "INameResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INameResolver>;
+    deployContract(
+      name: "IPubkeyResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IPubkeyResolver>;
+    deployContract(
+      name: "ITextResolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ITextResolver>;
+    deployContract(
+      name: "Resolver",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Resolver>;
+    deployContract(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Ownable>;
@@ -1621,25 +1736,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.BalanceAggregator>;
     deployContract(
-      name: "ICore",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ICore>;
-    deployContract(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.GovernanceAggregator>;
-    deployContract(
-      name: "IENSRegistry",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSRegistry>;
-    deployContract(
-      name: "IENSResolver",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSResolver>;
-    deployContract(
-      name: "IRelayerRegistry",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IRelayerRegistry>;
     deployContract(
       name: "RelayerAggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1668,6 +1767,14 @@ declare module "hardhat/types/runtime" {
       name: "ITornadoRouter",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITornadoRouter>;
+    deployContract(
+      name: "IGovernance",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovernance>;
+    deployContract(
+      name: "IRelayerRegistry",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IRelayerRegistry>;
     deployContract(
       name: "ITornadoInstance",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1861,9 +1968,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Proposal>;
     deployContract(
-      name: "IGovernance",
+      name: "IGovernance2",
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IGovernance>;
+    ): Promise<Contracts.IGovernance2>;
     deployContract(
       name: "ProposalStateChangeGovernance",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -1977,25 +2084,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TornadoV2>;
     deployContract(
-      name: "IENSRegistry2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSRegistry2>;
-    deployContract(
-      name: "IENSResolver2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSResolver2>;
-    deployContract(
       name: "INameWrapper",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.INameWrapper>;
-    deployContract(
-      name: "IRelayerRegistry2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IRelayerRegistry2>;
-    deployContract(
-      name: "ITovarishRegistry",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITovarishRegistry>;
     deployContract(
       name: "TovarishRegistry",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2006,6 +2097,71 @@ declare module "hardhat/types/runtime" {
     ): Promise<Contracts.V2Bridge>;
 
     deployContract(
+      name: "ENS",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ENS>;
+    deployContract(
+      name: "IABIResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IABIResolver>;
+    deployContract(
+      name: "IAddressResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAddressResolver>;
+    deployContract(
+      name: "IAddrResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IAddrResolver>;
+    deployContract(
+      name: "IContentHashResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IContentHashResolver>;
+    deployContract(
+      name: "IDNSRecordResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IDNSRecordResolver>;
+    deployContract(
+      name: "IDNSZoneResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IDNSZoneResolver>;
+    deployContract(
+      name: "IExtendedResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IExtendedResolver>;
+    deployContract(
+      name: "IInterfaceResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IInterfaceResolver>;
+    deployContract(
+      name: "INameResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.INameResolver>;
+    deployContract(
+      name: "IPubkeyResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IPubkeyResolver>;
+    deployContract(
+      name: "ITextResolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ITextResolver>;
+    deployContract(
+      name: "Resolver",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.Resolver>;
+    deployContract(
       name: "Ownable",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2291,30 +2447,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.BalanceAggregator>;
     deployContract(
-      name: "ICore",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ICore>;
-    deployContract(
       name: "GovernanceAggregator",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.GovernanceAggregator>;
-    deployContract(
-      name: "IENSRegistry",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSRegistry>;
-    deployContract(
-      name: "IENSResolver",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSResolver>;
-    deployContract(
-      name: "IRelayerRegistry",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IRelayerRegistry>;
     deployContract(
       name: "RelayerAggregator",
       args: any[],
@@ -2350,6 +2486,16 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITornadoRouter>;
+    deployContract(
+      name: "IGovernance",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IGovernance>;
+    deployContract(
+      name: "IRelayerRegistry",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IRelayerRegistry>;
     deployContract(
       name: "ITornadoInstance",
       args: any[],
@@ -2591,10 +2737,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Proposal>;
     deployContract(
-      name: "IGovernance",
+      name: "IGovernance2",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IGovernance>;
+    ): Promise<Contracts.IGovernance2>;
     deployContract(
       name: "ProposalStateChangeGovernance",
       args: any[],
@@ -2736,30 +2882,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TornadoV2>;
     deployContract(
-      name: "IENSRegistry2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSRegistry2>;
-    deployContract(
-      name: "IENSResolver2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IENSResolver2>;
-    deployContract(
       name: "INameWrapper",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.INameWrapper>;
-    deployContract(
-      name: "IRelayerRegistry2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IRelayerRegistry2>;
-    deployContract(
-      name: "ITovarishRegistry",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITovarishRegistry>;
     deployContract(
       name: "TovarishRegistry",
       args: any[],

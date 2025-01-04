@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
-pragma solidity ^0.6.12;
-pragma experimental ABIEncoderV2;
-
-import { Governance } from "../v1/Governance.sol";
+import { IGovernance } from '../interfaces/IGovernance.sol';
 
 contract GovernanceAggregator {
-    struct Proposal {
+    struct ProposalWithState {
         address proposer;
         address target;
         uint256 startTime;
@@ -15,46 +13,37 @@ contract GovernanceAggregator {
         uint256 againstVotes;
         bool executed;
         bool extended;
-        Governance.ProposalState state;
+        IGovernance.ProposalState state;
     }
 
-    function getAllProposals(Governance governance) public view returns (Proposal[] memory proposals) {
-        proposals = new Proposal[](governance.proposalCount());
+    function getAllProposals(IGovernance governance) public view returns (ProposalWithState[] memory proposals) {
+        proposals = new ProposalWithState[](governance.proposalCount());
 
         for (uint256 i = 0; i < proposals.length; i++) {
-            (
-                address proposer,
-                address target,
-                uint256 startTime,
-                uint256 endTime,
-                uint256 forVotes,
-                uint256 againstVotes,
-                bool executed,
-                bool extended
-            ) = governance.proposals(i + 1);
+            IGovernance.Proposal memory proposal = governance.proposals(i + 1);
 
-            proposals[i] = Proposal({
-                proposer: proposer,
-                target: target,
-                startTime: startTime,
-                endTime: endTime,
-                forVotes: forVotes,
-                againstVotes: againstVotes,
-                executed: executed,
-                extended: extended,
+            proposals[i] = ProposalWithState({
+                proposer: proposal.proposer,
+                target: proposal.target,
+                startTime: proposal.startTime,
+                endTime: proposal.endTime,
+                forVotes: proposal.forVotes,
+                againstVotes: proposal.againstVotes,
+                executed: proposal.executed,
+                extended: proposal.extended,
                 state: governance.state(i + 1)
             });
         }
     }
 
-    function getGovernanceBalances(Governance governance, address[] calldata accs) public view returns (uint256[] memory amounts) {
+    function getGovernanceBalances(IGovernance governance, address[] calldata accs) public view returns (uint256[] memory amounts) {
         amounts = new uint256[](accs.length);
         for (uint256 i = 0; i < accs.length; i++) {
             amounts[i] = governance.lockedBalance(accs[i]);
         }
     }
 
-    function getUserData(Governance governance, address account)
+    function getUserData(IGovernance governance, address account)
         public
         view
         returns (
@@ -65,7 +54,6 @@ contract GovernanceAggregator {
             address delegatee
         )
     {
-        // Core core = Core(address(governance));
         balance = governance.lockedBalance(account);
         latestProposalId = governance.latestProposalIds(account);
         if (latestProposalId != 0) {

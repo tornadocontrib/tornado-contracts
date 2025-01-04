@@ -24,11 +24,19 @@ import type {
 } from "../../../common";
 
 export declare namespace TovarishRegistry {
+  export type ChainStruct = { chainId: BigNumberish; subdomain: string };
+
+  export type ChainStructOutput = [chainId: bigint, subdomain: string] & {
+    chainId: bigint;
+    subdomain: string;
+  };
+
   export type RelayerStruct = {
     ensName: string;
     owner: AddressLike;
     balance: BigNumberish;
     isRegistered: boolean;
+    isPrior: boolean;
     tovarishHost: string;
     tovarishChains: string;
     records: string[];
@@ -39,6 +47,7 @@ export declare namespace TovarishRegistry {
     owner: string,
     balance: bigint,
     isRegistered: boolean,
+    isPrior: boolean,
     tovarishHost: string,
     tovarishChains: string,
     records: string[]
@@ -47,6 +56,7 @@ export declare namespace TovarishRegistry {
     owner: string;
     balance: bigint;
     isRegistered: boolean;
+    isPrior: boolean;
     tovarishHost: string;
     tovarishChains: string;
     records: string[];
@@ -56,16 +66,25 @@ export declare namespace TovarishRegistry {
 export interface TovarishRegistryInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "addChain"
+      | "addChains"
+      | "bytesStore"
+      | "chainIds"
       | "ensRegistry"
-      | "getDigests"
+      | "getAddress"
+      | "getChainIds"
+      | "getChains"
       | "getNameOwner"
       | "getNamehashes"
       | "getNames"
+      | "hasChainId"
       | "hashToName"
+      | "isPrior"
       | "lastUpdate"
       | "migrate"
       | "nameWrapper"
       | "owner"
+      | "prioritizeRelayer"
       | "pushRelayer"
       | "pushRelayers"
       | "registerFee"
@@ -73,8 +92,9 @@ export interface TovarishRegistryInterface extends Interface {
       | "relayerRegistry"
       | "relayersData"
       | "removeRelayer"
+      | "storeBytes"
+      | "subdomains"
       | "tovarishSubname"
-      | "updateDigest"
       | "updateFee"
       | "updateOwner"
   ): FunctionFragment;
@@ -82,22 +102,44 @@ export interface TovarishRegistryInterface extends Interface {
   getEvent(
     nameOrSignatureOrTopic:
       | "Migrated"
-      | "PushedDigest"
+      | "PrioritizedRelayer"
+      | "PushedBytes"
+      | "PushedChain"
       | "PushedRelayer"
-      | "RemovedDigest"
       | "RemovedRelayer"
       | "UpdatedFee"
       | "UpdatedOwner"
   ): EventFragment;
 
   encodeFunctionData(
+    functionFragment: "addChain",
+    values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "addChains",
+    values: [TovarishRegistry.ChainStruct[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "bytesStore",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "chainIds",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "ensRegistry",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getDigests",
+    functionFragment: "getAddress",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getChainIds",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "getChains", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getNameOwner",
     values: [BytesLike]
@@ -108,9 +150,14 @@ export interface TovarishRegistryInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "getNames", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "hasChainId",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "hashToName",
     values: [BytesLike]
   ): string;
+  encodeFunctionData(functionFragment: "isPrior", values: [BytesLike]): string;
   encodeFunctionData(
     functionFragment: "lastUpdate",
     values?: undefined
@@ -124,6 +171,10 @@ export interface TovarishRegistryInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "prioritizeRelayer",
+    values: [string]
+  ): string;
   encodeFunctionData(functionFragment: "pushRelayer", values: [string]): string;
   encodeFunctionData(
     functionFragment: "pushRelayers",
@@ -143,19 +194,23 @@ export interface TovarishRegistryInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "relayersData",
-    values: [string[]]
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "removeRelayer",
-    values: [BytesLike]
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "storeBytes",
+    values: [BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "subdomains",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "tovarishSubname",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateDigest",
-    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "updateFee",
@@ -166,11 +221,20 @@ export interface TovarishRegistryInterface extends Interface {
     values: [AddressLike]
   ): string;
 
+  decodeFunctionResult(functionFragment: "addChain", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "addChains", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "bytesStore", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "chainIds", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "ensRegistry",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getDigests", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getChainIds",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "getChains", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getNameOwner",
     data: BytesLike
@@ -180,7 +244,9 @@ export interface TovarishRegistryInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getNames", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasChainId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hashToName", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isPrior", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "lastUpdate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "migrate", data: BytesLike): Result;
   decodeFunctionResult(
@@ -188,6 +254,10 @@ export interface TovarishRegistryInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "prioritizeRelayer",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "pushRelayer",
     data: BytesLike
@@ -216,12 +286,10 @@ export interface TovarishRegistryInterface extends Interface {
     functionFragment: "removeRelayer",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "storeBytes", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "subdomains", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "tovarishSubname",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateDigest",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "updateFee", data: BytesLike): Result;
@@ -243,11 +311,47 @@ export namespace MigratedEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace PushedDigestEvent {
-  export type InputTuple = [digest: BytesLike];
-  export type OutputTuple = [digest: string];
+export namespace PrioritizedRelayerEvent {
+  export type InputTuple = [
+    ensName: string,
+    ensHash: BytesLike,
+    isPrior: boolean
+  ];
+  export type OutputTuple = [
+    ensName: string,
+    ensHash: string,
+    isPrior: boolean
+  ];
   export interface OutputObject {
-    digest: string;
+    ensName: string;
+    ensHash: string;
+    isPrior: boolean;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace PushedBytesEvent {
+  export type InputTuple = [index: BytesLike, toStore: BytesLike];
+  export type OutputTuple = [index: string, toStore: string];
+  export interface OutputObject {
+    index: string;
+    toStore: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace PushedChainEvent {
+  export type InputTuple = [chainId: BigNumberish, subdomain: string];
+  export type OutputTuple = [chainId: bigint, subdomain: string];
+  export interface OutputObject {
+    chainId: bigint;
+    subdomain: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -273,18 +377,6 @@ export namespace PushedRelayerEvent {
     ensHash: string;
     domainOwner: string;
     alreadRegistered: boolean;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace RemovedDigestEvent {
-  export type InputTuple = [digest: BytesLike];
-  export type OutputTuple = [digest: string];
-  export interface OutputObject {
-    digest: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -381,9 +473,33 @@ export interface TovarishRegistry extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  addChain: TypedContractMethod<
+    [chainId: BigNumberish, subdomain: string],
+    [void],
+    "nonpayable"
+  >;
+
+  addChains: TypedContractMethod<
+    [chains: TovarishRegistry.ChainStruct[]],
+    [void],
+    "nonpayable"
+  >;
+
+  bytesStore: TypedContractMethod<[arg0: BytesLike], [string], "view">;
+
+  chainIds: TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+
   ensRegistry: TypedContractMethod<[], [string], "view">;
 
-  getDigests: TypedContractMethod<[], [string[]], "view">;
+  getAddress: TypedContractMethod<[node: BytesLike], [string], "view">;
+
+  getChainIds: TypedContractMethod<[], [bigint[]], "view">;
+
+  getChains: TypedContractMethod<
+    [],
+    [TovarishRegistry.ChainStructOutput[]],
+    "view"
+  >;
 
   getNameOwner: TypedContractMethod<[node: BytesLike], [string], "view">;
 
@@ -391,7 +507,11 @@ export interface TovarishRegistry extends BaseContract {
 
   getNames: TypedContractMethod<[], [string[]], "view">;
 
+  hasChainId: TypedContractMethod<[arg0: BigNumberish], [boolean], "view">;
+
   hashToName: TypedContractMethod<[arg0: BytesLike], [string], "view">;
+
+  isPrior: TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
 
   lastUpdate: TypedContractMethod<[], [bigint], "view">;
 
@@ -405,6 +525,12 @@ export interface TovarishRegistry extends BaseContract {
 
   owner: TypedContractMethod<[], [string], "view">;
 
+  prioritizeRelayer: TypedContractMethod<
+    [ensName: string],
+    [void],
+    "nonpayable"
+  >;
+
   pushRelayer: TypedContractMethod<[ensName: string], [void], "nonpayable">;
 
   pushRelayers: TypedContractMethod<[names: string[]], [void], "nonpayable">;
@@ -416,20 +542,22 @@ export interface TovarishRegistry extends BaseContract {
   relayerRegistry: TypedContractMethod<[], [string], "view">;
 
   relayersData: TypedContractMethod<
-    [_subdomains: string[]],
+    [],
     [TovarishRegistry.RelayerStructOutput[]],
     "view"
   >;
 
-  removeRelayer: TypedContractMethod<
-    [ensHash: BytesLike],
+  removeRelayer: TypedContractMethod<[ensName: string], [void], "nonpayable">;
+
+  storeBytes: TypedContractMethod<
+    [index: BytesLike, toStore: BytesLike],
     [void],
     "nonpayable"
   >;
 
-  tovarishSubname: TypedContractMethod<[], [string], "view">;
+  subdomains: TypedContractMethod<[arg0: BigNumberish], [string], "view">;
 
-  updateDigest: TypedContractMethod<[digest: BytesLike], [void], "nonpayable">;
+  tovarishSubname: TypedContractMethod<[], [string], "view">;
 
   updateFee: TypedContractMethod<[fee: BigNumberish], [void], "nonpayable">;
 
@@ -444,11 +572,37 @@ export interface TovarishRegistry extends BaseContract {
   ): T;
 
   getFunction(
+    nameOrSignature: "addChain"
+  ): TypedContractMethod<
+    [chainId: BigNumberish, subdomain: string],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "addChains"
+  ): TypedContractMethod<
+    [chains: TovarishRegistry.ChainStruct[]],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "bytesStore"
+  ): TypedContractMethod<[arg0: BytesLike], [string], "view">;
+  getFunction(
+    nameOrSignature: "chainIds"
+  ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+  getFunction(
     nameOrSignature: "ensRegistry"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "getDigests"
-  ): TypedContractMethod<[], [string[]], "view">;
+    nameOrSignature: "getAddress"
+  ): TypedContractMethod<[node: BytesLike], [string], "view">;
+  getFunction(
+    nameOrSignature: "getChainIds"
+  ): TypedContractMethod<[], [bigint[]], "view">;
+  getFunction(
+    nameOrSignature: "getChains"
+  ): TypedContractMethod<[], [TovarishRegistry.ChainStructOutput[]], "view">;
   getFunction(
     nameOrSignature: "getNameOwner"
   ): TypedContractMethod<[node: BytesLike], [string], "view">;
@@ -459,8 +613,14 @@ export interface TovarishRegistry extends BaseContract {
     nameOrSignature: "getNames"
   ): TypedContractMethod<[], [string[]], "view">;
   getFunction(
+    nameOrSignature: "hasChainId"
+  ): TypedContractMethod<[arg0: BigNumberish], [boolean], "view">;
+  getFunction(
     nameOrSignature: "hashToName"
   ): TypedContractMethod<[arg0: BytesLike], [string], "view">;
+  getFunction(
+    nameOrSignature: "isPrior"
+  ): TypedContractMethod<[arg0: BytesLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "lastUpdate"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -473,6 +633,9 @@ export interface TovarishRegistry extends BaseContract {
   getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "prioritizeRelayer"
+  ): TypedContractMethod<[ensName: string], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "pushRelayer"
   ): TypedContractMethod<[ensName: string], [void], "nonpayable">;
@@ -490,20 +653,23 @@ export interface TovarishRegistry extends BaseContract {
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "relayersData"
-  ): TypedContractMethod<
-    [_subdomains: string[]],
-    [TovarishRegistry.RelayerStructOutput[]],
-    "view"
-  >;
+  ): TypedContractMethod<[], [TovarishRegistry.RelayerStructOutput[]], "view">;
   getFunction(
     nameOrSignature: "removeRelayer"
-  ): TypedContractMethod<[ensHash: BytesLike], [void], "nonpayable">;
+  ): TypedContractMethod<[ensName: string], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "storeBytes"
+  ): TypedContractMethod<
+    [index: BytesLike, toStore: BytesLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "subdomains"
+  ): TypedContractMethod<[arg0: BigNumberish], [string], "view">;
   getFunction(
     nameOrSignature: "tovarishSubname"
   ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "updateDigest"
-  ): TypedContractMethod<[digest: BytesLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "updateFee"
   ): TypedContractMethod<[fee: BigNumberish], [void], "nonpayable">;
@@ -519,11 +685,25 @@ export interface TovarishRegistry extends BaseContract {
     MigratedEvent.OutputObject
   >;
   getEvent(
-    key: "PushedDigest"
+    key: "PrioritizedRelayer"
   ): TypedContractEvent<
-    PushedDigestEvent.InputTuple,
-    PushedDigestEvent.OutputTuple,
-    PushedDigestEvent.OutputObject
+    PrioritizedRelayerEvent.InputTuple,
+    PrioritizedRelayerEvent.OutputTuple,
+    PrioritizedRelayerEvent.OutputObject
+  >;
+  getEvent(
+    key: "PushedBytes"
+  ): TypedContractEvent<
+    PushedBytesEvent.InputTuple,
+    PushedBytesEvent.OutputTuple,
+    PushedBytesEvent.OutputObject
+  >;
+  getEvent(
+    key: "PushedChain"
+  ): TypedContractEvent<
+    PushedChainEvent.InputTuple,
+    PushedChainEvent.OutputTuple,
+    PushedChainEvent.OutputObject
   >;
   getEvent(
     key: "PushedRelayer"
@@ -531,13 +711,6 @@ export interface TovarishRegistry extends BaseContract {
     PushedRelayerEvent.InputTuple,
     PushedRelayerEvent.OutputTuple,
     PushedRelayerEvent.OutputObject
-  >;
-  getEvent(
-    key: "RemovedDigest"
-  ): TypedContractEvent<
-    RemovedDigestEvent.InputTuple,
-    RemovedDigestEvent.OutputTuple,
-    RemovedDigestEvent.OutputObject
   >;
   getEvent(
     key: "RemovedRelayer"
@@ -573,15 +746,37 @@ export interface TovarishRegistry extends BaseContract {
       MigratedEvent.OutputObject
     >;
 
-    "PushedDigest(bytes32)": TypedContractEvent<
-      PushedDigestEvent.InputTuple,
-      PushedDigestEvent.OutputTuple,
-      PushedDigestEvent.OutputObject
+    "PrioritizedRelayer(string,bytes32,bool)": TypedContractEvent<
+      PrioritizedRelayerEvent.InputTuple,
+      PrioritizedRelayerEvent.OutputTuple,
+      PrioritizedRelayerEvent.OutputObject
     >;
-    PushedDigest: TypedContractEvent<
-      PushedDigestEvent.InputTuple,
-      PushedDigestEvent.OutputTuple,
-      PushedDigestEvent.OutputObject
+    PrioritizedRelayer: TypedContractEvent<
+      PrioritizedRelayerEvent.InputTuple,
+      PrioritizedRelayerEvent.OutputTuple,
+      PrioritizedRelayerEvent.OutputObject
+    >;
+
+    "PushedBytes(bytes32,bytes)": TypedContractEvent<
+      PushedBytesEvent.InputTuple,
+      PushedBytesEvent.OutputTuple,
+      PushedBytesEvent.OutputObject
+    >;
+    PushedBytes: TypedContractEvent<
+      PushedBytesEvent.InputTuple,
+      PushedBytesEvent.OutputTuple,
+      PushedBytesEvent.OutputObject
+    >;
+
+    "PushedChain(uint64,string)": TypedContractEvent<
+      PushedChainEvent.InputTuple,
+      PushedChainEvent.OutputTuple,
+      PushedChainEvent.OutputObject
+    >;
+    PushedChain: TypedContractEvent<
+      PushedChainEvent.InputTuple,
+      PushedChainEvent.OutputTuple,
+      PushedChainEvent.OutputObject
     >;
 
     "PushedRelayer(string,bytes32,address,bool)": TypedContractEvent<
@@ -593,17 +788,6 @@ export interface TovarishRegistry extends BaseContract {
       PushedRelayerEvent.InputTuple,
       PushedRelayerEvent.OutputTuple,
       PushedRelayerEvent.OutputObject
-    >;
-
-    "RemovedDigest(bytes32)": TypedContractEvent<
-      RemovedDigestEvent.InputTuple,
-      RemovedDigestEvent.OutputTuple,
-      RemovedDigestEvent.OutputObject
-    >;
-    RemovedDigest: TypedContractEvent<
-      RemovedDigestEvent.InputTuple,
-      RemovedDigestEvent.OutputTuple,
-      RemovedDigestEvent.OutputObject
     >;
 
     "RemovedRelayer(string,bytes32,address)": TypedContractEvent<

@@ -1,6 +1,4 @@
-import type * as balanceAggregatorSol from "./BalanceAggregator.sol";
-export type { balanceAggregatorSol };
-import type * as relayerAggregatorSol from "./RelayerAggregator.sol";
-export type { relayerAggregatorSol };
 export type { Aggregator } from "./Aggregator";
+export type { BalanceAggregator } from "./BalanceAggregator";
 export type { GovernanceAggregator } from "./GovernanceAggregator";
+export type { RelayerAggregator } from "./RelayerAggregator";

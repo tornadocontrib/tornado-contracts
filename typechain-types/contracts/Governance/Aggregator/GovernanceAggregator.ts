@@ -22,7 +22,7 @@ import type {
 } from "../../../common";
 
 export declare namespace GovernanceAggregator {
-  export type ProposalStruct = {
+  export type ProposalWithStateStruct = {
     proposer: AddressLike;
     target: AddressLike;
     startTime: BigNumberish;
@@ -34,7 +34,7 @@ export declare namespace GovernanceAggregator {
     state: BigNumberish;
   };
 
-  export type ProposalStructOutput = [
+  export type ProposalWithStateStructOutput = [
     proposer: string,
     target: string,
     startTime: bigint,
@@ -134,7 +134,7 @@ export interface GovernanceAggregator extends BaseContract {
 
   getAllProposals: TypedContractMethod<
     [governance: AddressLike],
-    [GovernanceAggregator.ProposalStructOutput[]],
+    [GovernanceAggregator.ProposalWithStateStructOutput[]],
     "view"
   >;
 
@@ -166,7 +166,7 @@ export interface GovernanceAggregator extends BaseContract {
     nameOrSignature: "getAllProposals"
   ): TypedContractMethod<
     [governance: AddressLike],
-    [GovernanceAggregator.ProposalStructOutput[]],
+    [GovernanceAggregator.ProposalWithStateStructOutput[]],
     "view"
   >;
   getFunction(

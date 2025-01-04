@@ -18,7 +18,7 @@ export type RelayerStructOutput = [
     records: string[];
 };
 export declare namespace GovernanceAggregator {
-    type ProposalStruct = {
+    type ProposalWithStateStruct = {
         proposer: AddressLike;
         target: AddressLike;
         startTime: BigNumberish;
@@ -29,7 +29,7 @@ export declare namespace GovernanceAggregator {
         extended: boolean;
         state: BigNumberish;
     };
-    type ProposalStructOutput = [
+    type ProposalWithStateStructOutput = [
         proposer: string,
         target: string,
         startTime: bigint,
@@ -84,7 +84,7 @@ export interface Aggregator extends BaseContract {
     getAllProposals: TypedContractMethod<[
         governance: AddressLike
     ], [
-        GovernanceAggregator.ProposalStructOutput[]
+        GovernanceAggregator.ProposalWithStateStructOutput[]
     ], "view">;
     getGovernanceBalances: TypedContractMethod<[
         governance: AddressLike,
@@ -122,7 +122,7 @@ export interface Aggregator extends BaseContract {
     getFunction(nameOrSignature: "getAllProposals"): TypedContractMethod<[
         governance: AddressLike
     ], [
-        GovernanceAggregator.ProposalStructOutput[]
+        GovernanceAggregator.ProposalWithStateStructOutput[]
     ], "view">;
     getFunction(nameOrSignature: "getGovernanceBalances"): TypedContractMethod<[
         governance: AddressLike,

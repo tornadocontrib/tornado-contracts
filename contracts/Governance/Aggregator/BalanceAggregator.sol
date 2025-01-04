@@ -1,13 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
-pragma experimental ABIEncoderV2;
+pragma solidity ^0.8.20;
 
-import { IERC20 } from "@openzeppelin/contracts-v3/token/ERC20/IERC20.sol";
-import { IRelayerRegistry } from './RelayerAggregator.sol';
-
-interface ICore {
-    function lockedBalance(address _addr) external view returns (uint256);
-}
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IRelayerRegistry } from '../interfaces/IRelayerRegistry.sol';
+import { IGovernance } from '../interfaces/IGovernance.sol';
 
 /**
  * @dev Staked Balance Aggregator
@@ -19,12 +15,12 @@ contract BalanceAggregator {
     }
 
     IERC20 public immutable torn;
-    ICore public immutable core;
+    IGovernance public immutable governance;
     IRelayerRegistry public immutable relayerRegistry;
 
-    constructor(IERC20 _torn, ICore _core, IRelayerRegistry _relayerRegistry) public {
+    constructor(IERC20 _torn, IGovernance _governance, IRelayerRegistry _relayerRegistry) {
         torn = _torn;
-        core = _core;
+        governance = _governance;
         relayerRegistry = _relayerRegistry;
     }
 
@@ -40,7 +36,7 @@ contract BalanceAggregator {
 
     function getStaked(address _addr) public view returns (StakedBalance memory) {
         return StakedBalance({
-            balance: torn.balanceOf(_addr) + core.lockedBalance(_addr) + relayerRegistry.getRelayerBalance(_addr),
+            balance: torn.balanceOf(_addr) + governance.lockedBalance(_addr) + relayerRegistry.getRelayerBalance(_addr),
             isContract: isContract(_addr)
         });
     }
