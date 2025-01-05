@@ -34,7 +34,7 @@ contract ApprovalTornado is ERC20Tornado {
     }
 
     function _processDeposit() internal virtual override {
-        require(msg.value == 0, "ETH value is supposed to be 0 for ERC20 instance");
+        require(msg.value == 0, 'ETH value is supposed to be 0 for ERC20 instance');
         if (msg.sender == tornadoProxyLight) {
             token.safeTransferFrom(tx.origin, address(this), denomination);
             return;

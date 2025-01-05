@@ -5,6 +5,6 @@ interface IRelayerRegistry {
     function getRelayerBalance(address relayer) external view returns (uint256);
 
     function getRelayerEnsHash(address relayer) external view returns (bytes32);
-    
+
     function isRelayerRegistered(address relayer, address toResolve) external view returns (bool);
 }

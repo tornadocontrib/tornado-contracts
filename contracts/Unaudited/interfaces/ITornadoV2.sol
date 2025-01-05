@@ -4,11 +4,7 @@ pragma solidity ^0.8.20;
 interface ITornadoV2 {
     function weth() external view returns (address);
 
-    function deposit(
-        uint256[] memory _ids,
-        bytes32[] memory _commitments,
-        bytes memory permitData
-    ) external payable;
+    function deposit(uint256[] memory _ids, bytes32[] memory _commitments, bytes memory permitData) external payable;
 
     function withdraw(
         uint256 id,
@@ -33,7 +29,7 @@ interface ITornadoV2 {
     function filledSubtrees(uint256 id, uint256 index) external view returns (bytes32);
 
     function zeros(uint256 id, uint256 index) external view returns (bytes32);
-    
+
     function roots(uint256 id, uint256 index) external view returns (bytes32);
 
     function isSpent(bytes32 _nullifierHash) external view returns (bool);

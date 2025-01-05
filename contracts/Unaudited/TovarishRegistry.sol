@@ -22,7 +22,12 @@ contract TovarishRegistry {
 
     event PushedBytes(bytes32 indexed index, bytes toStore);
     event PushedChain(uint64 indexed chainId, string subdomain);
-    event PushedRelayer(string ensName, bytes32 indexed ensHash, address indexed domainOwner, bool indexed alreadRegistered);
+    event PushedRelayer(
+        string ensName,
+        bytes32 indexed ensHash,
+        address indexed domainOwner,
+        bool indexed alreadRegistered
+    );
     event RemovedRelayer(string ensName, bytes32 indexed ensHash, address indexed domainOwner);
     event PrioritizedRelayer(string ensName, bytes32 indexed ensHash, bool isPrior);
     event UpdatedFee(uint256 newFee);
@@ -72,11 +77,7 @@ contract TovarishRegistry {
         _;
     }
 
-    constructor(
-        ENS _ensRegistry,
-        INameWrapper _nameWrapper,
-        IRelayerRegistry _relayerRegistry
-    ) {
+    constructor(ENS _ensRegistry, INameWrapper _nameWrapper, IRelayerRegistry _relayerRegistry) {
         ensRegistry = _ensRegistry;
         nameWrapper = _nameWrapper;
         relayerRegistry = _relayerRegistry;
@@ -233,10 +234,7 @@ contract TovarishRegistry {
         for (uint i; i < chainIds.length; ++i) {
             uint64 chainId = chainIds[i];
 
-            chains[i] = Chain({
-                chainId: chainId,
-                subdomain: subdomains[chainId]
-            });
+            chains[i] = Chain({ chainId: chainId, subdomain: subdomains[chainId] });
         }
 
         return chains;
@@ -274,7 +272,7 @@ contract TovarishRegistry {
                     _relayers[i].tovarishChains = resolver.safetext(tovarishHash, 'chains');
                 }
             }
-            
+
             {
                 if (_relayers[i].owner == address(0)) {
                     _relayers[i].owner = getAddress(ensHash);

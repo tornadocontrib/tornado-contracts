@@ -6,7 +6,7 @@ import { TimelockController, AccessControl } from '@openzeppelin/contracts/gover
 
 /**
  * @dev Timelock contract with basic multisig functionality
- * 
+ *
  * Note: anyone could execute once the approved transaction pass the required delay
  * this allows emergency queue when the proposer is not available for execution
  * Also, transactions doesn't expire so once queued passed delay it can be executed anytime until canceled
@@ -43,12 +43,7 @@ contract MultiLock is TimelockController {
         uint256 _minDelay,
         uint256 _minQuorum,
         address[] memory _proposers
-    ) TimelockController(
-        _minDelay,
-        _proposers,
-        new address[](0),
-        address(0)
-    ) {
+    ) TimelockController(_minDelay, _proposers, new address[](0), address(0)) {
         minQuorum = _minQuorum;
 
         for (uint i; i < _proposers.length; ++i) {

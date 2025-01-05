@@ -3,9 +3,9 @@
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
-import { GovernanceVaultUpgrade } from "./GovernanceVaultUpgrade.sol";
-import { GasCompensator } from "./GasCompensator.sol";
-import { Math } from "@openzeppelin/contracts-v3/math/Math.sol";
+import { GovernanceVaultUpgrade } from './GovernanceVaultUpgrade.sol';
+import { GasCompensator } from './GasCompensator.sol';
+import { Math } from '@openzeppelin/contracts-v3/math/Math.sol';
 
 /**
  * @notice This contract should upgrade governance to be able to compensate gas for certain actions.
@@ -19,15 +19,14 @@ contract GovernanceGasUpgrade is GovernanceVaultUpgrade, GasCompensator {
      * @param _userVault tornado vault address
      *
      */
-    constructor(address _gasCompLogic, address _userVault)
-        public
-        GovernanceVaultUpgrade(_userVault)
-        GasCompensator(_gasCompLogic)
-    { }
+    constructor(
+        address _gasCompLogic,
+        address _userVault
+    ) public GovernanceVaultUpgrade(_userVault) GasCompensator(_gasCompLogic) {}
 
     /// @notice check that msg.sender is multisig
     modifier onlyMultisig() {
-        require(msg.sender == returnMultisigAddress(), "only multisig");
+        require(msg.sender == returnMultisigAddress(), 'only multisig');
         _;
     }
 
@@ -35,7 +34,7 @@ contract GovernanceGasUpgrade is GovernanceVaultUpgrade, GasCompensator {
      * @notice receive ether function, does nothing but receive ether
      *
      */
-    receive() external payable { }
+    receive() external payable {}
 
     /**
      * @notice function to add a certain amount of ether for gas compensations
@@ -44,11 +43,7 @@ contract GovernanceGasUpgrade is GovernanceVaultUpgrade, GasCompensator {
      *
      */
     function setGasCompensations(uint256 gasCompensationsLimit) external virtual override onlyMultisig {
-        require(
-            payable(address(gasCompensationVault)).send(
-                Math.min(gasCompensationsLimit, address(this).balance)
-            )
-        );
+        require(payable(address(gasCompensationVault)).send(Math.min(gasCompensationsLimit, address(this).balance)));
     }
 
     /**
@@ -73,7 +68,10 @@ contract GovernanceGasUpgrade is GovernanceVaultUpgrade, GasCompensator {
      * @param support true if yes false if no
      *
      */
-    function castVote(uint256 proposalId, bool support)
+    function castVote(
+        uint256 proposalId,
+        bool support
+    )
         external
         virtual
         override
@@ -93,12 +91,8 @@ contract GovernanceGasUpgrade is GovernanceVaultUpgrade, GasCompensator {
      * @param support true if yes false if no
      *
      */
-    function castDelegatedVote(address[] memory from, uint256 proposalId, bool support)
-        external
-        virtual
-        override
-    {
-        require(from.length > 0, "Can not be empty");
+    function castDelegatedVote(address[] memory from, uint256 proposalId, bool support) external virtual override {
+        require(from.length > 0, 'Can not be empty');
         _castDelegatedVote(
             from,
             proposalId,
@@ -110,7 +104,7 @@ contract GovernanceGasUpgrade is GovernanceVaultUpgrade, GasCompensator {
     /// @notice checker for success on deployment
     /// @return returns precise version of governance
     function version() external pure virtual override returns (string memory) {
-        return "2.lottery-and-gas-upgrade";
+        return '2.lottery-and-gas-upgrade';
     }
 
     /**
@@ -159,16 +153,16 @@ contract GovernanceGasUpgrade is GovernanceVaultUpgrade, GasCompensator {
      * @param gasCompensated true if gas should be compensated (given all internal checks pass)
      *
      */
-    function _castDelegatedVote(address[] memory from, uint256 proposalId, bool support, bool gasCompensated)
-        internal
-        gasCompensation(msg.sender, gasCompensated, (msg.sender == tx.origin ? 21e3 : 0))
-    {
+    function _castDelegatedVote(
+        address[] memory from,
+        uint256 proposalId,
+        bool support,
+        bool gasCompensated
+    ) internal gasCompensation(msg.sender, gasCompensated, (msg.sender == tx.origin ? 21e3 : 0)) {
         for (uint256 i = 0; i < from.length; i++) {
             address delegator = from[i];
-            require(
-                delegatedTo[delegator] == msg.sender || delegator == msg.sender, "Governance: not authorized"
-            );
-            require(!gasCompensated || !hasAccountVoted(proposalId, delegator), "Governance: voted already");
+            require(delegatedTo[delegator] == msg.sender || delegator == msg.sender, 'Governance: not authorized');
+            require(!gasCompensated || !hasAccountVoted(proposalId, delegator), 'Governance: voted already');
             _castVote(delegator, proposalId, support);
         }
     }

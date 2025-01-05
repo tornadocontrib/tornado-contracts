@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 
-import { OwnableLibrary } from "../libraries/OwnableLibrary.sol";
-import { AdminUpgradeableProxy } from "../AdminUpgradeableProxy.sol";
+import { OwnableLibrary } from '../libraries/OwnableLibrary.sol';
+import { AdminUpgradeableProxy } from '../AdminUpgradeableProxy.sol';
 
 /**
  * @dev Enables testnet contracts to be upgraded by the governance and maintainer, since we don't want to waste time
  */
 contract TestnetAdminProxy is AdminUpgradeableProxy {
-    modifier onlyOwner {
-        require(OwnableLibrary.getOwner() == msg.sender, "Not an owner");
+    modifier onlyOwner() {
+        require(OwnableLibrary.getOwner() == msg.sender, 'Not an owner');
         _;
     }
 

@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import { IHasher } from '../Classic/interfaces/IHasher.sol';
 import { IVerifier } from '../Classic/interfaces/IVerifier.sol';
 import { IWETH } from '../Classic/interfaces/IWETH.sol';
-import { IERC20, SafeERC20 } from "../Classic/libraries/SafeERC20.sol";
+import { IERC20, SafeERC20 } from '../Classic/libraries/SafeERC20.sol';
 import { ReentrancyGuard } from '../Classic/libraries/ReentrancyGuard.sol';
 
 import { IVault } from './interfaces/IVault.sol';
@@ -22,18 +22,25 @@ contract TornadoV2 is ReentrancyGuard {
         PERMIT,
         PERMIT2
     }
-    
+
     struct PermitCommitments {
         bytes32 instancesHash;
         bytes32 commitmentsHash;
     }
 
-    bytes public constant COMMITMENT_TYPE = "PermitCommitments(bytes32 instancesHash,bytes32 commitmentsHash)";
+    bytes public constant COMMITMENT_TYPE = 'PermitCommitments(bytes32 instancesHash,bytes32 commitmentsHash)';
 
     bytes32 public constant COMMITMENT_TYPEHASH = keccak256(bytes(COMMITMENT_TYPE));
 
-    string public constant WITNESS_TYPE_STRING = string(abi.encodePacked("PermitCommitments witness)", COMMITMENT_TYPE, "TokenPermissions(address token,uint256 amount)"));
-    
+    string public constant WITNESS_TYPE_STRING =
+        string(
+            abi.encodePacked(
+                'PermitCommitments witness)',
+                COMMITMENT_TYPE,
+                'TokenPermissions(address token,uint256 amount)'
+            )
+        );
+
     // https://docs.uniswap.org/contracts/v3/reference/deployments/ethereum-deployments
     ISignatureTransfer public constant permit2 = ISignatureTransfer(0x000000000022D473030F116dDEE9F6B43aC78BA3);
 
@@ -51,13 +58,7 @@ contract TornadoV2 is ReentrancyGuard {
     address public feeTo;
     uint16 public constant feeRate = 30;
 
-    event Deposit(
-        uint256 indexed id,
-        address from,
-        bytes32 indexed commitment,
-        uint32 leafIndex,
-        uint256 timestamp
-    );
+    event Deposit(uint256 indexed id, address from, bytes32 indexed commitment, uint32 leafIndex, uint256 timestamp);
 
     event Withdrawal(
         uint256 indexed id,
@@ -72,32 +73,25 @@ contract TornadoV2 is ReentrancyGuard {
         mapping(uint256 => bytes32) filledSubtrees;
         mapping(uint256 => bytes32) zeros;
         mapping(uint256 => bytes32) roots;
-
         uint32 currentRootIndex;
         uint32 nextIndex;
-
         IERC20 token;
         uint256 denomination;
-
         // total deposits - total withdrawals
         uint32 delta;
         uint256 rewards;
-
         IVault vault;
     }
 
     struct InstanceView {
         uint32 currentRootIndex;
         uint32 nextIndex;
-
         IERC20 token;
         bool native;
         uint256 denomination;
-
         // total deposits - total withdrawals
         uint32 delta;
         uint256 rewards;
-
         IVault vault;
     }
 
@@ -131,8 +125,8 @@ contract TornadoV2 is ReentrancyGuard {
             revert Initialized();
         }
 
-        require(_levels > 0, "_levels should be greater than zero");
-        require(_levels < 32, "_levels should be less than 32");
+        require(_levels > 0, '_levels should be greater than zero');
+        require(_levels < 32, '_levels should be less than 32');
 
         weth = _weth;
         levels = _levels;
@@ -153,7 +147,11 @@ contract TornadoV2 is ReentrancyGuard {
         IVault vault;
     }
 
-    function createInstance(IERC20 _token, uint256 _denomination, IVault _vault) public virtual nonReentrant returns (uint256 id) {
+    function createInstance(
+        IERC20 _token,
+        uint256 _denomination,
+        IVault _vault
+    ) public virtual nonReentrant returns (uint256 id) {
         id = instanceIndex;
 
         bytes32 instanceHash = keccak256(abi.encode(address(_token), _denomination, address(_vault)));
@@ -181,13 +179,11 @@ contract TornadoV2 is ReentrancyGuard {
     }
 
     function witness(PermitCommitments memory permitData) public pure returns (bytes32) {
-        return keccak256(
-            abi.encode(COMMITMENT_TYPEHASH, permitData.instancesHash, permitData.commitmentsHash)
-        );
+        return keccak256(abi.encode(COMMITMENT_TYPEHASH, permitData.instancesHash, permitData.commitmentsHash));
     }
 
     function getSignatureType(bytes memory permitData) public pure returns (SignatureType) {
-        (bytes1 sigType) = abi.decode(permitData, (bytes1));
+        bytes1 sigType = abi.decode(permitData, (bytes1));
 
         if (uint8(sigType) == uint8(0)) {
             return SignatureType.PERMIT;
@@ -202,14 +198,14 @@ contract TornadoV2 is ReentrancyGuard {
         uint256[] memory _ids,
         bytes32[] memory _commitments
     ) internal view returns (IERC20 _token, uint256 _amount, IVault _vault) {
-        require(_ids.length == _commitments.length, "Incorrect input");
+        require(_ids.length == _commitments.length, 'Incorrect input');
 
         _token = instances[_ids[0]].token;
         _vault = instances[_ids[0]].vault;
 
         for (uint i; i < _ids.length; ++i) {
-            require(_token == instances[_ids[i]].token, "Incorrect Token");
-            require(_vault == instances[_ids[i]].vault, "Incorrect Vault");
+            require(_token == instances[_ids[i]].token, 'Incorrect Token');
+            require(_vault == instances[_ids[i]].vault, 'Incorrect Vault');
 
             _amount += instances[_ids[i]].denomination;
         }
@@ -224,83 +220,66 @@ contract TornadoV2 is ReentrancyGuard {
         uint256[] memory _ids,
         bytes32[] memory _commitments,
         bytes memory permitData
-    ) external virtual payable nonReentrant {
+    ) external payable virtual nonReentrant {
         (IERC20 _token, uint256 _amount, IVault _vault) = _parseDeposit(_ids, _commitments);
         bool native = address(_token) == address(weth);
 
-        require(msg.value == 0 || (native && msg.value == _amount), "Please send correct ETH");
+        require(msg.value == 0 || (native && msg.value == _amount), 'Please send correct ETH');
 
         // Let Vault handle deposits
         if (address(_vault) != address(0)) {
+            _vault.deposit{ value: msg.value }(_ids, address(_token), msg.sender, _amount, permitData);
 
-            _vault.deposit{ value: msg.value }(
-                _ids,
-                address(_token),
-                msg.sender,
-                _amount,
-                permitData
-            );
-
-        // Handle native ETH deposits
+            // Handle native ETH deposits
         } else if (native && msg.value == _amount) {
-
             weth.deposit{ value: _amount }();
 
-        // Handle approved token deposits
+            // Handle approved token deposits
         } else if (permitData.length == 0) {
-
             _token.safeTransferFrom(msg.sender, address(this), _amount);
 
-        // Handle signature deposits (PERMIT, PERMIT2)
+            // Handle signature deposits (PERMIT, PERMIT2)
         } else {
-
             SignatureType sigType = getSignatureType(permitData);
 
             if (sigType == SignatureType.PERMIT) {
-                
                 (, address owner, bytes memory signature) = abi.decode(permitData, (bytes1, address, bytes));
-                
+
                 (uint8 v, bytes32 r, bytes32 s) = ParseSignature.parse(signature);
-                
+
                 bytes32 commitmentsHash = keccak256(abi.encodePacked(_commitments));
-                
+
                 _token.permit(owner, address(this), _amount, uint256(commitmentsHash), v, r, s);
                 _token.safeTransferFrom(owner, address(this), _amount);
-                
             } else {
-                
                 (, address owner, uint256 nonce, uint256 deadline, bytes memory signature) = abi.decode(
-                    permitData, (bytes1, address, uint256, uint256, bytes)
+                    permitData,
+                    (bytes1, address, uint256, uint256, bytes)
                 );
 
                 bytes32 witnessHash;
 
                 {
-                    witnessHash = witness(PermitCommitments({
-                        instancesHash: keccak256(abi.encodePacked(_ids)),
-                        commitmentsHash: keccak256(abi.encodePacked(_commitments))
-                    }));
+                    witnessHash = witness(
+                        PermitCommitments({
+                            instancesHash: keccak256(abi.encodePacked(_ids)),
+                            commitmentsHash: keccak256(abi.encodePacked(_commitments))
+                        })
+                    );
                 }
-                
+
                 permit2.permitWitnessTransferFrom(
                     ISignatureTransfer.PermitTransferFrom({
-                        permitted: ISignatureTransfer.TokenPermissions({
-                            token: address(_token),
-                            amount: _amount
-                        }),
+                        permitted: ISignatureTransfer.TokenPermissions({ token: address(_token), amount: _amount }),
                         nonce: nonce,
                         deadline: deadline
                     }),
-                    ISignatureTransfer.SignatureTransferDetails({
-                        to: address(this),
-                        requestedAmount: _amount
-                    }),
+                    ISignatureTransfer.SignatureTransferDetails({ to: address(this), requestedAmount: _amount }),
                     owner,
                     witnessHash,
                     WITNESS_TYPE_STRING,
                     signature
                 );
-                
             }
         }
 
@@ -311,11 +290,11 @@ contract TornadoV2 is ReentrancyGuard {
     }
 
     function _processDeposit(uint256 id, bytes32 _commitment) internal {
-        require(!commitments[_commitment], "The commitment has been submitted");
-        
+        require(!commitments[_commitment], 'The commitment has been submitted');
+
         uint32 insertedIndex = _insert(id, _commitment);
         commitments[_commitment] = true;
-        
+
         emit Deposit(id, tx.origin, _commitment, insertedIndex, block.timestamp);
     }
 
@@ -337,7 +316,7 @@ contract TornadoV2 is ReentrancyGuard {
         uint256 _relayerFee,
         uint256 _refund,
         bytes memory _data
-    ) external virtual payable nonReentrant {
+    ) external payable virtual nonReentrant {
         _processWithdraw(id, _proof, _root, _nullifierHash, _recipient, _relayer, _relayerFee, _refund, _data);
         _processSend(id, _recipient, _relayer, _relayerFee, _refund, _data);
     }
@@ -355,7 +334,6 @@ contract TornadoV2 is ReentrancyGuard {
         uint256 _denomination = instances[id].denomination;
 
         if (address(instances[id].vault) != address(0)) {
-
             instances[id].vault.withdraw{ value: msg.value }(
                 id,
                 address(_token),
@@ -385,34 +363,30 @@ contract TornadoV2 is ReentrancyGuard {
         instances[id].delta--;
 
         if (native) {
-
             // sanity checks
-            require(msg.value == 0, "Message value is supposed to be zero for ETH instance");
-            require(_refund == 0, "Refund value is supposed to be zero for ETH instance");
-            
+            require(msg.value == 0, 'Message value is supposed to be zero for ETH instance');
+            require(_refund == 0, 'Refund value is supposed to be zero for ETH instance');
+
             (bool success, ) = _recipient.call{ value: toSend }(_data);
-            require(success, "payment to _recipient did not go thru");
+            require(success, 'payment to _recipient did not go thru');
 
             if (_relayerFee > 0) {
-                (success, ) = _relayer.call{ value: _relayerFee }("");
-                require(success, "payment to _relayer did not go thru");
+                (success, ) = _relayer.call{ value: _relayerFee }('');
+                require(success, 'payment to _relayer did not go thru');
             }
-
         } else {
+            require(msg.value == _refund, 'Incorrect refund amount received by the contract');
 
-            require(msg.value == _refund, "Incorrect refund amount received by the contract");
-            
             _token.safeTransfer(_recipient, toSend);
 
             if (_relayerFee > 0) {
                 _token.safeTransfer(_relayer, _relayerFee);
             }
-            
+
             if (_refund > 0 || _data.length != 0) {
                 (bool success, ) = _recipient.call{ value: _refund }(_data);
-                require(success, "refund to _recipient did not go thru");
+                require(success, 'refund to _recipient did not go thru');
             }
-
         }
     }
 
@@ -427,14 +401,14 @@ contract TornadoV2 is ReentrancyGuard {
         instances[id].rewards -= rewards;
 
         // withdrawal fees to collect (doesn't collect when this is the last withdrawal)
-        uint256 fees = (instances[id].delta > 1) ? (_denomination * feeRate / 10000) : 0;
+        uint256 fees = (instances[id].delta > 1) ? ((_denomination * feeRate) / 10000) : 0;
         uint256 devFee = (feeTo != address(0)) ? (fees / 2) : 0;
         uint256 dividend = fees - devFee;
 
         if (devFee != 0) {
             if (native) {
-                (bool success, ) = feeTo.call{ value: devFee }("");
-                require(success, "payment to feeTo did not go thru");
+                (bool success, ) = feeTo.call{ value: devFee }('');
+                require(success, 'payment to feeTo did not go thru');
             } else {
                 _token.safeTransfer(feeTo, devFee);
             }
@@ -456,9 +430,9 @@ contract TornadoV2 is ReentrancyGuard {
         uint256 _refund,
         bytes memory _data
     ) internal {
-        require(_fee <= instances[id].denomination, "Fee exceeds transfer value");
-        require(!nullifierHashes[_nullifierHash], "The note has been already spent");
-        require(isKnownRoot(id, _root), "Cannot find your merkle root"); // Make sure to use a recent one
+        require(_fee <= instances[id].denomination, 'Fee exceeds transfer value');
+        require(!nullifierHashes[_nullifierHash], 'The note has been already spent');
+        require(isKnownRoot(id, _root), 'Cannot find your merkle root'); // Make sure to use a recent one
 
         uint256 recipientInt = uint256(uint160(address(_recipient)));
 
@@ -470,11 +444,18 @@ contract TornadoV2 is ReentrancyGuard {
         require(
             verifier.verifyProof(
                 _proof,
-                [uint256(_root), uint256(_nullifierHash), recipientInt, uint256(uint160(address(_relayer))), _fee, _refund]
+                [
+                    uint256(_root),
+                    uint256(_nullifierHash),
+                    recipientInt,
+                    uint256(uint160(address(_relayer))),
+                    _fee,
+                    _refund
+                ]
             ),
-            "Invalid withdraw proof"
+            'Invalid withdraw proof'
         );
-        
+
         nullifierHashes[_nullifierHash] = true;
 
         emit Withdrawal(id, _recipient, _nullifierHash, _relayer, _fee, block.timestamp);
@@ -483,12 +464,9 @@ contract TornadoV2 is ReentrancyGuard {
     /**
      * @dev Hash 2 tree leaves, returns MiMC(_left, _right)
      */
-    function hashLeftRight(
-        bytes32 _left,
-        bytes32 _right
-    ) public view returns (bytes32) {
-        require(uint256(_left) < FIELD_SIZE, "_left should be inside the field");
-        require(uint256(_right) < FIELD_SIZE, "_right should be inside the field");
+    function hashLeftRight(bytes32 _left, bytes32 _right) public view returns (bytes32) {
+        require(uint256(_left) < FIELD_SIZE, '_left should be inside the field');
+        require(uint256(_right) < FIELD_SIZE, '_right should be inside the field');
         uint256 R = uint256(_left);
         uint256 C = 0;
         (R, C) = hasher.MiMCSponge(R, C);
@@ -499,12 +477,12 @@ contract TornadoV2 is ReentrancyGuard {
 
     function _insert(uint256 id, bytes32 _leaf) internal returns (uint32 index) {
         uint32 _nextIndex = instances[id].nextIndex;
-        require(_nextIndex != uint32(2)**levels, "Merkle tree is full. No more leaves can be added");
+        require(_nextIndex != uint32(2) ** levels, 'Merkle tree is full. No more leaves can be added');
         uint32 currentIndex = _nextIndex;
         bytes32 currentLevelHash = _leaf;
         bytes32 left;
         bytes32 right;
-        
+
         for (uint32 i = 0; i < levels; i++) {
             if (currentIndex % 2 == 0) {
                 left = currentLevelHash;
@@ -517,7 +495,7 @@ contract TornadoV2 is ReentrancyGuard {
             currentLevelHash = hashLeftRight(left, right);
             currentIndex /= 2;
         }
-        
+
         uint32 newRootIndex = (instances[id].currentRootIndex + 1) % ROOT_HISTORY_SIZE;
         instances[id].currentRootIndex = newRootIndex;
         instances[id].roots[newRootIndex] = currentLevelHash;
@@ -545,14 +523,14 @@ contract TornadoV2 is ReentrancyGuard {
         } while (i != _currentRootIndex);
         return false;
     }
-    
+
     /**
      * @dev Returns the last root
      */
     function nextIndex(uint256 id) public view returns (uint32) {
         return instances[id].nextIndex;
     }
-    
+
     function getLastRoot(uint256 id) public view returns (bytes32) {
         return instances[id].roots[instances[id].currentRootIndex];
     }
@@ -566,16 +544,17 @@ contract TornadoV2 is ReentrancyGuard {
     }
 
     function instance(uint256 id) external view returns (InstanceView memory) {
-        return InstanceView({
-            currentRootIndex: instances[id].currentRootIndex,
-            nextIndex: instances[id].nextIndex,
-            token: instances[id].token,
-            native: address(instances[id].token) == address(weth),
-            denomination: instances[id].denomination,
-            delta: instances[id].delta,
-            rewards: instances[id].rewards,
-            vault: instances[id].vault
-        });
+        return
+            InstanceView({
+                currentRootIndex: instances[id].currentRootIndex,
+                nextIndex: instances[id].nextIndex,
+                token: instances[id].token,
+                native: address(instances[id].token) == address(weth),
+                denomination: instances[id].denomination,
+                delta: instances[id].delta,
+                rewards: instances[id].rewards,
+                vault: instances[id].vault
+            });
     }
 
     function filledSubtrees(uint256 id, uint256 index) external view returns (bytes32) {
@@ -585,7 +564,7 @@ contract TornadoV2 is ReentrancyGuard {
     function zeros(uint256 id, uint256 index) external view returns (bytes32) {
         return instances[id].zeros[index];
     }
-    
+
     function roots(uint256 id, uint256 index) external view returns (bytes32) {
         return instances[id].roots[index];
     }
@@ -598,7 +577,7 @@ contract TornadoV2 is ReentrancyGuard {
     function isSpent(bytes32 _nullifierHash) public view returns (bool) {
         return nullifierHashes[_nullifierHash];
     }
-    
+
     /** @dev whether an array of notes is already spent */
     function isSpentArray(bytes32[] calldata _nullifierHashes) external view returns (bool[] memory spent) {
         spent = new bool[](_nullifierHashes.length);

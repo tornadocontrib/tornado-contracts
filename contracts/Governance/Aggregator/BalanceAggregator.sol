@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { IERC20 } from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import { IRelayerRegistry } from '../interfaces/IRelayerRegistry.sol';
 import { IGovernance } from '../interfaces/IGovernance.sol';
 
@@ -35,10 +35,13 @@ contract BalanceAggregator {
     }
 
     function getStaked(address _addr) public view returns (StakedBalance memory) {
-        return StakedBalance({
-            balance: torn.balanceOf(_addr) + governance.lockedBalance(_addr) + relayerRegistry.getRelayerBalance(_addr),
-            isContract: isContract(_addr)
-        });
+        return
+            StakedBalance({
+                balance: torn.balanceOf(_addr) +
+                    governance.lockedBalance(_addr) +
+                    relayerRegistry.getRelayerBalance(_addr),
+                isContract: isContract(_addr)
+            });
     }
 
     function isContract(address _addr) public view returns (bool) {

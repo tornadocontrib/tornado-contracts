@@ -3,8 +3,8 @@
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
-import { Governance } from "../v1/Governance.sol";
-import { GovernanceExploitPatchUpgrade } from "../v4-exploit-patch/GovernanceExploitPatchUpgrade.sol";
+import { Governance } from '../v1/Governance.sol';
+import { GovernanceExploitPatchUpgrade } from '../v4-exploit-patch/GovernanceExploitPatchUpgrade.sol';
 
 contract GovernanceProposalStateUpgrade is GovernanceExploitPatchUpgrade {
     constructor(
@@ -15,11 +15,11 @@ contract GovernanceProposalStateUpgrade is GovernanceExploitPatchUpgrade {
 
     /// @notice Return the version of the contract
     function version() external pure virtual override returns (string memory) {
-        return "5.proposal-state-patch";
+        return '5.proposal-state-patch';
     }
 
     function state(uint256 proposalId) public view virtual override returns (ProposalState) {
-        require(proposalId <= proposalCount() && proposalId > 0, "Governance::state: invalid proposal id");
+        require(proposalId <= proposalCount() && proposalId > 0, 'Governance::state: invalid proposal id');
         Proposal storage proposal = proposals[proposalId];
         if (getBlockTimestamp() <= proposal.startTime) {
             return ProposalState.Pending;

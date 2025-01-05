@@ -3,13 +3,13 @@
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
-import { SafeMath } from "@openzeppelin/contracts-v3/math/SafeMath.sol";
-import { IERC20 } from "@openzeppelin/contracts-v3/token/ERC20/IERC20.sol";
-import { Initializable } from "@openzeppelin/contracts-v3/proxy/Initializable.sol";
-import { SafeERC20 } from "@openzeppelin/contracts-v3/token/ERC20/SafeERC20.sol";
-import { TORN } from "./TORN/TORN.sol";
-import { TornadoStakingRewards } from "./TornadoStakingRewards.sol";
-import { ITornadoInstance } from "./interfaces/ITornadoInstance.sol";
+import { SafeMath } from '@openzeppelin/contracts-v3/math/SafeMath.sol';
+import { IERC20 } from '@openzeppelin/contracts-v3/token/ERC20/IERC20.sol';
+import { Initializable } from '@openzeppelin/contracts-v3/proxy/Initializable.sol';
+import { SafeERC20 } from '@openzeppelin/contracts-v3/token/ERC20/SafeERC20.sol';
+import { TORN } from './TORN/TORN.sol';
+import { TornadoStakingRewards } from './TornadoStakingRewards.sol';
+import { ITornadoInstance } from './interfaces/ITornadoInstance.sol';
 
 interface IENS {
     function owner(bytes32 node) external view returns (address);
@@ -101,17 +101,17 @@ contract RelayerRegistry is Initializable {
     event RelayerUnregistered(address relayer);
 
     modifier onlyGovernance() {
-        require(msg.sender == governance, "only governance");
+        require(msg.sender == governance, 'only governance');
         _;
     }
 
     modifier onlyTornadoRouter() {
-        require(msg.sender == tornadoRouter, "only proxy");
+        require(msg.sender == tornadoRouter, 'only proxy');
         _;
     }
 
     modifier onlyRelayer(address sender, address relayer) {
-        require(workers[sender] == relayer, "only relayer");
+        require(workers[sender] == relayer, 'only relayer');
         _;
     }
 
@@ -172,13 +172,13 @@ contract RelayerRegistry is Initializable {
         address domainOwner = ens.owner(ensHash);
         address ensNameWrapper = 0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401;
 
-        require(domainOwner != ensNameWrapper, "only unwrapped ens domains");
-        require(relayer == domainOwner, "only ens domain owner");
-        require(workers[relayer] == address(0), "cant register again");
+        require(domainOwner != ensNameWrapper, 'only unwrapped ens domains');
+        require(relayer == domainOwner, 'only ens domain owner');
+        require(workers[relayer] == address(0), 'cant register again');
         RelayerState storage metadata = relayers[relayer];
 
-        require(metadata.ensHash == bytes32(0), "registered already");
-        require(stake >= minStakeAmount, "!min_stake");
+        require(metadata.ensHash == bytes32(0), 'registered already');
+        require(stake >= minStakeAmount, '!min_stake');
 
         torn.safeTransferFrom(relayer, address(staking), stake);
         emit StakeAddedToRelayer(relayer, stake);
@@ -220,8 +220,8 @@ contract RelayerRegistry is Initializable {
      *
      */
     function unregisterWorker(address worker) external {
-        if (worker != msg.sender) require(workers[worker] == msg.sender, "only owner of worker");
-        require(workers[worker] != worker, "cant unregister master");
+        if (worker != msg.sender) require(workers[worker] == msg.sender, 'only owner of worker');
+        require(workers[worker] != worker, 'cant unregister master');
         emit WorkerUnregistered(workers[worker], worker);
         workers[worker] = address(0);
     }
@@ -267,7 +267,7 @@ contract RelayerRegistry is Initializable {
     }
 
     function _stakeToRelayer(address staker, address relayer, uint256 stake) internal {
-        require(workers[relayer] == relayer, "!registered");
+        require(workers[relayer] == relayer, '!registered');
         torn.safeTransferFrom(staker, address(staking), stake);
         relayers[relayer].balance = stake.add(relayers[relayer].balance);
         emit StakeAddedToRelayer(relayer, stake);
@@ -288,11 +288,11 @@ contract RelayerRegistry is Initializable {
     function burn(address sender, address relayer, ITornadoInstance pool) external onlyTornadoRouter {
         address masterAddress = workers[sender];
         if (masterAddress == address(0)) {
-            require(workers[relayer] == address(0), "Only custom relayer");
+            require(workers[relayer] == address(0), 'Only custom relayer');
             return;
         }
 
-        require(masterAddress == relayer, "only relayer");
+        require(masterAddress == relayer, 'only relayer');
         uint256 toBurn = feeManager.instanceFeeWithUpdate(pool);
         relayers[relayer].balance = relayers[relayer].balance.sub(toBurn);
         staking.addBurnRewards(toBurn);
@@ -329,7 +329,7 @@ contract RelayerRegistry is Initializable {
      */
     function nullifyBalance(address relayer) public onlyGovernance {
         address masterAddress = workers[relayer];
-        require(relayer == masterAddress, "must be master");
+        require(relayer == masterAddress, 'must be master');
         relayers[masterAddress].balance = 0;
         emit RelayerBalanceNullified(relayer);
     }

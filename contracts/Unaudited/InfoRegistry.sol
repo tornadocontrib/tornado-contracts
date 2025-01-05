@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {EnumerableSet} from '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
+import { EnumerableSet } from '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
 
 /**
  * @dev Tornado Cash info registry for multi-chain
@@ -36,16 +36,8 @@ contract InfoRegistry {
 
     event BumpedRevision(uint16 indexed newRevision);
     event AddedChain(uint16 indexed revision, uint64 indexed chainId, bytes netInfo);
-    event AddedRpc(
-        uint64 indexed chainId,
-        string url,
-        bool indexed isPrior
-    );
-    event RemovedRpc(
-        uint64 indexed chainId,
-        string url,
-        bool indexed isPrior
-    );
+    event AddedRpc(uint64 indexed chainId, string url, bool indexed isPrior);
+    event RemovedRpc(uint64 indexed chainId, string url, bool indexed isPrior);
     event AddedToken(
         uint64 indexed chainId,
         address indexed addr,
@@ -115,13 +107,13 @@ contract InfoRegistry {
 
     /**
      * @dev Revision == dbSchema version
-     * 
+     *
      * Bump only when wrong info is pushed by mistake (should push all infos as well)
      */
     function bumpRevision() external onlyOwner {
         revision++;
 
-        emit BumpedRevision(revision);   
+        emit BumpedRevision(revision);
     }
 
     function addChain(uint64 chainId, bytes memory netInfo) public onlyOwner {
@@ -142,11 +134,7 @@ contract InfoRegistry {
 
         if (!rpchashes.contains(rpchash)) {
             rpchashes.add(rpchash);
-            rpcInfos[rpchash] = RpcInfo({
-                chainId: chainId,
-                url: url,
-                isPrior: isPrior
-            });
+            rpcInfos[rpchash] = RpcInfo({ chainId: chainId, url: url, isPrior: isPrior });
 
             emit AddedRpc(chainId, url, isPrior);
         } else {
@@ -165,15 +153,7 @@ contract InfoRegistry {
         tokens.push(token);
         tokenNonce[token.chainId][token.addr] = nonce;
 
-        emit AddedToken(
-            token.chainId,
-            token.addr,
-            token.name,
-            token.symbol,
-            token.decimals,
-            token.transferGas,
-            nonce
-        );
+        emit AddedToken(token.chainId, token.addr, token.name, token.symbol, token.decimals, token.transferGas, nonce);
     }
 
     function updateInstance(InstanceInfo memory instance) public onlyOwner {
@@ -189,7 +169,7 @@ contract InfoRegistry {
 
             instanceNonce[instance.chainId][instance.addr] = nonce;
 
-        // Update limited data
+            // Update limited data
         } else {
             instances[nonce].isOptional = instance.isOptional;
             instances[nonce].isDisabled = instance.isDisabled;

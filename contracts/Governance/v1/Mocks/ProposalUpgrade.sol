@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
-import "./MockGovernance.sol";
+import './MockGovernance.sol';
 
 interface IProxy {
     function upgradeTo(address newImplementation) external;

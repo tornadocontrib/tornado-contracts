@@ -3,7 +3,7 @@
 pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
-import "../Governance.sol";
+import '../Governance.sol';
 
 contract MockGovernance is Governance {
     uint256 public time = block.timestamp;

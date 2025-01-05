@@ -2,7 +2,7 @@
 
 pragma solidity ^0.6.12;
 
-import { SafeMath } from "@openzeppelin/contracts-v3/math/SafeMath.sol";
+import { SafeMath } from '@openzeppelin/contracts-v3/math/SafeMath.sol';
 
 interface IGasCompensationVault {
     function compensateGas(address recipient, uint256 gasAmount) external;

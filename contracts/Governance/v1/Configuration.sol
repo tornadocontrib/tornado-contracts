@@ -22,7 +22,7 @@ contract Configuration {
     uint256 public VOTE_EXTEND_TIME;
 
     modifier onlySelf() {
-        require(msg.sender == address(this), "Governance: unauthorized");
+        require(msg.sender == address(this), 'Governance: unauthorized');
         _;
     }
 
@@ -67,7 +67,7 @@ contract Configuration {
 
     function setVoteExtendTime(uint256 voteExtendTime) external onlySelf {
         // VOTE_EXTEND_TIME should be less EXECUTION_DELAY to prevent double voting
-        require(voteExtendTime < EXECUTION_DELAY, "Governance: incorrect voteExtendTime");
+        require(voteExtendTime < EXECUTION_DELAY, 'Governance: incorrect voteExtendTime');
         VOTE_EXTEND_TIME = voteExtendTime;
     }
 }

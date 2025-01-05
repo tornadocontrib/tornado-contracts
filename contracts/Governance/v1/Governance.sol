@@ -3,12 +3,12 @@
 pragma solidity ^0.6.0;
 pragma experimental ABIEncoderV2;
 
-import { SafeMath } from "@openzeppelin/contracts-v3/math/SafeMath.sol";
-import { Initializable } from "../libraries/Initializable.sol";
-import { Address } from "@openzeppelin/contracts-v3/utils/Address.sol";
-import { TORN } from "../TORN/TORN.sol";
-import { Delegation } from "./Delegation.sol";
-import { Configuration } from "./Configuration.sol";
+import { SafeMath } from '@openzeppelin/contracts-v3/math/SafeMath.sol';
+import { Initializable } from '../libraries/Initializable.sol';
+import { Address } from '@openzeppelin/contracts-v3/utils/Address.sol';
+import { TORN } from '../TORN/TORN.sol';
+import { Delegation } from './Delegation.sol';
+import { Configuration } from './Configuration.sol';
 
 contract Governance is Initializable, Configuration, Delegation {
     using SafeMath for uint256;
@@ -106,10 +106,7 @@ contract Governance is Initializable, Configuration, Delegation {
         _initializeConfiguration();
     }
 
-    function lock(address owner, uint256 amount, uint256 deadline, uint8 v, bytes32 r, bytes32 s)
-        public
-        virtual
-    {
+    function lock(address owner, uint256 amount, uint256 deadline, uint8 v, bytes32 r, bytes32 s) public virtual {
         torn.permit(owner, address(this), amount, deadline, v, r, s);
         _transferTokens(owner, amount);
     }
@@ -119,9 +116,9 @@ contract Governance is Initializable, Configuration, Delegation {
     }
 
     function unlock(uint256 amount) public virtual {
-        require(getBlockTimestamp() > canWithdrawAfter[msg.sender], "Governance: tokens are locked");
-        lockedBalance[msg.sender] = lockedBalance[msg.sender].sub(amount, "Governance: insufficient balance");
-        require(torn.transfer(msg.sender, amount), "TORN: transfer failed");
+        require(getBlockTimestamp() > canWithdrawAfter[msg.sender], 'Governance: tokens are locked');
+        lockedBalance[msg.sender] = lockedBalance[msg.sender].sub(amount, 'Governance: insufficient balance');
+        require(torn.transfer(msg.sender, amount), 'TORN: transfer failed');
     }
 
     function propose(address target, string memory description) external returns (uint256) {
@@ -135,26 +132,23 @@ contract Governance is Initializable, Configuration, Delegation {
      * @param description description of the proposal
      * @return the new proposal id
      */
-    function _propose(address proposer, address target, string memory description)
-        internal
-        virtual
-        override(Delegation)
-        returns (uint256)
-    {
+    function _propose(
+        address proposer,
+        address target,
+        string memory description
+    ) internal virtual override(Delegation) returns (uint256) {
         uint256 votingPower = lockedBalance[proposer];
-        require(
-            votingPower >= PROPOSAL_THRESHOLD, "Governance::propose: proposer votes below proposal threshold"
-        );
+        require(votingPower >= PROPOSAL_THRESHOLD, 'Governance::propose: proposer votes below proposal threshold');
         // target should be a contract
-        require(Address.isContract(target), "Governance::propose: not a contract");
+        require(Address.isContract(target), 'Governance::propose: not a contract');
 
         uint256 latestProposalId = latestProposalIds[proposer];
         if (latestProposalId != 0) {
             ProposalState proposersLatestProposalState = state(latestProposalId);
             require(
-                proposersLatestProposalState != ProposalState.Active
-                    && proposersLatestProposalState != ProposalState.Pending,
-                "Governance::propose: one live proposal per proposer, found an already active proposal"
+                proposersLatestProposalState != ProposalState.Active &&
+                    proposersLatestProposalState != ProposalState.Pending,
+                'Governance::propose: one live proposal per proposer, found an already active proposal'
             );
         }
 
@@ -182,21 +176,18 @@ contract Governance is Initializable, Configuration, Delegation {
     }
 
     function execute(uint256 proposalId) public payable virtual {
-        require(
-            state(proposalId) == ProposalState.AwaitingExecution,
-            "Governance::execute: invalid proposal state"
-        );
+        require(state(proposalId) == ProposalState.AwaitingExecution, 'Governance::execute: invalid proposal state');
         Proposal storage proposal = proposals[proposalId];
         proposal.executed = true;
 
         address target = proposal.target;
-        require(Address.isContract(target), "Governance::execute: not a contract");
-        (bool success, bytes memory data) = target.delegatecall(abi.encodeWithSignature("executeProposal()"));
+        require(Address.isContract(target), 'Governance::execute: not a contract');
+        (bool success, bytes memory data) = target.delegatecall(abi.encodeWithSignature('executeProposal()'));
         if (!success) {
             if (data.length > 0) {
                 revert(string(data));
             } else {
-                revert("Proposal execution failed");
+                revert('Proposal execution failed');
             }
         }
 
@@ -208,12 +199,12 @@ contract Governance is Initializable, Configuration, Delegation {
     }
 
     function _castVote(address voter, uint256 proposalId, bool support) internal override(Delegation) {
-        require(state(proposalId) == ProposalState.Active, "Governance::_castVote: voting is closed");
+        require(state(proposalId) == ProposalState.Active, 'Governance::_castVote: voting is closed');
         Proposal storage proposal = proposals[proposalId];
         Receipt storage receipt = proposal.receipts[voter];
         bool beforeVotingState = proposal.forVotes <= proposal.againstVotes;
         uint256 votes = lockedBalance[voter];
-        require(votes > 0, "Governance: balance is 0");
+        require(votes > 0, 'Governance: balance is 0');
         if (receipt.hasVoted) {
             if (receipt.support) {
                 proposal.forVotes = proposal.forVotes.sub(receipt.votes);
@@ -239,9 +230,7 @@ contract Governance is Initializable, Configuration, Delegation {
         receipt.hasVoted = true;
         receipt.support = support;
         receipt.votes = votes;
-        _lockTokens(
-            voter, proposal.endTime.add(VOTE_EXTEND_TIME).add(EXECUTION_EXPIRATION).add(EXECUTION_DELAY)
-        );
+        _lockTokens(voter, proposal.endTime.add(VOTE_EXTEND_TIME).add(EXECUTION_EXPIRATION).add(EXECUTION_DELAY));
         emit Voted(proposalId, voter, support, votes);
     }
 
@@ -252,7 +241,7 @@ contract Governance is Initializable, Configuration, Delegation {
     }
 
     function _transferTokens(address owner, uint256 amount) internal virtual {
-        require(torn.transferFrom(owner, address(this), amount), "TORN: transferFrom failed");
+        require(torn.transferFrom(owner, address(this), amount), 'TORN: transferFrom failed');
         lockedBalance[owner] = lockedBalance[owner].add(amount);
     }
 
@@ -260,16 +249,15 @@ contract Governance is Initializable, Configuration, Delegation {
         return proposals[proposalId].receipts[voter];
     }
 
-    function state(uint256 proposalId) public virtual view returns (ProposalState) {
-        require(proposalId <= proposalCount() && proposalId > 0, "Governance::state: invalid proposal id");
+    function state(uint256 proposalId) public view virtual returns (ProposalState) {
+        require(proposalId <= proposalCount() && proposalId > 0, 'Governance::state: invalid proposal id');
         Proposal storage proposal = proposals[proposalId];
         if (getBlockTimestamp() <= proposal.startTime) {
             return ProposalState.Pending;
         } else if (getBlockTimestamp() <= proposal.endTime) {
             return ProposalState.Active;
         } else if (
-            proposal.forVotes <= proposal.againstVotes
-                || proposal.forVotes + proposal.againstVotes < QUORUM_VOTES
+            proposal.forVotes <= proposal.againstVotes || proposal.forVotes + proposal.againstVotes < QUORUM_VOTES
         ) {
             return ProposalState.Defeated;
         } else if (proposal.executed) {

@@ -36,14 +36,20 @@ contract GovernanceAggregator {
         }
     }
 
-    function getGovernanceBalances(IGovernance governance, address[] calldata accs) public view returns (uint256[] memory amounts) {
+    function getGovernanceBalances(
+        IGovernance governance,
+        address[] calldata accs
+    ) public view returns (uint256[] memory amounts) {
         amounts = new uint256[](accs.length);
         for (uint256 i = 0; i < accs.length; i++) {
             amounts[i] = governance.lockedBalance(accs[i]);
         }
     }
 
-    function getUserData(IGovernance governance, address account)
+    function getUserData(
+        IGovernance governance,
+        address account
+    )
         public
         view
         returns (

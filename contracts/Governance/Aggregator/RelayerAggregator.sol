@@ -21,7 +21,10 @@ contract RelayerAggregator {
         RelayerRegistry = IRelayerRegistry(_IRelayerRegistry);
     }
 
-    function relayersData(bytes32[] memory _relayers, string[] memory _subdomains) public view returns (Relayer[] memory) {
+    function relayersData(
+        bytes32[] memory _relayers,
+        string[] memory _subdomains
+    ) public view returns (Relayer[] memory) {
         Relayer[] memory relayers = new Relayer[](_relayers.length);
 
         for (uint256 i = 0; i < _relayers.length; i++) {
@@ -29,8 +32,10 @@ contract RelayerAggregator {
             Resolver resolver = Resolver(ENSRegistry.resolver(_relayers[i]));
 
             for (uint256 j = 0; j < _subdomains.length; j++) {
-                bytes32 subdomainHash = keccak256(abi.encodePacked(_relayers[i], keccak256(abi.encodePacked(_subdomains[j]))));
-                relayers[i].records[j] = resolver.text(subdomainHash, "url");
+                bytes32 subdomainHash = keccak256(
+                    abi.encodePacked(_relayers[i], keccak256(abi.encodePacked(_subdomains[j])))
+                );
+                relayers[i].records[j] = resolver.text(subdomainHash, 'url');
             }
 
             relayers[i].isRegistered = RelayerRegistry.isRelayerRegistered(relayers[i].owner, relayers[i].owner);

@@ -8,7 +8,7 @@ contract Dummy {
 
     function initialize() public {
         value = 1;
-        text = "dummy";
+        text = 'dummy';
     }
 
     // function update(address _impl) public {
@@ -23,7 +23,7 @@ contract DummySecond {
 
     function initialize() public {
         value = 2;
-        text = "dummy2";
+        text = 'dummy2';
     }
 
     // function update(address _impl) public {

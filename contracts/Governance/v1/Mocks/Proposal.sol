@@ -2,7 +2,7 @@
 
 pragma solidity ^0.6.0;
 
-import "./Dummy.sol";
+import './Dummy.sol';
 
 contract Proposal {
     // bytes32 public constant WEIRD = keccak256("Hey Proposal");

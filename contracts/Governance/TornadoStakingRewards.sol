@@ -3,10 +3,10 @@
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
-import { IERC20 } from "@openzeppelin/contracts-v3/token/ERC20/IERC20.sol";
-import { SafeMath } from "@openzeppelin/contracts-v3/math/SafeMath.sol";
-import { SafeERC20 } from "@openzeppelin/contracts-v3/token/ERC20/SafeERC20.sol";
-import { Initializable } from "@openzeppelin/contracts-v3/proxy/Initializable.sol";
+import { IERC20 } from '@openzeppelin/contracts-v3/token/ERC20/IERC20.sol';
+import { SafeMath } from '@openzeppelin/contracts-v3/math/SafeMath.sol';
+import { SafeERC20 } from '@openzeppelin/contracts-v3/token/ERC20/SafeERC20.sol';
+import { Initializable } from '@openzeppelin/contracts-v3/proxy/Initializable.sol';
 
 interface ITornadoVault {
     function withdrawTorn(address recipient, uint256 amount) external;
@@ -47,7 +47,7 @@ contract TornadoStakingRewards is Initializable {
     event RewardsClaimed(address indexed account, uint256 rewardsClaimed);
 
     modifier onlyGovernance() {
-        require(msg.sender == address(Governance), "only governance");
+        require(msg.sender == address(Governance), 'only governance');
         _;
     }
 
@@ -83,7 +83,7 @@ contract TornadoStakingRewards is Initializable {
      * @param amount amount to add to the rewards
      */
     function addBurnRewards(uint256 amount) external {
-        require(msg.sender == address(Governance) || msg.sender == relayerRegistry, "unauthorized");
+        require(msg.sender == address(Governance) || msg.sender == relayerRegistry, 'unauthorized');
         accumulatedRewardPerTorn = accumulatedRewardPerTorn.add(
             amount.mul(ratioConstant).div(torn.balanceOf(address(Governance.userVault())))
         );
@@ -95,10 +95,10 @@ contract TornadoStakingRewards is Initializable {
      * @param amountLockedBeforehand the balance locked beforehand in the governance contract
      *
      */
-    function updateRewardsOnLockedBalanceChange(address account, uint256 amountLockedBeforehand)
-        external
-        onlyGovernance
-    {
+    function updateRewardsOnLockedBalanceChange(
+        address account,
+        uint256 amountLockedBeforehand
+    ) external onlyGovernance {
         uint256 claimed = _updateReward(account, amountLockedBeforehand);
         accumulatedRewards[account] = accumulatedRewards[account].add(claimed);
     }
@@ -137,14 +137,11 @@ contract TornadoStakingRewards is Initializable {
      * @param amountLockedBeforehand the balance locked beforehand in the governance contract
      * @return claimed the rewards attributed to user since the last update
      */
-    function _updateReward(address account, uint256 amountLockedBeforehand)
-        private
-        returns (uint256 claimed)
-    {
+    function _updateReward(address account, uint256 amountLockedBeforehand) private returns (uint256 claimed) {
         if (amountLockedBeforehand != 0) {
-            claimed = (accumulatedRewardPerTorn.sub(accumulatedRewardRateOnLastUpdate[account])).mul(
-                amountLockedBeforehand
-            ).div(ratioConstant);
+            claimed = (accumulatedRewardPerTorn.sub(accumulatedRewardRateOnLastUpdate[account]))
+                .mul(amountLockedBeforehand)
+                .div(ratioConstant);
         }
         accumulatedRewardRateOnLastUpdate[account] = accumulatedRewardPerTorn;
         emit RewardsUpdated(account, claimed);
@@ -157,9 +154,9 @@ contract TornadoStakingRewards is Initializable {
     function checkReward(address account) external view returns (uint256 rewards) {
         uint256 amountLocked = Governance.lockedBalance(account);
         if (amountLocked != 0) {
-            rewards = (accumulatedRewardPerTorn.sub(accumulatedRewardRateOnLastUpdate[account])).mul(
-                amountLocked
-            ).div(ratioConstant);
+            rewards = (accumulatedRewardPerTorn.sub(accumulatedRewardRateOnLastUpdate[account])).mul(amountLocked).div(
+                ratioConstant
+            );
         }
         rewards = rewards.add(accumulatedRewards[account]);
     }

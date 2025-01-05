@@ -11,6 +11,7 @@
         "build": "yarn compile && yarn types && rollup -c",
         "deploy": "hardhat run ./scripts/deploy.ts",
         "lint": "eslint scripts/**/*.ts",
+        "prettier": "prettier contracts/**/*.sol",
         "test": "hardhat test"
     },
     "files": [
@@ -59,6 +60,7 @@
         "hardhat-storage-layout": "^0.1.7",
         "hardhat-tracer": "^3.1.0",
         "prettier": "^3.4.2",
+        "prettier-plugin-solidity": "^1.4.1",
         "rollup": "^4.29.1",
         "rollup-plugin-esbuild": "^6.1.1",
         "solidity-coverage": "^0.8.14",

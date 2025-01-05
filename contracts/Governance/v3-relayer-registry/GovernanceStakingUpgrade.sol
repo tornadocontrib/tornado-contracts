@@ -3,8 +3,8 @@
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
-import { GovernanceGasUpgrade } from "../v2-vault-and-gas/GovernanceGasUpgrade.sol";
-import { ITornadoStakingRewards } from "./interfaces/ITornadoStakingRewards.sol";
+import { GovernanceGasUpgrade } from '../v2-vault-and-gas/GovernanceGasUpgrade.sol';
+import { ITornadoStakingRewards } from './interfaces/ITornadoStakingRewards.sol';
 
 /**
  * @notice The Governance staking upgrade. Adds modifier to any un/lock operation to update rewards
@@ -18,13 +18,14 @@ contract GovernanceStakingUpgrade is GovernanceGasUpgrade {
     event RewardUpdateSuccessful(address indexed account);
     event RewardUpdateFailed(address indexed account, bytes indexed errorData);
 
-    constructor(address stakingRewardsAddress, address gasCompLogic, address userVaultAddress)
-        public
-        GovernanceGasUpgrade(gasCompLogic, userVaultAddress)
-    {
+    constructor(
+        address stakingRewardsAddress,
+        address gasCompLogic,
+        address userVaultAddress
+    ) public GovernanceGasUpgrade(gasCompLogic, userVaultAddress) {
         Staking = ITornadoStakingRewards(stakingRewardsAddress);
     }
-    
+
     /**
      * @notice This modifier should make a call to Staking to update the rewards for account without impacting logic on revert
      * @dev try / catch block to handle reverts
@@ -40,12 +41,14 @@ contract GovernanceStakingUpgrade is GovernanceGasUpgrade {
         _;
     }
 
-    function lock(address owner, uint256 amount, uint256 deadline, uint8 v, bytes32 r, bytes32 s)
-        public
-        virtual
-        override
-        updateRewards(owner)
-    {
+    function lock(
+        address owner,
+        uint256 amount,
+        uint256 deadline,
+        uint8 v,
+        bytes32 r,
+        bytes32 s
+    ) public virtual override updateRewards(owner) {
         super.lock(owner, amount, deadline, v, r, s);
     }
 

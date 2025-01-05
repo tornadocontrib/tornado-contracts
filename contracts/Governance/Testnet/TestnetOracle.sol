@@ -59,7 +59,7 @@ contract TestnetOracle {
     function getOracleUSD(address token) public view returns (uint256) {
         IChainlinkOracle oracle = chainlinkOracles[token];
         (uint8 oracleDecimals, uint256 oracleAnswer) = (oracle.decimals(), uint256(oracle.latestAnswer()));
-        
+
         return (10 ** (18 + oracleDecimals) / oracleAnswer);
     }
 
@@ -77,6 +77,6 @@ contract TestnetOracle {
 
         uint256 usdEth = getOracleUSD(stablecoin);
 
-        return usdEth * (10 ** (18 + 18 - tokenDecimals)) / getOracleUSD(srcToken);
+        return (usdEth * (10 ** (18 + 18 - tokenDecimals))) / getOracleUSD(srcToken);
     }
 }

@@ -10,7 +10,7 @@ library OwnableLibrary {
         address owner;
     }
 
-    bytes32 private constant OwnerStorageLocation = keccak256(abi.encode(uint256(keccak256("tornado.storage.owner"))));
+    bytes32 private constant OwnerStorageLocation = keccak256(abi.encode(uint256(keccak256('tornado.storage.owner'))));
 
     function _getOwnerStorage() private pure returns (OwnerStorage storage pointer) {
         bytes32 slot = OwnerStorageLocation;
