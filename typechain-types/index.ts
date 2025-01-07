@@ -7,6 +7,8 @@ import type * as openzeppelin from "./@openzeppelin";
 export type { openzeppelin };
 import type * as contracts from "./contracts";
 export type { contracts };
+import type * as createx from "./createx";
+export type { createx };
 export * as factories from "./factories";
 export type { ENS } from "./@ensdomains/ens-contracts/contracts/registry/ENS";
 export { ENS__factory } from "./factories/@ensdomains/ens-contracts/contracts/registry/ENS__factory";
@@ -306,3 +308,5 @@ export type { TovarishRegistry } from "./contracts/Unaudited/TovarishRegistry.so
 export { TovarishRegistry__factory } from "./factories/contracts/Unaudited/TovarishRegistry.sol/TovarishRegistry__factory";
 export type { V2Bridge } from "./contracts/Unaudited/V2Bridge";
 export { V2Bridge__factory } from "./factories/contracts/Unaudited/V2Bridge__factory";
+export type { CreateX } from "./createx/src/CreateX";
+export { CreateX__factory } from "./factories/createx/src/CreateX__factory";

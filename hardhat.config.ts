@@ -56,6 +56,16 @@ const config: HardhatUserConfig = {
                 },
             },
             {
+                version: '0.8.23',
+                settings: {
+                    evmVersion: 'paris',
+                    optimizer: {
+                        enabled: true,
+                        runs: 200,
+                    },
+                },
+            },
+            {
                 version: '0.6.12',
                 settings: {
                     optimizer: {

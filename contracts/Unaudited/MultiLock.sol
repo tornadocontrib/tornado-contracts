@@ -44,6 +44,7 @@ contract MultiLock is TimelockController {
         uint256 _minQuorum,
         address[] memory _proposers
     ) TimelockController(_minDelay, _proposers, new address[](0), address(0)) {
+        emit QuorumChange(minQuorum, _minQuorum);
         minQuorum = _minQuorum;
 
         for (uint i; i < _proposers.length; ++i) {

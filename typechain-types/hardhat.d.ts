@@ -653,6 +653,10 @@ declare module "hardhat/types/runtime" {
       name: "V2Bridge",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.V2Bridge__factory>;
+    getContractFactory(
+      name: "CreateX",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.CreateX__factory>;
 
     getContractAt(
       name: "ENS",
@@ -1454,6 +1458,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.V2Bridge>;
+    getContractAt(
+      name: "CreateX",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.CreateX>;
 
     deployContract(
       name: "ENS",
@@ -2095,6 +2104,10 @@ declare module "hardhat/types/runtime" {
       name: "V2Bridge",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.V2Bridge>;
+    deployContract(
+      name: "CreateX",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.CreateX>;
 
     deployContract(
       name: "ENS",
@@ -2896,6 +2909,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.V2Bridge>;
+    deployContract(
+      name: "CreateX",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.CreateX>;
 
     // default types
     getContractFactory(
