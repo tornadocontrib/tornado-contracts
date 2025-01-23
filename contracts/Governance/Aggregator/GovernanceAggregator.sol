@@ -16,7 +16,13 @@ contract GovernanceAggregator {
         IGovernance.ProposalState state;
     }
 
-    function getAllProposals(IGovernance governance) public view returns (ProposalWithState[] memory proposals) {
+    IGovernance public immutable governance;
+
+    constructor(IGovernance _governance) {
+        governance = _governance;
+    }
+
+    function getAllProposals() public view returns (ProposalWithState[] memory proposals) {
         proposals = new ProposalWithState[](governance.proposalCount());
 
         for (uint256 i = 0; i < proposals.length; i++) {
@@ -36,10 +42,7 @@ contract GovernanceAggregator {
         }
     }
 
-    function getGovernanceBalances(
-        IGovernance governance,
-        address[] calldata accs
-    ) public view returns (uint256[] memory amounts) {
+    function getGovernanceBalances(address[] calldata accs) public view returns (uint256[] memory amounts) {
         amounts = new uint256[](accs.length);
         for (uint256 i = 0; i < accs.length; i++) {
             amounts[i] = governance.lockedBalance(accs[i]);
@@ -47,7 +50,6 @@ contract GovernanceAggregator {
     }
 
     function getUserData(
-        IGovernance governance,
         address account
     )
         public

@@ -40,12 +40,13 @@ export declare namespace TovarishRegistry {
     };
 }
 export interface TovarishRegistryInterface extends Interface {
-    getFunction(nameOrSignature: "addChain" | "addChains" | "bytesStore" | "chainIds" | "ensRegistry" | "getAddress" | "getChainIds" | "getChains" | "getNameOwner" | "getNamehashes" | "getNames" | "hasChainId" | "hashToName" | "isPrior" | "lastUpdate" | "migrate" | "nameWrapper" | "owner" | "prioritizeRelayer" | "pushRelayer" | "pushRelayers" | "registerFee" | "registerRelayer" | "relayerRegistry" | "relayersData" | "removeRelayer" | "storeBytes" | "subdomains" | "tovarishSubname" | "updateFee" | "updateOwner"): FunctionFragment;
+    getFunction(nameOrSignature: "addChain" | "addChains" | "bytesStore" | "chainIds" | "dnsEncodeName" | "ensRegistry" | "getAddress" | "getChainIds" | "getChains" | "getNameOwner" | "getNamehashes" | "getNames" | "hasChainId" | "hashToName" | "isPrior" | "lastUpdate" | "migrate" | "nameWrapper" | "owner" | "prioritizeRelayer" | "pushRelayer" | "pushRelayers" | "registerFee" | "registerRelayer" | "relayerRegistry" | "relayersData" | "removeRelayer" | "storeBytes" | "subdomains" | "tovarishSubname" | "updateFee" | "updateOwner"): FunctionFragment;
     getEvent(nameOrSignatureOrTopic: "Migrated" | "PrioritizedRelayer" | "PushedBytes" | "PushedChain" | "PushedRelayer" | "RemovedRelayer" | "UpdatedFee" | "UpdatedOwner"): EventFragment;
     encodeFunctionData(functionFragment: "addChain", values: [BigNumberish, string]): string;
     encodeFunctionData(functionFragment: "addChains", values: [TovarishRegistry.ChainStruct[]]): string;
     encodeFunctionData(functionFragment: "bytesStore", values: [BytesLike]): string;
     encodeFunctionData(functionFragment: "chainIds", values: [BigNumberish]): string;
+    encodeFunctionData(functionFragment: "dnsEncodeName", values: [string]): string;
     encodeFunctionData(functionFragment: "ensRegistry", values?: undefined): string;
     encodeFunctionData(functionFragment: "getAddress", values: [BytesLike]): string;
     encodeFunctionData(functionFragment: "getChainIds", values?: undefined): string;
@@ -66,7 +67,7 @@ export interface TovarishRegistryInterface extends Interface {
     encodeFunctionData(functionFragment: "registerFee", values?: undefined): string;
     encodeFunctionData(functionFragment: "registerRelayer", values: [string]): string;
     encodeFunctionData(functionFragment: "relayerRegistry", values?: undefined): string;
-    encodeFunctionData(functionFragment: "relayersData", values?: undefined): string;
+    encodeFunctionData(functionFragment: "relayersData", values: [string[]]): string;
     encodeFunctionData(functionFragment: "removeRelayer", values: [string]): string;
     encodeFunctionData(functionFragment: "storeBytes", values: [BytesLike, BytesLike]): string;
     encodeFunctionData(functionFragment: "subdomains", values: [BigNumberish]): string;
@@ -77,6 +78,7 @@ export interface TovarishRegistryInterface extends Interface {
     decodeFunctionResult(functionFragment: "addChains", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "bytesStore", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "chainIds", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "dnsEncodeName", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "ensRegistry", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getAddress", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getChainIds", data: BytesLike): Result;
@@ -254,6 +256,14 @@ export interface TovarishRegistry extends BaseContract {
     ], "nonpayable">;
     bytesStore: TypedContractMethod<[arg0: BytesLike], [string], "view">;
     chainIds: TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+    dnsEncodeName: TypedContractMethod<[
+        name: string
+    ], [
+        [string, string] & {
+            dnsName: string;
+            ensHash: string;
+        }
+    ], "view">;
     ensRegistry: TypedContractMethod<[], [string], "view">;
     getAddress: TypedContractMethod<[node: BytesLike], [string], "view">;
     getChainIds: TypedContractMethod<[], [bigint[]], "view">;
@@ -286,6 +296,7 @@ export interface TovarishRegistry extends BaseContract {
     registerRelayer: TypedContractMethod<[ensName: string], [void], "payable">;
     relayerRegistry: TypedContractMethod<[], [string], "view">;
     relayersData: TypedContractMethod<[
+        additionalRelayers: string[]
     ], [
         TovarishRegistry.RelayerStructOutput[]
     ], "view">;
@@ -318,6 +329,14 @@ export interface TovarishRegistry extends BaseContract {
     ], "nonpayable">;
     getFunction(nameOrSignature: "bytesStore"): TypedContractMethod<[arg0: BytesLike], [string], "view">;
     getFunction(nameOrSignature: "chainIds"): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+    getFunction(nameOrSignature: "dnsEncodeName"): TypedContractMethod<[
+        name: string
+    ], [
+        [string, string] & {
+            dnsName: string;
+            ensHash: string;
+        }
+    ], "view">;
     getFunction(nameOrSignature: "ensRegistry"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "getAddress"): TypedContractMethod<[node: BytesLike], [string], "view">;
     getFunction(nameOrSignature: "getChainIds"): TypedContractMethod<[], [bigint[]], "view">;
@@ -338,7 +357,11 @@ export interface TovarishRegistry extends BaseContract {
     getFunction(nameOrSignature: "registerFee"): TypedContractMethod<[], [bigint], "view">;
     getFunction(nameOrSignature: "registerRelayer"): TypedContractMethod<[ensName: string], [void], "payable">;
     getFunction(nameOrSignature: "relayerRegistry"): TypedContractMethod<[], [string], "view">;
-    getFunction(nameOrSignature: "relayersData"): TypedContractMethod<[], [TovarishRegistry.RelayerStructOutput[]], "view">;
+    getFunction(nameOrSignature: "relayersData"): TypedContractMethod<[
+        additionalRelayers: string[]
+    ], [
+        TovarishRegistry.RelayerStructOutput[]
+    ], "view">;
     getFunction(nameOrSignature: "removeRelayer"): TypedContractMethod<[ensName: string], [void], "nonpayable">;
     getFunction(nameOrSignature: "storeBytes"): TypedContractMethod<[
         index: BytesLike,

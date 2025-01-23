@@ -2,6 +2,16 @@ import { type ContractRunner } from "ethers";
 import type { IRelayerRegistry, IRelayerRegistryInterface } from "../../../../contracts/Governance/interfaces/IRelayerRegistry";
 export declare class IRelayerRegistry__factory {
     static readonly abi: readonly [{
+        readonly inputs: readonly [];
+        readonly name: "ens";
+        readonly outputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "";
+            readonly type: "address";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
         readonly inputs: readonly [{
             readonly internalType: "address";
             readonly name: "relayer";
@@ -30,6 +40,16 @@ export declare class IRelayerRegistry__factory {
         readonly stateMutability: "view";
         readonly type: "function";
     }, {
+        readonly inputs: readonly [];
+        readonly name: "governance";
+        readonly outputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "";
+            readonly type: "address";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
         readonly inputs: readonly [{
             readonly internalType: "address";
             readonly name: "relayer";
@@ -44,6 +64,16 @@ export declare class IRelayerRegistry__factory {
             readonly internalType: "bool";
             readonly name: "";
             readonly type: "bool";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "torn";
+        readonly outputs: readonly [{
+            readonly internalType: "address";
+            readonly name: "";
+            readonly type: "address";
         }];
         readonly stateMutability: "view";
         readonly type: "function";

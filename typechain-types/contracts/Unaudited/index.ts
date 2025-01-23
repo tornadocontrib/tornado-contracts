@@ -14,4 +14,5 @@ export type { InfoRegistry } from "./InfoRegistry";
 export type { MultiLock } from "./MultiLock";
 export type { Puppet } from "./Puppet";
 export type { TornadoV2 } from "./TornadoV2";
+export type { TovarishAggregator } from "./TovarishAggregator";
 export type { V2Bridge } from "./V2Bridge";

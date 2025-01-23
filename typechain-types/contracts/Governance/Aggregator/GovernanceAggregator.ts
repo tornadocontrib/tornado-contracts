@@ -59,20 +59,28 @@ export declare namespace GovernanceAggregator {
 
 export interface GovernanceAggregatorInterface extends Interface {
   getFunction(
-    nameOrSignature: "getAllProposals" | "getGovernanceBalances" | "getUserData"
+    nameOrSignature:
+      | "getAllProposals"
+      | "getGovernanceBalances"
+      | "getUserData"
+      | "governance"
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: "getAllProposals",
-    values: [AddressLike]
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getGovernanceBalances",
-    values: [AddressLike, AddressLike[]]
+    values: [AddressLike[]]
   ): string;
   encodeFunctionData(
     functionFragment: "getUserData",
-    values: [AddressLike, AddressLike]
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "governance",
+    values?: undefined
   ): string;
 
   decodeFunctionResult(
@@ -87,6 +95,7 @@ export interface GovernanceAggregatorInterface extends Interface {
     functionFragment: "getUserData",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
 }
 
 export interface GovernanceAggregator extends BaseContract {
@@ -133,19 +142,19 @@ export interface GovernanceAggregator extends BaseContract {
   ): Promise<this>;
 
   getAllProposals: TypedContractMethod<
-    [governance: AddressLike],
+    [],
     [GovernanceAggregator.ProposalWithStateStructOutput[]],
     "view"
   >;
 
   getGovernanceBalances: TypedContractMethod<
-    [governance: AddressLike, accs: AddressLike[]],
+    [accs: AddressLike[]],
     [bigint[]],
     "view"
   >;
 
   getUserData: TypedContractMethod<
-    [governance: AddressLike, account: AddressLike],
+    [account: AddressLike],
     [
       [bigint, bigint, bigint, bigint, string] & {
         balance: bigint;
@@ -157,6 +166,8 @@ export interface GovernanceAggregator extends BaseContract {
     ],
     "view"
   >;
+
+  governance: TypedContractMethod<[], [string], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -165,21 +176,17 @@ export interface GovernanceAggregator extends BaseContract {
   getFunction(
     nameOrSignature: "getAllProposals"
   ): TypedContractMethod<
-    [governance: AddressLike],
+    [],
     [GovernanceAggregator.ProposalWithStateStructOutput[]],
     "view"
   >;
   getFunction(
     nameOrSignature: "getGovernanceBalances"
-  ): TypedContractMethod<
-    [governance: AddressLike, accs: AddressLike[]],
-    [bigint[]],
-    "view"
-  >;
+  ): TypedContractMethod<[accs: AddressLike[]], [bigint[]], "view">;
   getFunction(
     nameOrSignature: "getUserData"
   ): TypedContractMethod<
-    [governance: AddressLike, account: AddressLike],
+    [account: AddressLike],
     [
       [bigint, bigint, bigint, bigint, string] & {
         balance: bigint;
@@ -191,6 +198,9 @@ export interface GovernanceAggregator extends BaseContract {
     ],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "governance"
+  ): TypedContractMethod<[], [string], "view">;
 
   filters: {};
 }

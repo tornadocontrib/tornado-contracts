@@ -70,6 +70,7 @@ export interface TovarishRegistryInterface extends Interface {
       | "addChains"
       | "bytesStore"
       | "chainIds"
+      | "dnsEncodeName"
       | "ensRegistry"
       | "getAddress"
       | "getChainIds"
@@ -126,6 +127,10 @@ export interface TovarishRegistryInterface extends Interface {
   encodeFunctionData(
     functionFragment: "chainIds",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "dnsEncodeName",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "ensRegistry",
@@ -194,7 +199,7 @@ export interface TovarishRegistryInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "relayersData",
-    values?: undefined
+    values: [string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "removeRelayer",
@@ -225,6 +230,10 @@ export interface TovarishRegistryInterface extends Interface {
   decodeFunctionResult(functionFragment: "addChains", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "bytesStore", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "chainIds", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "dnsEncodeName",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "ensRegistry",
     data: BytesLike
@@ -489,6 +498,12 @@ export interface TovarishRegistry extends BaseContract {
 
   chainIds: TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
 
+  dnsEncodeName: TypedContractMethod<
+    [name: string],
+    [[string, string] & { dnsName: string; ensHash: string }],
+    "view"
+  >;
+
   ensRegistry: TypedContractMethod<[], [string], "view">;
 
   getAddress: TypedContractMethod<[node: BytesLike], [string], "view">;
@@ -542,7 +557,7 @@ export interface TovarishRegistry extends BaseContract {
   relayerRegistry: TypedContractMethod<[], [string], "view">;
 
   relayersData: TypedContractMethod<
-    [],
+    [additionalRelayers: string[]],
     [TovarishRegistry.RelayerStructOutput[]],
     "view"
   >;
@@ -591,6 +606,13 @@ export interface TovarishRegistry extends BaseContract {
   getFunction(
     nameOrSignature: "chainIds"
   ): TypedContractMethod<[arg0: BigNumberish], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "dnsEncodeName"
+  ): TypedContractMethod<
+    [name: string],
+    [[string, string] & { dnsName: string; ensHash: string }],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "ensRegistry"
   ): TypedContractMethod<[], [string], "view">;
@@ -653,7 +675,11 @@ export interface TovarishRegistry extends BaseContract {
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "relayersData"
-  ): TypedContractMethod<[], [TovarishRegistry.RelayerStructOutput[]], "view">;
+  ): TypedContractMethod<
+    [additionalRelayers: string[]],
+    [TovarishRegistry.RelayerStructOutput[]],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "removeRelayer"
   ): TypedContractMethod<[ensName: string], [void], "nonpayable">;

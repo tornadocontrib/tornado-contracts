@@ -66,6 +66,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Resolver__factory>;
     getContractFactory(
+      name: "BytesUtils",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BytesUtils__factory>;
+    getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Ownable__factory>;
@@ -289,10 +293,6 @@ declare module "hardhat/types/runtime" {
       name: "Aggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Aggregator__factory>;
-    getContractFactory(
-      name: "BalanceAggregator",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BalanceAggregator__factory>;
     getContractFactory(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -618,6 +618,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ITornadoV2__factory>;
     getContractFactory(
+      name: "ITovarishRegistry",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ITovarishRegistry__factory>;
+    getContractFactory(
       name: "IVault",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IVault__factory>;
@@ -641,6 +645,10 @@ declare module "hardhat/types/runtime" {
       name: "TornadoV2",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TornadoV2__factory>;
+    getContractFactory(
+      name: "TovarishAggregator",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TovarishAggregator__factory>;
     getContractFactory(
       name: "INameWrapper",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -724,6 +732,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Resolver>;
     getContractAt(
+      name: "BytesUtils",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BytesUtils>;
+    getContractAt(
       name: "Ownable",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -1003,11 +1016,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.Aggregator>;
-    getContractAt(
-      name: "BalanceAggregator",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.BalanceAggregator>;
     getContractAt(
       name: "GovernanceAggregator",
       address: string | ethers.Addressable,
@@ -1414,6 +1422,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ITornadoV2>;
     getContractAt(
+      name: "ITovarishRegistry",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ITovarishRegistry>;
+    getContractAt(
       name: "IVault",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -1443,6 +1456,11 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.TornadoV2>;
+    getContractAt(
+      name: "TovarishAggregator",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TovarishAggregator>;
     getContractAt(
       name: "INameWrapper",
       address: string | ethers.Addressable,
@@ -1517,6 +1535,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Resolver>;
     deployContract(
+      name: "BytesUtils",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BytesUtils>;
+    deployContract(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Ownable>;
@@ -1740,10 +1762,6 @@ declare module "hardhat/types/runtime" {
       name: "Aggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Aggregator>;
-    deployContract(
-      name: "BalanceAggregator",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.BalanceAggregator>;
     deployContract(
       name: "GovernanceAggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2069,6 +2087,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITornadoV2>;
     deployContract(
+      name: "ITovarishRegistry",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ITovarishRegistry>;
+    deployContract(
       name: "IVault",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.IVault>;
@@ -2092,6 +2114,10 @@ declare module "hardhat/types/runtime" {
       name: "TornadoV2",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TornadoV2>;
+    deployContract(
+      name: "TovarishAggregator",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TovarishAggregator>;
     deployContract(
       name: "INameWrapper",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2175,6 +2201,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Resolver>;
     deployContract(
+      name: "BytesUtils",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.BytesUtils>;
+    deployContract(
       name: "Ownable",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2454,11 +2485,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Aggregator>;
-    deployContract(
-      name: "BalanceAggregator",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.BalanceAggregator>;
     deployContract(
       name: "GovernanceAggregator",
       args: any[],
@@ -2865,6 +2891,11 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITornadoV2>;
     deployContract(
+      name: "ITovarishRegistry",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.ITovarishRegistry>;
+    deployContract(
       name: "IVault",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2894,6 +2925,11 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TornadoV2>;
+    deployContract(
+      name: "TovarishAggregator",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.TovarishAggregator>;
     deployContract(
       name: "INameWrapper",
       args: any[],

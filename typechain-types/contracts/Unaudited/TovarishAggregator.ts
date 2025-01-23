@@ -19,26 +19,7 @@ import type {
   TypedEventLog,
   TypedListener,
   TypedContractMethod,
-} from "../../../common";
-
-export type RelayerStruct = {
-  owner: AddressLike;
-  balance: BigNumberish;
-  isRegistered: boolean;
-  records: string[];
-};
-
-export type RelayerStructOutput = [
-  owner: string,
-  balance: bigint,
-  isRegistered: boolean,
-  records: string[]
-] & {
-  owner: string;
-  balance: bigint;
-  isRegistered: boolean;
-  records: string[];
-};
+} from "../../common";
 
 export declare namespace GovernanceAggregator {
   export type ProposalWithStateStruct = {
@@ -76,32 +57,93 @@ export declare namespace GovernanceAggregator {
   };
 }
 
-export interface AggregatorInterface extends Interface {
+export declare namespace TovarishAggregator {
+  export type StakedBalanceStruct = {
+    tornBalance: BigNumberish;
+    lockedBalance: BigNumberish;
+    relayerBalance: BigNumberish;
+    balance: BigNumberish;
+    isContract: boolean;
+  };
+
+  export type StakedBalanceStructOutput = [
+    tornBalance: bigint,
+    lockedBalance: bigint,
+    relayerBalance: bigint,
+    balance: bigint,
+    isContract: boolean
+  ] & {
+    tornBalance: bigint;
+    lockedBalance: bigint;
+    relayerBalance: bigint;
+    balance: bigint;
+    isContract: boolean;
+  };
+}
+
+export declare namespace ITovarishRegistry {
+  export type RelayerStruct = {
+    ensName: string;
+    owner: AddressLike;
+    balance: BigNumberish;
+    isRegistered: boolean;
+    isPrior: boolean;
+    tovarishHost: string;
+    tovarishChains: string;
+    records: string[];
+  };
+
+  export type RelayerStructOutput = [
+    ensName: string,
+    owner: string,
+    balance: bigint,
+    isRegistered: boolean,
+    isPrior: boolean,
+    tovarishHost: string,
+    tovarishChains: string,
+    records: string[]
+  ] & {
+    ensName: string;
+    owner: string;
+    balance: bigint;
+    isRegistered: boolean;
+    isPrior: boolean;
+    tovarishHost: string;
+    tovarishChains: string;
+    records: string[];
+  };
+}
+
+export interface TovarishAggregatorInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "ENSRegistry"
-      | "RelayerRegistry"
       | "getAllProposals"
       | "getGovernanceBalances"
+      | "getStaked"
+      | "getStakedBalances"
       | "getUserData"
       | "governance"
+      | "isContract"
+      | "relayerRegistry"
       | "relayersData"
+      | "torn"
+      | "tovarishRegistry"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "ENSRegistry",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "RelayerRegistry",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "getAllProposals",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getGovernanceBalances",
+    values: [AddressLike[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getStaked",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getStakedBalances",
     values: [AddressLike[]]
   ): string;
   encodeFunctionData(
@@ -113,18 +155,23 @@ export interface AggregatorInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "isContract",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "relayerRegistry",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "relayersData",
-    values: [BytesLike[], string[]]
+    values: [string[]]
+  ): string;
+  encodeFunctionData(functionFragment: "torn", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "tovarishRegistry",
+    values?: undefined
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "ENSRegistry",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "RelayerRegistry",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "getAllProposals",
     data: BytesLike
@@ -133,22 +180,37 @@ export interface AggregatorInterface extends Interface {
     functionFragment: "getGovernanceBalances",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "getStaked", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getStakedBalances",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getUserData",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "isContract", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "relayerRegistry",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "relayersData",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "torn", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "tovarishRegistry",
+    data: BytesLike
+  ): Result;
 }
 
-export interface Aggregator extends BaseContract {
-  connect(runner?: ContractRunner | null): Aggregator;
+export interface TovarishAggregator extends BaseContract {
+  connect(runner?: ContractRunner | null): TovarishAggregator;
   waitForDeployment(): Promise<this>;
 
-  interface: AggregatorInterface;
+  interface: TovarishAggregatorInterface;
 
   queryFilter<TCEvent extends TypedContractEvent>(
     event: TCEvent,
@@ -187,10 +249,6 @@ export interface Aggregator extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  ENSRegistry: TypedContractMethod<[], [string], "view">;
-
-  RelayerRegistry: TypedContractMethod<[], [string], "view">;
-
   getAllProposals: TypedContractMethod<
     [],
     [GovernanceAggregator.ProposalWithStateStructOutput[]],
@@ -200,6 +258,18 @@ export interface Aggregator extends BaseContract {
   getGovernanceBalances: TypedContractMethod<
     [accs: AddressLike[]],
     [bigint[]],
+    "view"
+  >;
+
+  getStaked: TypedContractMethod<
+    [_addr: AddressLike],
+    [TovarishAggregator.StakedBalanceStructOutput],
+    "view"
+  >;
+
+  getStakedBalances: TypedContractMethod<
+    [addresses: AddressLike[]],
+    [TovarishAggregator.StakedBalanceStructOutput[]],
     "view"
   >;
 
@@ -219,22 +289,24 @@ export interface Aggregator extends BaseContract {
 
   governance: TypedContractMethod<[], [string], "view">;
 
+  isContract: TypedContractMethod<[_addr: AddressLike], [boolean], "view">;
+
+  relayerRegistry: TypedContractMethod<[], [string], "view">;
+
   relayersData: TypedContractMethod<
-    [_relayers: BytesLike[], _subdomains: string[]],
-    [RelayerStructOutput[]],
+    [additionalRelayers: string[]],
+    [ITovarishRegistry.RelayerStructOutput[]],
     "view"
   >;
+
+  torn: TypedContractMethod<[], [string], "view">;
+
+  tovarishRegistry: TypedContractMethod<[], [string], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
-  getFunction(
-    nameOrSignature: "ENSRegistry"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "RelayerRegistry"
-  ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "getAllProposals"
   ): TypedContractMethod<
@@ -245,6 +317,20 @@ export interface Aggregator extends BaseContract {
   getFunction(
     nameOrSignature: "getGovernanceBalances"
   ): TypedContractMethod<[accs: AddressLike[]], [bigint[]], "view">;
+  getFunction(
+    nameOrSignature: "getStaked"
+  ): TypedContractMethod<
+    [_addr: AddressLike],
+    [TovarishAggregator.StakedBalanceStructOutput],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "getStakedBalances"
+  ): TypedContractMethod<
+    [addresses: AddressLike[]],
+    [TovarishAggregator.StakedBalanceStructOutput[]],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "getUserData"
   ): TypedContractMethod<
@@ -264,12 +350,24 @@ export interface Aggregator extends BaseContract {
     nameOrSignature: "governance"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "isContract"
+  ): TypedContractMethod<[_addr: AddressLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "relayerRegistry"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
     nameOrSignature: "relayersData"
   ): TypedContractMethod<
-    [_relayers: BytesLike[], _subdomains: string[]],
-    [RelayerStructOutput[]],
+    [additionalRelayers: string[]],
+    [ITovarishRegistry.RelayerStructOutput[]],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "torn"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "tovarishRegistry"
+  ): TypedContractMethod<[], [string], "view">;
 
   filters: {};
 }

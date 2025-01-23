@@ -10,4 +10,5 @@ export { InfoRegistry__factory } from "./InfoRegistry__factory";
 export { MultiLock__factory } from "./MultiLock__factory";
 export { Puppet__factory } from "./Puppet__factory";
 export { TornadoV2__factory } from "./TornadoV2__factory";
+export { TovarishAggregator__factory } from "./TovarishAggregator__factory";
 export { V2Bridge__factory } from "./V2Bridge__factory";

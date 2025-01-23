@@ -3,8 +3,8 @@ pragma solidity ^0.8.20;
 
 import { ENS } from '@ensdomains/ens-contracts/contracts/registry/ENS.sol';
 import { Resolver } from '@ensdomains/ens-contracts/contracts/resolvers/Resolver.sol';
+import { NameEncoder } from '@ensdomains/ens-contracts/contracts/utils/NameEncoder.sol';
 import { EnumerableSet } from '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
-import { ENSNamehash } from '../Governance/libraries/ENSNamehash.sol';
 import { SafeResolver } from '../Governance/libraries/SafeResolver.sol';
 import { IRelayerRegistry } from '../Governance/interfaces/IRelayerRegistry.sol';
 
@@ -16,7 +16,7 @@ interface INameWrapper {
  * @dev An alternative, secondary tornado cash relayer registry
  */
 contract TovarishRegistry {
-    using ENSNamehash for bytes;
+    using NameEncoder for string;
     using SafeResolver for Resolver;
     using EnumerableSet for EnumerableSet.Bytes32Set;
 
@@ -37,7 +37,7 @@ contract TovarishRegistry {
     bytes32 public constant tovarishSubname = keccak256(abi.encodePacked('tovarish-relayer'));
 
     ENS public immutable ensRegistry;
-    INameWrapper public immutable nameWrapper;
+    INameWrapper public constant nameWrapper = INameWrapper(0xD4416b13d2b3a9aBae7AcD5D6C2BbDBE25686401);
     IRelayerRegistry public immutable relayerRegistry;
 
     address public owner;
@@ -73,19 +73,24 @@ contract TovarishRegistry {
     uint256 public lastUpdate;
 
     modifier onlyOwner() {
-        require(msg.sender == owner, 'Not owner');
+        require(msg.sender == owner || owner == address(0), 'Not owner');
         _;
     }
 
-    constructor(ENS _ensRegistry, INameWrapper _nameWrapper, IRelayerRegistry _relayerRegistry) {
-        ensRegistry = _ensRegistry;
-        nameWrapper = _nameWrapper;
+    constructor(IRelayerRegistry _relayerRegistry, TovarishRegistry _oldRegistry, Chain[] memory _chains) {
         relayerRegistry = _relayerRegistry;
-        registerFee = 0.1 ether;
-        owner = msg.sender;
+        ensRegistry = ENS(relayerRegistry.ens());
 
-        emit UpdatedFee(registerFee);
-        emit UpdatedOwner(owner);
+        if (address(_oldRegistry) != address(0)) {
+            migrate(_oldRegistry);
+        }
+
+        if (_chains.length != 0) {
+            addChains(_chains);
+        }
+
+        updateFee(0.1 ether);
+        updateOwner(msg.sender);
     }
 
     function storeBytes(bytes32 index, bytes memory toStore) external onlyOwner {
@@ -119,7 +124,7 @@ contract TovarishRegistry {
      * Push already registered relayer to this contract
      */
     function pushRelayer(string memory ensName) public {
-        bytes32 ensHash = bytes(ensName).namehash();
+        (, bytes32 ensHash) = ensName.dnsEncodeName();
         address domainOwner = getAddress(ensHash);
         bool isValidName = ensHash == relayerRegistry.getRelayerEnsHash(domainOwner);
         bool isRegistered = relayerRegistry.isRelayerRegistered(domainOwner, domainOwner);
@@ -149,7 +154,7 @@ contract TovarishRegistry {
             require(success, 'Payment failed');
         }
 
-        bytes32 ensHash = bytes(ensName).namehash();
+        (, bytes32 ensHash) = ensName.dnsEncodeName();
         address domainOwner = getAddress(ensHash);
         require(domainOwner != address(0), 'Invalid name');
 
@@ -160,7 +165,7 @@ contract TovarishRegistry {
     }
 
     function removeRelayer(string memory ensName) external onlyOwner {
-        bytes32 ensHash = bytes(ensName).namehash();
+        (, bytes32 ensHash) = ensName.dnsEncodeName();
         require(namehashes.contains(ensHash), 'Invalid hash');
 
         address domainOwner = getAddress(ensHash);
@@ -175,7 +180,7 @@ contract TovarishRegistry {
     }
 
     function prioritizeRelayer(string memory ensName) external onlyOwner {
-        bytes32 ensHash = bytes(ensName).namehash();
+        (, bytes32 ensHash) = ensName.dnsEncodeName();
         require(namehashes.contains(ensHash), 'Invalid hash');
 
         bool _isPrior = isPrior[ensHash] ? false : true;
@@ -185,7 +190,7 @@ contract TovarishRegistry {
         emit PrioritizedRelayer(ensName, ensHash, _isPrior);
     }
 
-    function updateFee(uint256 fee) external onlyOwner {
+    function updateFee(uint256 fee) public onlyOwner {
         registerFee = fee;
 
         emit UpdatedFee(fee);
@@ -194,7 +199,7 @@ contract TovarishRegistry {
     /**
      * Migration func in case contract should be replaced
      */
-    function migrate(TovarishRegistry oldRegistry) external onlyOwner {
+    function migrate(TovarishRegistry oldRegistry) public onlyOwner {
         require(namehashes.length() == 0, 'Can not migrate');
 
         string[] memory names = oldRegistry.getNames();
@@ -212,7 +217,7 @@ contract TovarishRegistry {
         emit Migrated(address(oldRegistry));
     }
 
-    function updateOwner(address newOwner) external onlyOwner {
+    function updateOwner(address newOwner) public onlyOwner {
         owner = newOwner;
 
         emit UpdatedOwner(newOwner);
@@ -251,12 +256,21 @@ contract TovarishRegistry {
         string[] records;
     }
 
-    function relayersData() public view returns (Relayer[] memory) {
-        Relayer[] memory _relayers = new Relayer[](namehashes.length());
+    function relayersData(string[] memory additionalRelayers) public view returns (Relayer[] memory) {
+        uint256 namehashesLength = namehashes.length();
+        Relayer[] memory _relayers = new Relayer[](namehashesLength + additionalRelayers.length);
 
         for (uint i; i < _relayers.length; ++i) {
-            bytes32 ensHash = namehashes.at(i);
-            _relayers[i].ensName = hashToName[ensHash];
+            bytes32 ensHash;
+
+            if (i < namehashesLength) {
+                ensHash = namehashes.at(i);
+                _relayers[i].ensName = hashToName[ensHash];
+            } else {
+                string memory ensName = additionalRelayers[i - namehashesLength];
+                (, ensHash) = ensName.dnsEncodeName();
+                _relayers[i].ensName = ensName;
+            }
 
             {
                 // key-value record of tovarish-relayer.yourname.eth (key: url)
@@ -345,5 +359,9 @@ contract TovarishRegistry {
         }
 
         return _relayers;
+    }
+
+    function dnsEncodeName(string memory name) public pure returns (bytes memory dnsName, bytes32 ensHash) {
+        (dnsName, ensHash) = name.dnsEncodeName();
     }
 }

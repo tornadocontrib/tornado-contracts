@@ -33,6 +33,8 @@ export type { ITextResolver } from "./@ensdomains/ens-contracts/contracts/resolv
 export { ITextResolver__factory } from "./factories/@ensdomains/ens-contracts/contracts/resolvers/profiles/ITextResolver__factory";
 export type { Resolver } from "./@ensdomains/ens-contracts/contracts/resolvers/Resolver";
 export { Resolver__factory } from "./factories/@ensdomains/ens-contracts/contracts/resolvers/Resolver__factory";
+export type { BytesUtils } from "./@ensdomains/ens-contracts/contracts/utils/BytesUtils";
+export { BytesUtils__factory } from "./factories/@ensdomains/ens-contracts/contracts/utils/BytesUtils__factory";
 export type { Ownable } from "./@openzeppelin/contracts-v3/access/Ownable";
 export { Ownable__factory } from "./factories/@openzeppelin/contracts-v3/access/Ownable__factory";
 export type { Proxy } from "./@openzeppelin/contracts-v3/proxy/Proxy";
@@ -137,8 +139,6 @@ export type { AdminUpgradeableProxy } from "./contracts/Governance/AdminUpgradea
 export { AdminUpgradeableProxy__factory } from "./factories/contracts/Governance/AdminUpgradeableProxy__factory";
 export type { Aggregator } from "./contracts/Governance/Aggregator/Aggregator";
 export { Aggregator__factory } from "./factories/contracts/Governance/Aggregator/Aggregator__factory";
-export type { BalanceAggregator } from "./contracts/Governance/Aggregator/BalanceAggregator";
-export { BalanceAggregator__factory } from "./factories/contracts/Governance/Aggregator/BalanceAggregator__factory";
 export type { GovernanceAggregator } from "./contracts/Governance/Aggregator/GovernanceAggregator";
 export { GovernanceAggregator__factory } from "./factories/contracts/Governance/Aggregator/GovernanceAggregator__factory";
 export type { RelayerAggregator } from "./contracts/Governance/Aggregator/RelayerAggregator";
@@ -287,6 +287,8 @@ export type { ISignatureTransfer } from "./contracts/Unaudited/interfaces/ISigna
 export { ISignatureTransfer__factory } from "./factories/contracts/Unaudited/interfaces/ISignatureTransfer__factory";
 export type { ITornadoV2 } from "./contracts/Unaudited/interfaces/ITornadoV2";
 export { ITornadoV2__factory } from "./factories/contracts/Unaudited/interfaces/ITornadoV2__factory";
+export type { ITovarishRegistry } from "./contracts/Unaudited/interfaces/ITovarishRegistry";
+export { ITovarishRegistry__factory } from "./factories/contracts/Unaudited/interfaces/ITovarishRegistry__factory";
 export type { IVault } from "./contracts/Unaudited/interfaces/IVault";
 export { IVault__factory } from "./factories/contracts/Unaudited/interfaces/IVault__factory";
 export type { ParseSignature } from "./contracts/Unaudited/libraries/ParseSignature";
@@ -299,6 +301,8 @@ export type { Puppet } from "./contracts/Unaudited/Puppet";
 export { Puppet__factory } from "./factories/contracts/Unaudited/Puppet__factory";
 export type { TornadoV2 } from "./contracts/Unaudited/TornadoV2";
 export { TornadoV2__factory } from "./factories/contracts/Unaudited/TornadoV2__factory";
+export type { TovarishAggregator } from "./contracts/Unaudited/TovarishAggregator";
+export { TovarishAggregator__factory } from "./factories/contracts/Unaudited/TovarishAggregator__factory";
 export type { INameWrapper } from "./contracts/Unaudited/TovarishRegistry.sol/INameWrapper";
 export { INameWrapper__factory } from "./factories/contracts/Unaudited/TovarishRegistry.sol/INameWrapper__factory";
 export type { TovarishRegistry } from "./contracts/Unaudited/TovarishRegistry.sol/TovarishRegistry";
