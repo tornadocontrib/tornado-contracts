@@ -14,7 +14,7 @@ export declare class Strings__factory extends ContractFactory {
         deploymentTransaction(): ContractTransactionResponse;
     }>;
     connect(runner: ContractRunner | null): Strings__factory;
-    static readonly bytecode = "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220ecb4f0d7a62873c4f90ffd85ea78dc48de62fddc47d4bb7d2bc40b9ec27cfef464736f6c634300081c0033";
+    static readonly bytecode = "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea264697066735822122089bcde05a30c9e412b93e7bc8eec6b07975bfd9eb68e0a16767c157905494e3564736f6c634300081c0033";
     static readonly abi: readonly [{
         readonly inputs: readonly [{
             readonly internalType: "uint256";
@@ -26,6 +26,14 @@ export declare class Strings__factory extends ContractFactory {
             readonly type: "uint256";
         }];
         readonly name: "StringsInsufficientHexLength";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "StringsInvalidAddressFormat";
+        readonly type: "error";
+    }, {
+        readonly inputs: readonly [];
+        readonly name: "StringsInvalidChar";
         readonly type: "error";
     }];
     static createInterface(): StringsInterface;

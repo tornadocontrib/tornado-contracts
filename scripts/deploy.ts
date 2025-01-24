@@ -320,6 +320,7 @@ async function deployGovernance(instances: InstanceRegistry.TornadoStruct[]): Pr
     const Aggregator = await new Aggregator__factory(owner).deploy(
         ensAddress || ZeroAddress,
         RelayerRegistryProxy.target,
+        GovernanceProxy.target,
     );
     await Aggregator.waitForDeployment();
 

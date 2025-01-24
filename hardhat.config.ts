@@ -1,44 +1,44 @@
 import path from 'path';
 import process from 'process';
-import { readdir, stat, mkdir, rm, writeFile } from 'fs/promises';
+import { glob } from 'fast-glob';
+import { stat, mkdir, writeFile } from 'fs/promises';
 import { task, HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomicfoundation/hardhat-ethers';
 import 'hardhat-storage-layout';
 import 'hardhat-tracer';
 
+async function existsAsync(fileOrDir: string): Promise<boolean> {
+    try {
+        await stat(fileOrDir);
+
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 task('flatten:all', 'Flatten all contracts under flatten directory').setAction(async (taskArgs, hre) => {
-    const dirFiles = (await readdir('contracts', { recursive: true })) as string[];
-    const directories = (
-        await Promise.all(
-            dirFiles.map(async (f) => {
-                const isDirectory = (await stat(path.join('contracts', f))).isDirectory();
+    const contracts = await glob(['./contracts/**/*.sol']);
 
-                return isDirectory ? f : null;
-            }),
-        )
-    ).filter((f) => f) as string[];
-    const contracts = dirFiles.filter((f) => !directories.includes(f));
+    for (const contract of contracts) {
+        const flattenTo = contract.replace('./contracts', './flatten');
+        const dir = path.dirname(flattenTo);
 
-    await rm('flatten', { force: true, recursive: true });
-    await mkdir('flatten');
-    await Promise.all(directories.map((f) => mkdir(path.join('flatten', f), { recursive: true })));
+        if (!(await existsAsync(dir))) {
+            await mkdir(dir, { recursive: true });
+        }
 
-    await Promise.all(
-        contracts.map(async (f) => {
-            const contract = path.join('contracts', f);
-            const contractTo = path.join('flatten', f);
-            try {
-                const flatten = await hre.run('flatten:get-flattened-sources', { files: [contract] });
-                await writeFile(contractTo, flatten);
-                console.log(`Wrote ${contractTo} contract`);
-            } catch (e) {
-                // Catching circular contracts
-                console.log(`Failed to write ${contractTo} contract`);
-                console.log(e);
-            }
-        }),
-    );
+        try {
+            const flatten = await hre.run('flatten:get-flattened-sources', { files: [contract] });
+            await writeFile(flattenTo, flatten);
+            console.log(`Wrote ${flattenTo} contract`);
+        } catch (e) {
+            // Catching circular contracts
+            console.log(`Failed to write ${flattenTo} contract`);
+            console.log(e);
+        }
+    }
 });
 
 const config: HardhatUserConfig = {
