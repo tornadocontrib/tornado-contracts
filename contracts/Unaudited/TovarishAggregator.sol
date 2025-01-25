@@ -26,6 +26,10 @@ contract TovarishAggregator is GovernanceAggregator {
         governance = IGovernance(relayerRegistry.governance());
     }
 
+    function lastUpdate() external view returns (uint256) {
+        return tovarishRegistry.lastUpdate();
+    }
+
     function relayersData(
         string[] memory additionalRelayers
     ) external view returns (ITovarishRegistry.Relayer[] memory) {

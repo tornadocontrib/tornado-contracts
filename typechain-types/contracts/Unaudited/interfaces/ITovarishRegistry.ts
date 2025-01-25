@@ -56,9 +56,13 @@ export declare namespace ITovarishRegistry {
 
 export interface ITovarishRegistryInterface extends Interface {
   getFunction(
-    nameOrSignature: "relayerRegistry" | "relayersData"
+    nameOrSignature: "lastUpdate" | "relayerRegistry" | "relayersData"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "lastUpdate",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "relayerRegistry",
     values?: undefined
@@ -68,6 +72,7 @@ export interface ITovarishRegistryInterface extends Interface {
     values: [string[]]
   ): string;
 
+  decodeFunctionResult(functionFragment: "lastUpdate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "relayerRegistry",
     data: BytesLike
@@ -121,6 +126,8 @@ export interface ITovarishRegistry extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  lastUpdate: TypedContractMethod<[], [bigint], "view">;
+
   relayerRegistry: TypedContractMethod<[], [string], "view">;
 
   relayersData: TypedContractMethod<
@@ -133,6 +140,9 @@ export interface ITovarishRegistry extends BaseContract {
     key: string | FunctionFragment
   ): T;
 
+  getFunction(
+    nameOrSignature: "lastUpdate"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "relayerRegistry"
   ): TypedContractMethod<[], [string], "view">;

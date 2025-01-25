@@ -13,6 +13,8 @@ interface ITovarishRegistry {
         string[] records;
     }
 
+    function lastUpdate() external view returns (uint256);
+
     function relayerRegistry() external view returns (address);
 
     function relayersData(string[] memory additionalRelayers) external view returns (Relayer[] memory);

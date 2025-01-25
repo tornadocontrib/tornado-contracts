@@ -88,7 +88,7 @@ export declare namespace ITovarishRegistry {
     };
 }
 export interface TovarishAggregatorInterface extends Interface {
-    getFunction(nameOrSignature: "getAllProposals" | "getGovernanceBalances" | "getStaked" | "getStakedBalances" | "getUserData" | "governance" | "isContract" | "relayerRegistry" | "relayersData" | "torn" | "tovarishRegistry"): FunctionFragment;
+    getFunction(nameOrSignature: "getAllProposals" | "getGovernanceBalances" | "getStaked" | "getStakedBalances" | "getUserData" | "governance" | "isContract" | "lastUpdate" | "relayerRegistry" | "relayersData" | "torn" | "tovarishRegistry"): FunctionFragment;
     encodeFunctionData(functionFragment: "getAllProposals", values?: undefined): string;
     encodeFunctionData(functionFragment: "getGovernanceBalances", values: [AddressLike[]]): string;
     encodeFunctionData(functionFragment: "getStaked", values: [AddressLike]): string;
@@ -96,6 +96,7 @@ export interface TovarishAggregatorInterface extends Interface {
     encodeFunctionData(functionFragment: "getUserData", values: [AddressLike]): string;
     encodeFunctionData(functionFragment: "governance", values?: undefined): string;
     encodeFunctionData(functionFragment: "isContract", values: [AddressLike]): string;
+    encodeFunctionData(functionFragment: "lastUpdate", values?: undefined): string;
     encodeFunctionData(functionFragment: "relayerRegistry", values?: undefined): string;
     encodeFunctionData(functionFragment: "relayersData", values: [string[]]): string;
     encodeFunctionData(functionFragment: "torn", values?: undefined): string;
@@ -107,6 +108,7 @@ export interface TovarishAggregatorInterface extends Interface {
     decodeFunctionResult(functionFragment: "getUserData", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "isContract", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "lastUpdate", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "relayerRegistry", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "relayersData", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "torn", data: BytesLike): Result;
@@ -163,6 +165,7 @@ export interface TovarishAggregator extends BaseContract {
     ], "view">;
     governance: TypedContractMethod<[], [string], "view">;
     isContract: TypedContractMethod<[_addr: AddressLike], [boolean], "view">;
+    lastUpdate: TypedContractMethod<[], [bigint], "view">;
     relayerRegistry: TypedContractMethod<[], [string], "view">;
     relayersData: TypedContractMethod<[
         additionalRelayers: string[]
@@ -206,6 +209,7 @@ export interface TovarishAggregator extends BaseContract {
     ], "view">;
     getFunction(nameOrSignature: "governance"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "isContract"): TypedContractMethod<[_addr: AddressLike], [boolean], "view">;
+    getFunction(nameOrSignature: "lastUpdate"): TypedContractMethod<[], [bigint], "view">;
     getFunction(nameOrSignature: "relayerRegistry"): TypedContractMethod<[], [string], "view">;
     getFunction(nameOrSignature: "relayersData"): TypedContractMethod<[
         additionalRelayers: string[]

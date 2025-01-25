@@ -124,6 +124,7 @@ export interface TovarishAggregatorInterface extends Interface {
       | "getUserData"
       | "governance"
       | "isContract"
+      | "lastUpdate"
       | "relayerRegistry"
       | "relayersData"
       | "torn"
@@ -159,6 +160,10 @@ export interface TovarishAggregatorInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "lastUpdate",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "relayerRegistry",
     values?: undefined
   ): string;
@@ -191,6 +196,7 @@ export interface TovarishAggregatorInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isContract", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lastUpdate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "relayerRegistry",
     data: BytesLike
@@ -291,6 +297,8 @@ export interface TovarishAggregator extends BaseContract {
 
   isContract: TypedContractMethod<[_addr: AddressLike], [boolean], "view">;
 
+  lastUpdate: TypedContractMethod<[], [bigint], "view">;
+
   relayerRegistry: TypedContractMethod<[], [string], "view">;
 
   relayersData: TypedContractMethod<
@@ -352,6 +360,9 @@ export interface TovarishAggregator extends BaseContract {
   getFunction(
     nameOrSignature: "isContract"
   ): TypedContractMethod<[_addr: AddressLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "lastUpdate"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "relayerRegistry"
   ): TypedContractMethod<[], [string], "view">;
