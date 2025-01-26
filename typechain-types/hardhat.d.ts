@@ -642,6 +642,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Puppet__factory>;
     getContractFactory(
+      name: "RelayerRegistryBurnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.RelayerRegistryBurnable__factory>;
+    getContractFactory(
+      name: "IRelayerRegistryProxy",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IRelayerRegistryProxy__factory>;
+    getContractFactory(
+      name: "RelayerRegistryBurnableProposal",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.RelayerRegistryBurnableProposal__factory>;
+    getContractFactory(
       name: "TornadoV2",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TornadoV2__factory>;
@@ -1452,6 +1464,21 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Puppet>;
     getContractAt(
+      name: "RelayerRegistryBurnable",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.RelayerRegistryBurnable>;
+    getContractAt(
+      name: "IRelayerRegistryProxy",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IRelayerRegistryProxy>;
+    getContractAt(
+      name: "RelayerRegistryBurnableProposal",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.RelayerRegistryBurnableProposal>;
+    getContractAt(
       name: "TornadoV2",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -2111,6 +2138,18 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Puppet>;
     deployContract(
+      name: "RelayerRegistryBurnable",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.RelayerRegistryBurnable>;
+    deployContract(
+      name: "IRelayerRegistryProxy",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IRelayerRegistryProxy>;
+    deployContract(
+      name: "RelayerRegistryBurnableProposal",
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.RelayerRegistryBurnableProposal>;
+    deployContract(
       name: "TornadoV2",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TornadoV2>;
@@ -2920,6 +2959,21 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.Puppet>;
+    deployContract(
+      name: "RelayerRegistryBurnable",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.RelayerRegistryBurnable>;
+    deployContract(
+      name: "IRelayerRegistryProxy",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.IRelayerRegistryProxy>;
+    deployContract(
+      name: "RelayerRegistryBurnableProposal",
+      args: any[],
+      signerOrOptions?: ethers.Signer | DeployContractOptions
+    ): Promise<Contracts.RelayerRegistryBurnableProposal>;
     deployContract(
       name: "TornadoV2",
       args: any[],

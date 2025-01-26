@@ -1,7 +1,7 @@
 import path from 'path';
 import process from 'process';
 import { glob } from 'fast-glob';
-import { stat, mkdir, writeFile } from 'fs/promises';
+import { rm, stat, mkdir, writeFile } from 'fs/promises';
 import { task, HardhatUserConfig } from 'hardhat/config';
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomicfoundation/hardhat-ethers';
@@ -20,6 +20,8 @@ async function existsAsync(fileOrDir: string): Promise<boolean> {
 
 task('flatten:all', 'Flatten all contracts under flatten directory').setAction(async (taskArgs, hre) => {
     const contracts = await glob(['./contracts/**/*.sol']);
+
+    await rm('./flatten', { recursive: true, force: true });
 
     for (const contract of contracts) {
         const flattenTo = contract.replace('./contracts', './flatten');
