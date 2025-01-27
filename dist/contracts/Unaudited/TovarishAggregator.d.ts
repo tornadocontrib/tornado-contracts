@@ -88,8 +88,9 @@ export declare namespace ITovarishRegistry {
     };
 }
 export interface TovarishAggregatorInterface extends Interface {
-    getFunction(nameOrSignature: "getAllProposals" | "getGovernanceBalances" | "getStaked" | "getStakedBalances" | "getUserData" | "governance" | "isContract" | "lastUpdate" | "relayerRegistry" | "relayersData" | "torn" | "tovarishRegistry"): FunctionFragment;
+    getFunction(nameOrSignature: "getAllProposals" | "getChainIds" | "getGovernanceBalances" | "getStaked" | "getStakedBalances" | "getUserData" | "governance" | "isContract" | "lastUpdate" | "relayerRegistry" | "relayersData" | "torn" | "tovarishRegistry"): FunctionFragment;
     encodeFunctionData(functionFragment: "getAllProposals", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getChainIds", values?: undefined): string;
     encodeFunctionData(functionFragment: "getGovernanceBalances", values: [AddressLike[]]): string;
     encodeFunctionData(functionFragment: "getStaked", values: [AddressLike]): string;
     encodeFunctionData(functionFragment: "getStakedBalances", values: [AddressLike[]]): string;
@@ -102,6 +103,7 @@ export interface TovarishAggregatorInterface extends Interface {
     encodeFunctionData(functionFragment: "torn", values?: undefined): string;
     encodeFunctionData(functionFragment: "tovarishRegistry", values?: undefined): string;
     decodeFunctionResult(functionFragment: "getAllProposals", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getChainIds", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getGovernanceBalances", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getStaked", data: BytesLike): Result;
     decodeFunctionResult(functionFragment: "getStakedBalances", data: BytesLike): Result;
@@ -131,6 +133,7 @@ export interface TovarishAggregator extends BaseContract {
     ], [
         GovernanceAggregator.ProposalWithStateStructOutput[]
     ], "view">;
+    getChainIds: TypedContractMethod<[], [bigint[]], "view">;
     getGovernanceBalances: TypedContractMethod<[
         accs: AddressLike[]
     ], [
@@ -179,6 +182,7 @@ export interface TovarishAggregator extends BaseContract {
     ], [
         GovernanceAggregator.ProposalWithStateStructOutput[]
     ], "view">;
+    getFunction(nameOrSignature: "getChainIds"): TypedContractMethod<[], [bigint[]], "view">;
     getFunction(nameOrSignature: "getGovernanceBalances"): TypedContractMethod<[accs: AddressLike[]], [bigint[]], "view">;
     getFunction(nameOrSignature: "getStaked"): TypedContractMethod<[
         _addr: AddressLike

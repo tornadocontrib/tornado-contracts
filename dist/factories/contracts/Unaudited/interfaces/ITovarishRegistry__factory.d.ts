@@ -3,6 +3,16 @@ import type { ITovarishRegistry, ITovarishRegistryInterface } from "../../../../
 export declare class ITovarishRegistry__factory {
     static readonly abi: readonly [{
         readonly inputs: readonly [];
+        readonly name: "getChainIds";
+        readonly outputs: readonly [{
+            readonly internalType: "uint64[]";
+            readonly name: "";
+            readonly type: "uint64[]";
+        }];
+        readonly stateMutability: "view";
+        readonly type: "function";
+    }, {
+        readonly inputs: readonly [];
         readonly name: "lastUpdate";
         readonly outputs: readonly [{
             readonly internalType: "uint256";

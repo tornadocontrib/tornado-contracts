@@ -606,33 +606,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ApprovalTornado__factory>;
     getContractFactory(
-      name: "InfoRegistry",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.InfoRegistry__factory>;
-    getContractFactory(
-      name: "ISignatureTransfer",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ISignatureTransfer__factory>;
-    getContractFactory(
-      name: "ITornadoV2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ITornadoV2__factory>;
-    getContractFactory(
       name: "ITovarishRegistry",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ITovarishRegistry__factory>;
-    getContractFactory(
-      name: "IVault",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IVault__factory>;
-    getContractFactory(
-      name: "ParseSignature",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ParseSignature__factory>;
-    getContractFactory(
-      name: "Permit2Mock",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Permit2Mock__factory>;
     getContractFactory(
       name: "MultiLock",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -654,10 +630,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.RelayerRegistryBurnableProposal__factory>;
     getContractFactory(
-      name: "TornadoV2",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TornadoV2__factory>;
-    getContractFactory(
       name: "TovarishAggregator",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TovarishAggregator__factory>;
@@ -669,14 +641,6 @@ declare module "hardhat/types/runtime" {
       name: "TovarishRegistry",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TovarishRegistry__factory>;
-    getContractFactory(
-      name: "V2Bridge",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.V2Bridge__factory>;
-    getContractFactory(
-      name: "CreateX",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.CreateX__factory>;
 
     getContractAt(
       name: "ENS",
@@ -1419,40 +1383,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.ApprovalTornado>;
     getContractAt(
-      name: "InfoRegistry",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.InfoRegistry>;
-    getContractAt(
-      name: "ISignatureTransfer",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ISignatureTransfer>;
-    getContractAt(
-      name: "ITornadoV2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ITornadoV2>;
-    getContractAt(
       name: "ITovarishRegistry",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.ITovarishRegistry>;
-    getContractAt(
-      name: "IVault",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IVault>;
-    getContractAt(
-      name: "ParseSignature",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ParseSignature>;
-    getContractAt(
-      name: "Permit2Mock",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Permit2Mock>;
     getContractAt(
       name: "MultiLock",
       address: string | ethers.Addressable,
@@ -1479,11 +1413,6 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.RelayerRegistryBurnableProposal>;
     getContractAt(
-      name: "TornadoV2",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TornadoV2>;
-    getContractAt(
       name: "TovarishAggregator",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -1498,16 +1427,6 @@ declare module "hardhat/types/runtime" {
       address: string | ethers.Addressable,
       signer?: ethers.Signer
     ): Promise<Contracts.TovarishRegistry>;
-    getContractAt(
-      name: "V2Bridge",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.V2Bridge>;
-    getContractAt(
-      name: "CreateX",
-      address: string | ethers.Addressable,
-      signer?: ethers.Signer
-    ): Promise<Contracts.CreateX>;
 
     deployContract(
       name: "ENS",
@@ -2102,33 +2021,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ApprovalTornado>;
     deployContract(
-      name: "InfoRegistry",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.InfoRegistry>;
-    deployContract(
-      name: "ISignatureTransfer",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ISignatureTransfer>;
-    deployContract(
-      name: "ITornadoV2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITornadoV2>;
-    deployContract(
       name: "ITovarishRegistry",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITovarishRegistry>;
-    deployContract(
-      name: "IVault",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IVault>;
-    deployContract(
-      name: "ParseSignature",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ParseSignature>;
-    deployContract(
-      name: "Permit2Mock",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Permit2Mock>;
     deployContract(
       name: "MultiLock",
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2150,10 +2045,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.RelayerRegistryBurnableProposal>;
     deployContract(
-      name: "TornadoV2",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TornadoV2>;
-    deployContract(
       name: "TovarishAggregator",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TovarishAggregator>;
@@ -2165,14 +2056,6 @@ declare module "hardhat/types/runtime" {
       name: "TovarishRegistry",
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TovarishRegistry>;
-    deployContract(
-      name: "V2Bridge",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.V2Bridge>;
-    deployContract(
-      name: "CreateX",
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.CreateX>;
 
     deployContract(
       name: "ENS",
@@ -2915,40 +2798,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ApprovalTornado>;
     deployContract(
-      name: "InfoRegistry",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.InfoRegistry>;
-    deployContract(
-      name: "ISignatureTransfer",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ISignatureTransfer>;
-    deployContract(
-      name: "ITornadoV2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ITornadoV2>;
-    deployContract(
       name: "ITovarishRegistry",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.ITovarishRegistry>;
-    deployContract(
-      name: "IVault",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.IVault>;
-    deployContract(
-      name: "ParseSignature",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.ParseSignature>;
-    deployContract(
-      name: "Permit2Mock",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.Permit2Mock>;
     deployContract(
       name: "MultiLock",
       args: any[],
@@ -2975,11 +2828,6 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.RelayerRegistryBurnableProposal>;
     deployContract(
-      name: "TornadoV2",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.TornadoV2>;
-    deployContract(
       name: "TovarishAggregator",
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
@@ -2994,16 +2842,6 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | DeployContractOptions
     ): Promise<Contracts.TovarishRegistry>;
-    deployContract(
-      name: "V2Bridge",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.V2Bridge>;
-    deployContract(
-      name: "CreateX",
-      args: any[],
-      signerOrOptions?: ethers.Signer | DeployContractOptions
-    ): Promise<Contracts.CreateX>;
 
     // default types
     getContractFactory(

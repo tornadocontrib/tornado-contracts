@@ -30,6 +30,10 @@ contract TovarishAggregator is GovernanceAggregator {
         return tovarishRegistry.lastUpdate();
     }
 
+    function getChainIds() external view returns (uint64[] memory) {
+        return tovarishRegistry.getChainIds();
+    }
+
     function relayersData(
         string[] memory additionalRelayers
     ) external view returns (ITovarishRegistry.Relayer[] memory) {

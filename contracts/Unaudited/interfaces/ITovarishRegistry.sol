@@ -15,6 +15,8 @@ interface ITovarishRegistry {
 
     function lastUpdate() external view returns (uint256);
 
+    function getChainIds() external view returns (uint64[] memory);
+
     function relayerRegistry() external view returns (address);
 
     function relayersData(string[] memory additionalRelayers) external view returns (Relayer[] memory);

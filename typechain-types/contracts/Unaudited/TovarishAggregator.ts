@@ -118,6 +118,7 @@ export interface TovarishAggregatorInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "getAllProposals"
+      | "getChainIds"
       | "getGovernanceBalances"
       | "getStaked"
       | "getStakedBalances"
@@ -133,6 +134,10 @@ export interface TovarishAggregatorInterface extends Interface {
 
   encodeFunctionData(
     functionFragment: "getAllProposals",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getChainIds",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -179,6 +184,10 @@ export interface TovarishAggregatorInterface extends Interface {
 
   decodeFunctionResult(
     functionFragment: "getAllProposals",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getChainIds",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -261,6 +270,8 @@ export interface TovarishAggregator extends BaseContract {
     "view"
   >;
 
+  getChainIds: TypedContractMethod<[], [bigint[]], "view">;
+
   getGovernanceBalances: TypedContractMethod<
     [accs: AddressLike[]],
     [bigint[]],
@@ -322,6 +333,9 @@ export interface TovarishAggregator extends BaseContract {
     [GovernanceAggregator.ProposalWithStateStructOutput[]],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "getChainIds"
+  ): TypedContractMethod<[], [bigint[]], "view">;
   getFunction(
     nameOrSignature: "getGovernanceBalances"
   ): TypedContractMethod<[accs: AddressLike[]], [bigint[]], "view">;
